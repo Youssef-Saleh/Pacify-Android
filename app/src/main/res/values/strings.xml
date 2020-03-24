@@ -1,0 +1,12 @@
+<resources>
+    <string name="facebook_app_id">153191282504758</string>
+    <string name="fb_login_protocol_scheme">fb153191282504758</string>
+    <string name="app_name">Pacify</string>
+    <string name="signUp">SIGN UP FREE</string>
+    <string name="contWithFacebook">CONTINUE WITH FACEBOOK</string>
+    <string name="login">LOG IN</string>
+    <string name="pacify">PACIFY</string>
+    <string name="slogan">Music for your negative energy</string>
+    <string name="emailRequest">What\'s your email?</string>
+
+</resources>
