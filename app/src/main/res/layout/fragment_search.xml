@@ -14,10 +14,11 @@
 
         <Button
             android:id="@+id/btnHipHop"
-            android:layout_width="130sp"
-            android:layout_height="130sp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.3"
             android:layout_marginTop="60sp"
-            android:layout_marginEnd="60sp"
             android:background="#63B353"
             android:text="Hip-Hop"
             android:textColor="#ffffff"
@@ -25,14 +26,17 @@
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnCountry" />
 
         <Button
             android:id="@+id/btnParty"
-            android:layout_width="130sp"
-            android:layout_height="130sp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.3"
             android:layout_marginTop="60sp"
-            android:layout_marginEnd="60sp"
             android:background="#C84E79E2"
             android:text="Party"
             android:textColor="#ffffff"
@@ -40,13 +44,16 @@
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnHipHop" />
 
         <Button
             android:id="@+id/btnArabic"
-            android:layout_width="130sp"
-            android:layout_height="130sp"
-            android:layout_marginStart="60sp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.3"
             android:layout_marginTop="60sp"
             android:background="#80D8FF"
             android:text="Arabic"
@@ -54,14 +61,17 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnRock" />
 
         <Button
             android:id="@+id/btnRock"
-            android:layout_width="130sp"
-            android:layout_height="130sp"
-            android:layout_marginStart="60sp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.3"
             android:layout_marginTop="60sp"
             android:background="#DD2323"
             android:text="Rock"
@@ -69,15 +79,19 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnPop" />
 
         <Button
             android:id="@+id/btnCountry"
-            android:layout_width="130sp"
-            android:layout_height="130sp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.3"
             android:layout_marginTop="60sp"
-            android:layout_marginEnd="60sp"
+
             android:background="#B89EE6"
             android:text="Country"
             android:textColor="#ffffff"
@@ -85,13 +99,16 @@
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
         <Button
             android:id="@+id/btnPop"
-            android:layout_width="130sp"
-            android:layout_height="130sp"
-            android:layout_marginStart="60sp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.3"
             android:layout_marginTop="60sp"
             android:background="#1E66D1"
             android:text="Pop"
@@ -99,12 +116,15 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
         <SearchView
             android:id="@+id/searchView"
-            android:layout_width="380sp"
+            android:layout_width="match_parent"
+            android:maxWidth="10000dp"
             android:layout_height="50sp"
             android:layout_marginStart="16sp"
             android:layout_marginTop="32sp"
@@ -116,13 +136,14 @@
             android:id="@+id/textView"
             android:layout_width="195sp"
             android:layout_height="73sp"
-            android:layout_marginStart="120sp"
             android:layout_marginTop="56sp"
             android:text="Search"
             android:textColor="#ffffff"
             android:textSize="50sp"
             android:textStyle="bold"
             android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
