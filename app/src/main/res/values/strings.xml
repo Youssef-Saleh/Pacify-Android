@@ -9,4 +9,16 @@
     <string name="slogan">Music for your negative energy</string>
     <string name="emailRequest">What\'s your email?</string>
 
+    <string name="login_email_or_username">Email or username</string>
+    <string name="login_password">Password</string>
+    <string name="login_log_in">LOG IN</string>
+    <string name="login_forgot_your_password">FORGOT YOUR PASSWORD?</string>
+    <string name="signup_what_s_your_email">What\'s your email?</string>
+    <string name="signup_you_ll_need_to_confirm_this_email_later">You\'ll need to confirm this email later.</string>
+    <string name="signup_next">NEXT</string>
+    <string name="login_wrong_email_or_password_msg">This email and password combination is incorrect.</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_search">Search</string>
+    <string name="navigation_your_library">Your Library</string>
+
 </resources>

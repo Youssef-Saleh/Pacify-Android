@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:text="Email or username"
+        android:text="@string/login_email_or_username"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -32,13 +32,12 @@
         android:background="@drawable/gray_smoothedgebutton"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:padding="8dp"
+        android:paddingLeft="8sp"
+        android:paddingRight="8sp"
         android:textColor="#FFFFFF"
-        android:textCursorDrawable="@drawable/curser"
+        android:textCursorDrawable="@drawable/cursor"
         android:textSize="20sp"
-
         android:textStyle="normal"
-
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,49 +50,72 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="152dp"
-        android:text="Password"
+        android:text="@string/login_password"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/password_login_editText"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="50sp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/gray_smoothedgebutton"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:padding="8dp"
-        android:textColor="#FFFFFF"
-        android:textCursorDrawable="@drawable/curser"
-        android:textSize="20sp"
-
-        android:textStyle="normal"
-
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_login_editText"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:background="@drawable/gray_smoothedgebutton"
+            android:inputType="textPassword"
+
+            android:paddingLeft="8sp"
+            android:paddingRight="8sp"
+            android:textColor="#FFFFFF"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/login_ErrorMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+
+        android:text="@string/login_wrong_email_or_password_msg"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="150sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="48dp"
+        android:paddingRight="44sp"
+        android:paddingLeft="44sp"
         android:background="@drawable/lightgray_roundbutton"
         android:letterSpacing="0.05"
-        android:text="LOG IN"
+        android:text="@string/login_log_in"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_login_editText" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <Button
         android:id="@+id/facebookLogin_button"
@@ -102,12 +124,17 @@
         android:layout_marginTop="36dp"
         android:background="@drawable/grayframeondark_rountbutton"
         android:letterSpacing="0.1"
-        android:paddingHorizontal="10sp"
-        android:text="FORGOT YOUR PASSWORD?"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:text="@string/login_forgot_your_password"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

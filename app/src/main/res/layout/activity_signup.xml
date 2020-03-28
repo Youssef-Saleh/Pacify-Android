@@ -34,7 +34,7 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:background="@drawable/gray_smoothedgebutton"
-        android:textCursorDrawable="@drawable/curser"
+        android:textCursorDrawable="@drawable/cursor"
         android:textSize="20sp"
         android:textColor="#FFFFFF"
         android:textStyle="normal"

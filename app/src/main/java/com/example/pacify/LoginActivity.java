@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.example.pacify.Utilities.PreferenceUtilities;
 
 import java.util.regex.Pattern;
 
@@ -25,65 +29,74 @@ public class LoginActivity extends AppCompatActivity {
                     ".{8,}" +               //at least 8 characters
                     "$");
 
-    private Button forgetPassword;
-    private Button login;
-    private EditText emailOrUsername;
-    private EditText password;
+    private Button buttonForgetPassword;
+    private Button buttonLogin;
+    private EditText editTextEmailOrUsername;
+    private EditText editTextPassword;
+    private TextView textViewErrorMsg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        login = (Button) findViewById(R.id.login_button);
-        forgetPassword = (Button) findViewById(R.id.facebookLogin_button);
-        emailOrUsername = (EditText) findViewById(R.id.EmailOrUsername_logIn_text);
-        password = (EditText) findViewById(R.id.password_login_editText);
+        buttonLogin = findViewById(R.id.login_button);
+        buttonForgetPassword = findViewById(R.id.facebookLogin_button);
+        editTextEmailOrUsername = findViewById(R.id.EmailOrUsername_logIn_text);
+        editTextPassword = findViewById(R.id.password_login_editText);
+        textViewErrorMsg = findViewById(R.id.login_ErrorMsg);
 
-        login.setOnClickListener(new View.OnClickListener() {
+        buttonLogin.setEnabled(false); //initially disable log in button
+        textViewErrorMsg.setVisibility(View.GONE); //initially hide error msg
+
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEmailOrUsername() & validatePassword()) {
-                    //TODO: Send Email & password
-                    Intent intent = new Intent(LoginActivity.this,NavigationActivity.class);
+                String usernameInput = editTextEmailOrUsername.getText().toString().trim();
+                String passwordInput = editTextPassword.getText().toString();
+                if(usernameInput.equals("username") && passwordInput.equals("password")) {
+                    SaveUsernameAndPassword();
+                    Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
                     startActivity(intent);
+                } else{
+                    textViewErrorMsg.setVisibility(View.VISIBLE);
                 }
             }
         });
 
-        forgetPassword.setOnClickListener(new View.OnClickListener() {
+        buttonForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this,ForgetPasswordActivity.class);
                 startActivity(intent);
             }
         });
+
+        editTextEmailOrUsername.addTextChangedListener(loginTextWatcher);
+        editTextPassword.addTextChangedListener(loginTextWatcher);
+    }
+    private TextWatcher loginTextWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String usernameInput = editTextEmailOrUsername.getText().toString().trim();
+            String passwordInput = editTextPassword.getText().toString();
+
+            textViewErrorMsg.setVisibility(View.GONE);
+            buttonLogin.setEnabled(!usernameInput.isEmpty() && !passwordInput.isEmpty());
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+        @Override
+        public void afterTextChanged(Editable s) { }
+    };
+
+    private void SaveUsernameAndPassword(){
+        String usernameInput = editTextEmailOrUsername.getText().toString().trim();
+        String passwordInput = editTextPassword.getText().toString();
+        PreferenceUtilities.saveEmail(usernameInput, this);
+        PreferenceUtilities.savePassword(passwordInput, this);
+        PreferenceUtilities.saveState("true",this);
     }
 
-    public boolean validateEmailOrUsername(){
-        String Input = emailOrUsername.getText().toString().trim();
-        if (Input.isEmpty()) {
-            emailOrUsername.setError("Field can't be empty");
-            return false;
-            //} else if (!Patterns.EMAIL_ADDRESS.matcher(Input).matches()) {
-            //    emailOrUsername.setError("Please enter a valid email address");
-            //    return false;
-        } else {
-            emailOrUsername.setError(null);
-            return true;
-        }
-    }
-    public boolean validatePassword(){
-        String Input = password.getText().toString().trim();
-        if (Input.isEmpty()) {
-            password.setError("Field can't be empty");
-            return false;
-        //} else if (!PASSWORD_PATTERN.matcher(Input).matches()) {
-        //    password.setError("Please enter a valid password");
-        //    return false;
-        } else {
-            password.setError(null);
-            return true;
-        }
-    }
 }

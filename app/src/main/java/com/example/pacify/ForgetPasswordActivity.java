@@ -3,6 +3,8 @@ package com.example.pacify;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -10,38 +12,37 @@ import android.widget.EditText;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 
-    private Button getLink;
-    private EditText emailOrUsername;
+    private Button buttonGetLink;
+    private EditText editTextEmailOrUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
 
-        getLink = (Button) findViewById(R.id.GetLink_button);
-        emailOrUsername = (EditText) findViewById(R.id.EmailOrUsername_ForgetPass_text);
+        buttonGetLink = findViewById(R.id.GetLink_button);
+        editTextEmailOrUsername = findViewById(R.id.EmailOrUsername_ForgetPass_text);
 
-        getLink.setOnClickListener(new View.OnClickListener() {
+        buttonGetLink.setEnabled(false);
+
+        buttonGetLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validateEmailOrUsername()) {
-                    //TODO: Send email
-                }
+                //TODO: Send email
             }
         });
-    }
 
-    public boolean validateEmailOrUsername() {
-        String Input = emailOrUsername.getText().toString().trim();
-        if (Input.isEmpty()) {
-            emailOrUsername.setError("Field can't be empty");
-            return false;
-            //} else if (!Patterns.EMAIL_ADDRESS.matcher(Input).matches()) {
-            //    emailOrUsername.setError("Please enter a valid email address");
-            //    return false;
-        } else {
-            emailOrUsername.setError(null);
-            return true;
-        }
+        editTextEmailOrUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String emailOrUsername_text = editTextEmailOrUsername.getText().toString().trim();
+
+                buttonGetLink.setEnabled(Patterns.EMAIL_ADDRESS.matcher(emailOrUsername_text).matches());
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
     }
 }
