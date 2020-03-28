@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         tools:context=".SearchActivity">
 
 
@@ -16,110 +17,115 @@
             android:id="@+id/btnHipHop"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintWidth_percent="0.3"
-            android:layout_marginTop="60sp"
-            android:background="#63B353"
+            android:layout_marginTop="40sp"
+            android:background="@drawable/search_view_rounded"
+            android:backgroundTint="#63B353"
             android:text="Hip-Hop"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintHeight_percent="0.12"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCountry" />
+            app:layout_constraintTop_toBottomOf="@+id/btnCountry"
+            app:layout_constraintWidth_percent="0.44"
+            app:layout_constraintHorizontal_bias="0.95" />
 
         <Button
             android:id="@+id/btnParty"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintWidth_percent="0.3"
-            android:layout_marginTop="60sp"
-            android:background="#C84E79E2"
+            android:layout_marginTop="40sp"
+            android:background="@drawable/search_view_rounded"
+            android:backgroundTint="#C84E79E2"
             android:text="Party"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnHipHop" />
+            app:layout_constraintTop_toBottomOf="@+id/textBrowseAll"
+            app:layout_constraintWidth_percent="0.44" />
 
         <Button
             android:id="@+id/btnArabic"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintWidth_percent="0.3"
-            android:layout_marginTop="60sp"
-            android:background="#80D8FF"
+            android:layout_marginTop="40sp"
+            android:background="@drawable/search_view_rounded"
+            android:backgroundTint="#80D8FF"
             android:text="Arabic"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnRock" />
+            app:layout_constraintTop_toBottomOf="@+id/textBrowseAll"
+            app:layout_constraintWidth_percent="0.44" />
 
         <Button
             android:id="@+id/btnRock"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintWidth_percent="0.3"
-            android:layout_marginTop="60sp"
-            android:background="#DD2323"
+            android:layout_marginTop="40sp"
+            android:background="@drawable/search_view_rounded"
+            android:backgroundTint="#DD2323"
             android:text="Rock"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnPop" />
+            app:layout_constraintTop_toBottomOf="@+id/btnPop"
+            app:layout_constraintWidth_percent="0.44"
+            app:layout_constraintHeight_percent="0.12" />
 
         <Button
             android:id="@+id/btnCountry"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintWidth_percent="0.3"
-            android:layout_marginTop="60sp"
-
-            android:background="#B89EE6"
+            android:background="@drawable/search_view_rounded"
+            android:layout_marginTop="20sp"
+            android:backgroundTint="#B89EE6"
             android:text="Country"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView" />
+            app:layout_constraintTop_toBottomOf="@+id/textTopGenres"
+            app:layout_constraintWidth_percent="0.44" />
 
         <Button
             android:id="@+id/btnPop"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintWidth_percent="0.3"
-            android:layout_marginTop="60sp"
-            android:background="#1E66D1"
+            android:background="@drawable/search_view_rounded"
+            android:layout_marginTop="20sp"
+            android:backgroundTint="#2271DF"
             android:text="Pop"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView" />
+            app:layout_constraintTop_toBottomOf="@+id/textTopGenres"
+            app:layout_constraintWidth_percent="0.44" />
 
         <SearchView
             android:id="@+id/searchView"
@@ -128,6 +134,8 @@
             android:layout_height="50sp"
             android:layout_marginStart="16sp"
             android:layout_marginTop="32sp"
+            android:layout_marginEnd="16sp"
+            android:iconifiedByDefault="false"
             android:background="@drawable/search_view_rounded"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -146,6 +154,56 @@
             app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnCharts"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="40sp"
+            android:background="@drawable/search_view_rounded"
+            android:backgroundTint="#1E9760"
+            android:text="Charts"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnArabic"
+            app:layout_constraintWidth_percent="0.44"
+            app:layout_constraintHeight_percent="0.12"/>
+
+        <TextView
+            android:id="@+id/textTopGenres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:text="Your Top Genres"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+        <TextView
+            android:id="@+id/textBrowseAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:text="Browse All"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnRock" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
