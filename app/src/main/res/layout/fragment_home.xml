@@ -1,13 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/loginMainMenu">
 
+        <ScrollView
+            style="@android:style/Widget.DeviceDefault.ScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/helloText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="30sp"
+                android:contentDescription="@string/pacify"
+                android:fontFamily="sans-serif-medium"
+                android:text="Hello ! What mood are you in today?"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/design_default_color_surface"
+                android:textColorHighlight="#32404A"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/madeForYou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="100sp"
+            android:text="Made For You"
+            android:textColor="@color/design_default_color_on_primary"
+            android:textSize="24sp" />
+
+
+
+        <TextView
+            android:id="@+id/artistGeners"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="250sp"
+            android:text="Best Of Artist"
+            android:textColor="@color/design_default_color_background"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/recomended"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="400sp"
+            android:text="Recomended"
+            android:textColor="@color/design_default_color_on_primary"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/mood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="550sp"
+            android:text="Mood"
+            android:textColor="@color/design_default_color_background"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
 </RelativeLayout>
