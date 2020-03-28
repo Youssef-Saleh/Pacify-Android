@@ -7,13 +7,39 @@ import androidx.fragment.app.Fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class NavigationActivity extends AppCompatActivity {
+    public void playFab(View view){
+        BottomNavigationView playerNav=(BottomNavigationView)findViewById(R.id.playNav);
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.floatingActionButton);
 
+
+        if (playerNav.getVisibility()== view.INVISIBLE){
+            playerNav.setVisibility(View.VISIBLE);
+            playerNav.animate().alpha(1f).setDuration(1000);
+            fab.setImageResource(android.R.drawable.stat_sys_download);
+        }
+        else{
+            playerNav.setVisibility(View.INVISIBLE);
+            playerNav.animate().alpha(0f).setDuration(1);
+            fab.setImageResource(android.R.drawable.stat_sys_upload);
+
+
+        }
+    }
+    public void test(View view){
+        Toast.makeText(NavigationActivity.this,"Clicked",Toast.LENGTH_LONG).show();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
