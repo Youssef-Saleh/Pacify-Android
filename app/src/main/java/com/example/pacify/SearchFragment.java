@@ -19,6 +19,7 @@ public class SearchFragment extends Fragment {
     Button btnHipHop;
     Button btnArabic;
     Button btnParty;
+    Button btnCharts;
 
     public void popGenre(View view){
         Toast.makeText(getActivity(), "Pop", Toast.LENGTH_LONG).show();
@@ -43,52 +44,64 @@ public class SearchFragment extends Fragment {
         Toast.makeText(getActivity(), "Party", Toast.LENGTH_LONG).show();
     }
 
+    public void chartsGenre(View view){
+        Toast.makeText(getActivity(), "Charts", Toast.LENGTH_LONG).show();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater,  @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View v= inflater.inflate(R.layout.fragment_search, container, false);
-        btnPop=(Button)v.findViewById(R.id.btnPop);
+        btnPop=v.findViewById(R.id.btnPop);
         btnPop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popGenre(v);
             }
         });
-        btnCountry=(Button)v.findViewById(R.id.btnCountry);
+        btnCountry=v.findViewById(R.id.btnCountry);
         btnCountry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 countryGenre(v);
             }
         });
-        btnRock=(Button)v.findViewById(R.id.btnRock);
+        btnRock=v.findViewById(R.id.btnRock);
         btnRock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rockGenre(v);
             }
         });
-        btnHipHop=(Button)v.findViewById(R.id.btnHipHop);
+        btnHipHop=v.findViewById(R.id.btnHipHop);
         btnHipHop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hiphopGenre(v);
             }
         });
-        btnArabic=(Button)v.findViewById(R.id.btnArabic);
+        btnArabic=v.findViewById(R.id.btnArabic);
         btnArabic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 arabicGenre(v);
             }
         });
-        btnParty=(Button)v.findViewById(R.id.btnParty);
+        btnParty=v.findViewById(R.id.btnParty);
         btnParty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 partyGenre(v);
             }
         });
+        btnCharts=v.findViewById(R.id.btnCharts);
+        btnCharts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chartsGenre(v);
+            }
+        });
+
 
         return v;
     }
