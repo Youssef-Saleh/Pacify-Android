@@ -26,12 +26,12 @@ public class NavigationActivity extends AppCompatActivity {
 
         if (playerNav.getVisibility()== view.INVISIBLE){
             playerNav.setVisibility(View.VISIBLE);
-            playerNav.animate().alpha(1f).setDuration(1000);
+            playerNav.animate().alpha(0.7f).setDuration(1000);
             fab.setImageResource(android.R.drawable.stat_sys_download);
         }
         else{
             playerNav.setVisibility(View.INVISIBLE);
-            playerNav.animate().alpha(0f).setDuration(1);
+            playerNav.animate().alpha(0f).setDuration(500);
             fab.setImageResource(android.R.drawable.stat_sys_upload);
 
 

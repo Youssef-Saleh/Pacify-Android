@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(PreferenceUtilities.getState(this).equals("true")) {
+       /* if(PreferenceUtilities.getState(this).equals("true")) {
             Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
             startActivity(intent);
-        }
+        }*/
 
         signUp_button = findViewById(R.id.signUp_button);
         signUp_button.setOnClickListener(new View.OnClickListener() {
