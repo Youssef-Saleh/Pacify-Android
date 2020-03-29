@@ -26,9 +26,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(PreferenceUtilities.getState(this).equals("true")) {
-            Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
-            startActivity(intent);
+        try {
+            if (PreferenceUtilities.getState(this).equals("true")) {
+                Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
+                startActivity(intent);
+            }
+        }
+        catch(Exception e){
+            PreferenceUtilities.saveState("false", this);
+            PreferenceUtilities.saveEmail("", this);
+            PreferenceUtilities.savePassword("", this);
         }
 
         signUp_button = findViewById(R.id.signUp_button);
