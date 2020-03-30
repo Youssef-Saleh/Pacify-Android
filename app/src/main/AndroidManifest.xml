@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
 
-        
+        <!--For facebook-->
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
@@ -32,8 +32,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <!--        -->
 
-        
 
         <activity android:name=".NavigationActivity"
             android:label="Navigation"
@@ -47,7 +47,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="Log in"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ForgetPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SignUpActivity"
@@ -64,6 +64,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+    </application>
 </manifest>

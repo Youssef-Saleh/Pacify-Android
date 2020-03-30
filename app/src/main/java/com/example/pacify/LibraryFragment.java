@@ -1,5 +1,6 @@
 package com.example.pacify;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +16,6 @@ import com.example.pacify.Utilities.PreferenceUtilities;
 public class LibraryFragment extends Fragment {
 
     private Button logOut;
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_library, container, false);
@@ -28,8 +28,7 @@ public class LibraryFragment extends Fragment {
                 PreferenceUtilities.saveState("false", getContext());
                 PreferenceUtilities.saveEmail("",getContext());
                 PreferenceUtilities.savePassword("",getContext());
-                Intent intent = new Intent(getActivity(),MainActivity.class);
-                startActivity(intent);
+                ((NavigationActivity)getActivity()).OpenSettingsFragment();
             }
         });
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.pacify.Utilities.PreferenceUtilities;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -76,4 +77,31 @@ public class NavigationActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+    public void OpenSettingsFragment(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new MySettingsFragment())
+                .commit();
+    }
+
+    public void LogOut(){
+        PreferenceUtilities.saveState("false", this);
+        PreferenceUtilities.saveEmail("",this);
+        PreferenceUtilities.savePassword("",this);
+        PreferenceUtilities.saveUserName("",this);
+
+        Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void GoBackFromSettings(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+               new LibraryFragment()).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
