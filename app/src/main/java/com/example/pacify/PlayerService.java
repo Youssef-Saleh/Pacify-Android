@@ -43,23 +43,25 @@ public class PlayerService extends Service {
             playStream(intent.getStringExtra("url"));
 
         if (intent.getAction().equals(Constants.ACTION.STARTFOREGROUND_ACTION)){
-            Log.i("info", "Service Started");
+            Log.d("info", "Service Started");
             showNotification();
         }
         else if (intent.getAction().equals(Constants.ACTION.PREV_ACTION)){
-            Log.i("info", "Prev Pressed");
+            Log.d("info", "Prev Pressed");
 
         }
         else if (intent.getAction().equals(Constants.ACTION.PLAY_ACTION)){
-            Log.i("info", "Play Pressed");
+            Log.d("info", "Play Pressed");
+
             togglePlayer();
+
         }
         else if (intent.getAction().equals(Constants.ACTION.NEXT_ACTION)){
-            Log.i("info", "Next Pressed");
+            Log.d("info", "Next Pressed");
 
         }
         else if (intent.getAction().equals(Constants.ACTION.STOPFOREGROUND_ACTION)){
-            Log.i("info", "Stop Recieved");
+            Log.d("info", "Stop Recieved");
             stopForeground(true);
             stopSelf();
         }
@@ -121,15 +123,15 @@ public class PlayerService extends Service {
 
         Intent prevIntent = new Intent(this, PlayerService.class);
         prevIntent.setAction(Constants.ACTION.PREV_ACTION);
-        PendingIntent pPrevIntent = PendingIntent.getActivity(this,0,prevIntent,0);
+        PendingIntent pPrevIntent = PendingIntent.getService(this,0,prevIntent,0);
 
         Intent playIntent = new Intent(this, PlayerService.class);
         playIntent.setAction(Constants.ACTION.PLAY_ACTION);
-        PendingIntent pPlayIntent = PendingIntent.getActivity(this,0,playIntent,0);
+        PendingIntent pPlayIntent = PendingIntent.getService(this,0,playIntent,0);
 
         Intent nextIntent = new Intent(this, PlayerService.class);
         nextIntent.setAction(Constants.ACTION.NEXT_ACTION);
-        PendingIntent pNextIntent = PendingIntent.getActivity(this,0,nextIntent,0);
+        PendingIntent pNextIntent = PendingIntent.getService(this,0,nextIntent,0);
 
         Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.tree);
 
@@ -151,14 +153,13 @@ public class PlayerService extends Service {
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setOngoing(true)
                 .addAction(android.R.drawable.ic_media_previous,"Previous",pPrevIntent)
-
                 .addAction(playPauseButtonId,playOrPause,pPlayIntent)
                 .addAction(android.R.drawable.ic_media_next,"Next",pNextIntent)
                 .build();
 
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-         //   startMyOwnForeground();
-        //else
+          // startMyOwnForeground();
+     //   else
             startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,notification);
 
     }
