@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/search_background">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:clickable="false"
         tools:context=".SearchActivity">
-
 
         <Button
             android:id="@+id/btnHipHop"
@@ -26,11 +26,11 @@
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHeight_percent="0.10"
+            app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnCountry"
-            app:layout_constraintWidth_percent="0.44"
-            app:layout_constraintHorizontal_bias="0.95" />
+            app:layout_constraintWidth_percent="0.44" />
 
         <Button
             android:id="@+id/btnParty"
@@ -45,7 +45,7 @@
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textBrowseAll"
@@ -64,7 +64,7 @@
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textBrowseAll"
@@ -83,18 +83,18 @@
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnPop"
-            app:layout_constraintWidth_percent="0.44"
-            app:layout_constraintHeight_percent="0.12" />
+            app:layout_constraintWidth_percent="0.44" />
 
         <Button
             android:id="@+id/btnCountry"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/search_view_rounded"
             android:layout_marginTop="20sp"
+            android:background="@drawable/search_view_rounded"
             android:backgroundTint="#B89EE6"
             android:text="Country"
             android:textColor="#ffffff"
@@ -102,26 +102,23 @@
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textTopGenres"
             app:layout_constraintWidth_percent="0.44" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnPop"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/search_view_rounded"
             android:layout_marginTop="20sp"
-            android:backgroundTint="#2271DF"
-            android:text="Pop"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="sans"
+            android:background="@drawable/round_buttons"
+            android:backgroundTint="#3C3F41"
+            android:scaleType="fitXY"
+            android:src="@drawable/pop"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textTopGenres"
@@ -130,13 +127,13 @@
         <SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
-            android:maxWidth="10000dp"
             android:layout_height="50sp"
             android:layout_marginStart="16sp"
             android:layout_marginTop="32sp"
             android:layout_marginEnd="16sp"
-            android:iconifiedByDefault="false"
             android:background="@drawable/search_view_rounded"
+            android:iconifiedByDefault="false"
+            android:maxWidth="10000dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -168,11 +165,11 @@
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnArabic"
-            app:layout_constraintWidth_percent="0.44"
-            app:layout_constraintHeight_percent="0.12"/>
+            app:layout_constraintWidth_percent="0.44" />
 
         <TextView
             android:id="@+id/textTopGenres"
@@ -203,6 +200,15 @@
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnRock" />
+
+        <TextView
+            android:id="@+id/scrollLimiter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text=" "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCharts" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

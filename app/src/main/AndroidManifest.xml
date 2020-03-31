@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
 
-        
+
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
 
-        
+
 
         <activity android:name=".NavigationActivity"
             android:label="Navigation"
@@ -54,6 +54,10 @@
             android:label="Create account"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".SongList"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
