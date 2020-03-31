@@ -53,12 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String usernameInput = editTextEmailOrUsername.getText().toString().trim();
-                String passwordInput = editTextPassword.getText().toString();
-                if(usernameInput.equals("username") && passwordInput.equals("password")) {
-                    SaveUsernameAndPassword();
-                    Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
-                    startActivity(intent);
+                if(CheckLoginParameters()) {
+                    Login();
                 } else{
                     textViewErrorMsg.setVisibility(View.VISIBLE);
                 }
@@ -76,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmailOrUsername.addTextChangedListener(loginTextWatcher);
         editTextPassword.addTextChangedListener(loginTextWatcher);
     }
+
     private TextWatcher loginTextWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -91,12 +88,31 @@ public class LoginActivity extends AppCompatActivity {
         public void afterTextChanged(Editable s) { }
     };
 
-    private void SaveUsernameAndPassword(){
+
+    private boolean CheckLoginParameters(){
+        String usernameInput = editTextEmailOrUsername.getText().toString().trim();
+        String passwordInput = editTextPassword.getText().toString();
+
+        //TODO(Adham): Send email and password and wait for response
+        if(usernameInput.equals("username") && passwordInput.equals("password")) {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    private void SaveUserData(){
         String usernameInput = editTextEmailOrUsername.getText().toString().trim();
         String passwordInput = editTextPassword.getText().toString();
         PreferenceUtilities.saveEmail(usernameInput, this);
         PreferenceUtilities.savePassword(passwordInput, this);
         PreferenceUtilities.saveState("true",this);
+        PreferenceUtilities.saveUserName("Adham",this);
     }
 
+    private void Login(){
+        SaveUserData();
+        Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+        startActivity(intent);
+    }
 }

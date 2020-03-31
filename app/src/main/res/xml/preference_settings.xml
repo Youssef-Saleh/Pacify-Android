@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="help_category"
+        android:title="Settings">
+
+        <Preference
+            android:key="edit_profile"
+            android:title="Edit profile"/>
+
+        <Preference
+            android:key="logout"
+            android:title="Log out"/>
+
+        <Preference
+            android:key="go_back"
+            android:title="Go back!"/>
+
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>

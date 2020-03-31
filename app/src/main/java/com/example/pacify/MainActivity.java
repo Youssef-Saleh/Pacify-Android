@@ -23,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         try {
             if (PreferenceUtilities.getState(this).equals("true")) {
                 Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
@@ -37,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
             PreferenceUtilities.saveEmail("", this);
             PreferenceUtilities.savePassword("", this);
         }
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         signUp_button = findViewById(R.id.signUp_button);
         signUp_button.setOnClickListener(new View.OnClickListener() {
@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         contWithFacebook_button = findViewById(R.id.facebookLogin_button);
-
-
     }
 
     @Override

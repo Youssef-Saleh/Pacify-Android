@@ -6,10 +6,6 @@ import android.preference.PreferenceManager;
 
 public class PreferenceUtilities {
 
-
-    public PreferenceUtilities(){
-    }
-
     public static void saveEmail(String email, Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor = prefs.edit();
@@ -44,5 +40,17 @@ public class PreferenceUtilities {
     public static String getState(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(Constants.IS_LOGGEDIN, null);
+    }
+
+    public static void saveUserName(String username, Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.USER_NAME, username);
+        prefsEditor.apply();
+    }
+
+    public static String getUserName(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.USER_NAME, null);
     }
 }

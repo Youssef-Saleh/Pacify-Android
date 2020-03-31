@@ -22,9 +22,13 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <!--For facebook-->
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
@@ -38,8 +42,15 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".NavigationActivity"
+=======
+        <!--        -->
+
+
+        <activity android:name=".NavigationActivity"
+>>>>>>> 46fa523ca7712ce0081da80391e238f683a440e5
             android:label="Navigation"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
@@ -52,7 +63,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="Log in"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ForgetPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SignUpActivity"
@@ -69,6 +80,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+    </application>
 </manifest>
