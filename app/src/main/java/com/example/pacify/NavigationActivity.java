@@ -4,17 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.pacify.Settings.EditProfileFragment;
+import com.example.pacify.Settings.Edit_profile.ChangeUserEmail;
+import com.example.pacify.Settings.Edit_profile.ChangeUserPassword;
+import com.example.pacify.Settings.MySettingsFragment;
 import com.example.pacify.Utilities.PreferenceUtilities;
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -85,6 +85,43 @@ public class NavigationActivity extends AppCompatActivity {
                 .commit();
     }
 
+    public void GoBackFromSettings(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+               new LibraryFragment()).commit();
+    }
+
+    public void GoToEditProfile(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new EditProfileFragment())
+                .commit();
+    }
+
+    public void GoToEditEmail(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangeUserEmail())
+                .commit();
+    }
+
+    public void GoToEditPassword(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangeUserPassword())
+                .commit();
+    }
+
+    public boolean ConfirmEmailChange(String newEmail){
+        //TODO(Adham): Change email
+        return true;
+    }
+
+    public boolean ConfirmPasswordChange(String oldPassword, String newPassword){
+        //TODO(Adham): Change password
+        return true;
+    }
+
+
     public void LogOut(){
         PreferenceUtilities.saveState("false", this);
         PreferenceUtilities.saveEmail("",this);
@@ -93,11 +130,6 @@ public class NavigationActivity extends AppCompatActivity {
 
         Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
         startActivity(intent);
-    }
-
-    public void GoBackFromSettings(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-               new LibraryFragment()).commit();
     }
 
     @Override

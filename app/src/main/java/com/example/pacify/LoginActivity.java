@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,25 +14,12 @@ import android.widget.TextView;
 
 import com.example.pacify.Utilities.PreferenceUtilities;
 
-import java.util.regex.Pattern;
-
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final Pattern PASSWORD_PATTERN =
-            Pattern.compile("^" +
-                    "(?=.*[0-9])" +         //at least 1 digit
-                    "(?=.*[a-z])" +         //at least 1 lower case letter
-                    //"(?=.*[A-Z])" +         //at least 1 upper case letter
-                    //"(?=.*[a-zA-Z])" +      //any letter
-                    //"(?=.*[@#$%^&+=])" +    //at least 1 special character
-                    //"(?=\\S+$)" +           //no white spaces
-                    ".{8,}" +               //at least 8 characters
-                    "$");
-
     private Button buttonForgetPassword;
     private Button buttonLogin;
-    private EditText editTextEmailOrUsername;
+    private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewErrorMsg;
 
@@ -42,8 +30,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         buttonLogin = findViewById(R.id.login_button);
-        buttonForgetPassword = findViewById(R.id.facebookLogin_button);
-        editTextEmailOrUsername = findViewById(R.id.EmailOrUsername_logIn_text);
+        buttonForgetPassword = findViewById(R.id.login_forget_password_button);
+        editTextEmail = findViewById(R.id.Email_logIn_text);
         editTextPassword = findViewById(R.id.password_login_editText);
         textViewErrorMsg = findViewById(R.id.login_ErrorMsg);
 
@@ -53,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CheckLoginParameters()) {
+                if(CheckLoginCredentials()) {
                     Login();
                 } else{
                     textViewErrorMsg.setVisibility(View.VISIBLE);
@@ -64,23 +52,25 @@ public class LoginActivity extends AppCompatActivity {
         buttonForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,ForgetPasswordActivity.class);
+                Intent intent = new Intent(LoginActivity.this
+                                            ,ForgetPasswordActivity.class);
                 startActivity(intent);
             }
         });
 
-        editTextEmailOrUsername.addTextChangedListener(loginTextWatcher);
+        editTextEmail.addTextChangedListener(loginTextWatcher);
         editTextPassword.addTextChangedListener(loginTextWatcher);
     }
 
     private TextWatcher loginTextWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String usernameInput = editTextEmailOrUsername.getText().toString().trim();
+            String emailInput = editTextEmail.getText().toString().trim();
             String passwordInput = editTextPassword.getText().toString();
 
             textViewErrorMsg.setVisibility(View.GONE);
-            buttonLogin.setEnabled(!usernameInput.isEmpty() && !passwordInput.isEmpty());
+            buttonLogin.setEnabled(Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()
+                                     && !passwordInput.isEmpty());
         }
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -89,22 +79,18 @@ public class LoginActivity extends AppCompatActivity {
     };
 
 
-    private boolean CheckLoginParameters(){
-        String usernameInput = editTextEmailOrUsername.getText().toString().trim();
+    private boolean CheckLoginCredentials(){
+        String emailInput = editTextEmail.getText().toString().trim();
         String passwordInput = editTextPassword.getText().toString();
 
         //TODO(Adham): Send email and password and wait for response
-        if(usernameInput.equals("username") && passwordInput.equals("password")) {
-            return true;
-        } else{
-            return false;
-        }
+        return true;
     }
 
     private void SaveUserData(){
-        String usernameInput = editTextEmailOrUsername.getText().toString().trim();
+        String emailInput = editTextEmail.getText().toString().trim();
         String passwordInput = editTextPassword.getText().toString();
-        PreferenceUtilities.saveEmail(usernameInput, this);
+        PreferenceUtilities.saveEmail(emailInput, this);
         PreferenceUtilities.savePassword(passwordInput, this);
         PreferenceUtilities.saveState("true",this);
         PreferenceUtilities.saveUserName("Adham",this);
@@ -112,7 +98,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void Login(){
         SaveUserData();
-        Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+        Intent intent = new Intent(LoginActivity.this
+                                    , NavigationActivity.class);
         startActivity(intent);
     }
 }

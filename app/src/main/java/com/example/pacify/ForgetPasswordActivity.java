@@ -13,7 +13,7 @@ import android.widget.EditText;
 public class ForgetPasswordActivity extends AppCompatActivity {
 
     private Button buttonGetLink;
-    private EditText editTextEmailOrUsername;
+    private EditText editTextEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,23 +21,25 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forget_password);
 
         buttonGetLink = findViewById(R.id.GetLink_button);
-        editTextEmailOrUsername = findViewById(R.id.EmailOrUsername_ForgetPass_text);
+        editTextEmail = findViewById(R.id.Email_ForgetPass_text);
 
         buttonGetLink.setEnabled(false);
 
         buttonGetLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Send email
+                //TODO(Adham): Send email to recover password
             }
         });
 
-        editTextEmailOrUsername.addTextChangedListener(new TextWatcher() {
+        editTextEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String emailOrUsername_text = editTextEmailOrUsername.getText().toString().trim();
+                String emailOrUsername_text = editTextEmail.getText().toString().trim();
 
-                buttonGetLink.setEnabled(Patterns.EMAIL_ADDRESS.matcher(emailOrUsername_text).matches());
+                buttonGetLink.setEnabled(Patterns.EMAIL_ADDRESS
+                                                 .matcher(emailOrUsername_text)
+                                                 .matches());
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }

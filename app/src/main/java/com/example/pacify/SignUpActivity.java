@@ -41,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: sign up
+                //TODO(Adham): sign up
             }
         });
     }
