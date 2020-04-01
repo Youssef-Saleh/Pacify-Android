@@ -83,7 +83,7 @@ public class PlayerService extends Service {
 
     }
 
-   /* private void startMyOwnForeground(){
+    private void startMyOwnForeground(){
         String NOTIFICATION_CHANNEL_ID = "com.example.pacify";
         String channelName = "Pacify";
         NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_HIGH);
@@ -127,7 +127,7 @@ public class PlayerService extends Service {
                 .addAction(android.R.drawable.ic_media_next,"Next",pNextIntent)
                 .build();
         startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,notification);
-    }*/
+    }
     private void showNotification(){
 
         String NOTIFICATION_CHANNEL_ID = "com.example.pacify";
@@ -172,9 +172,9 @@ public class PlayerService extends Service {
                 .addAction(android.R.drawable.ic_media_next,"Next",pNextIntent)
                 .build();
 
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-          // startMyOwnForeground();
-     //   else
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+           startMyOwnForeground();
+        else
             startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,notification);
 
     }

@@ -14,6 +14,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,8 +25,12 @@ import android.media.AudioManager;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import com.example.pacify.Settings.EditProfileFragment;
+import com.example.pacify.Settings.Edit_profile.ChangeUserEmail;
+import com.example.pacify.Settings.Edit_profile.ChangeUserPassword;
+import com.example.pacify.Settings.MySettingsFragment;
 import com.example.pacify.Utilities.PreferenceUtilities;
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -94,7 +99,7 @@ public class NavigationActivity extends AppCompatActivity {
         SeekBar scrubber = (SeekBar) findViewById(R.id.seekBar);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
-        playPauseButton= (ImageButton)findViewById(R.id.playPauseBarButton);
+        playPauseButton= (ImageButton) findViewById(R.id.playPauseBarButton);
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,6 +234,43 @@ private void startStreamingService(String url)
                 .commit();
     }
 
+    public void GoBackFromSettings(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+               new LibraryFragment()).commit();
+    }
+
+    public void GoToEditProfile(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new EditProfileFragment())
+                .commit();
+    }
+
+    public void GoToEditEmail(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangeUserEmail())
+                .commit();
+    }
+
+    public void GoToEditPassword(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangeUserPassword())
+                .commit();
+    }
+
+    public boolean ConfirmEmailChange(String newEmail){
+        //TODO(Adham): Change email
+        return true;
+    }
+
+    public boolean ConfirmPasswordChange(String oldPassword, String newPassword){
+        //TODO(Adham): Change password
+        return true;
+    }
+
+
     public void LogOut(){
         PreferenceUtilities.saveState("false", this);
         PreferenceUtilities.saveEmail("",this);
@@ -237,11 +279,6 @@ private void startStreamingService(String url)
 
         Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
         startActivity(intent);
-    }
-
-    public void GoBackFromSettings(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-               new LibraryFragment()).commit();
     }
 
     @Override

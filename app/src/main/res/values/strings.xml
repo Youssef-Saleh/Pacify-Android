@@ -9,7 +9,7 @@
     <string name="slogan">Music for your negative energy</string>
     <string name="emailRequest">What\'s your email?</string>
 
-    <string name="login_email_or_username">Email or username</string>
+    <string name="login_email">Email</string>
     <string name="login_password">Password</string>
     <string name="login_log_in">LOG IN</string>
     <string name="login_forgot_your_password">FORGOT YOUR PASSWORD?</string>
@@ -20,5 +20,10 @@
     <string name="navigation_home">Home</string>
     <string name="navigation_search">Search</string>
     <string name="navigation_your_library">Your Library</string>
+    <string name="signup_whats_your_email">What\'s your email?</string>
+    <string name="signup_email_hint">You\'ll need to confirm this email later.</string>
+    <string name="signup_next_btn">NEXT</string>
+    <string name="forgetpassword_email_hint">We\'ll send a link to your email that will log you in.</string>
+    <string name="forgetpassord_button">GET LINK</string>
 
 </resources>

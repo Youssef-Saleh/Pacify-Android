@@ -25,9 +25,6 @@ public class LibraryFragment extends Fragment {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferenceUtilities.saveState("false", getContext());
-                PreferenceUtilities.saveEmail("",getContext());
-                PreferenceUtilities.savePassword("",getContext());
                 ((NavigationActivity)getActivity()).OpenSettingsFragment();
             }
         });

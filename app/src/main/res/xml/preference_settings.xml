@@ -2,21 +2,21 @@
 <androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:key="help_category"
-        android:title="Settings">
+    <Preference
+        android:key="go_back"
+        android:title="Settings"
+        android:icon="@drawable/ic_backarrow_black_24dp"/>
 
+    <PreferenceCategory>
         <Preference
             android:key="edit_profile"
-            android:title="Edit profile"/>
+            android:title="Edit profile"
+            android:icon="@drawable/ic_person_black_24dp"/>
 
         <Preference
             android:key="logout"
             android:title="Log out"/>
-
-        <Preference
-            android:key="go_back"
-            android:title="Go back!"/>
-
     </PreferenceCategory>
+
+
 </androidx.preference.PreferenceScreen>

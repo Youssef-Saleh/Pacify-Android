@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.pacify.Utilities.PreferenceUtilities;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        contWithFacebook_button = findViewById(R.id.facebookLogin_button);
+        contWithFacebook_button = findViewById(R.id.login_forget_password_button);
     }
 
     @Override

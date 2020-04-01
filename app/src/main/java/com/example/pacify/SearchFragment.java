@@ -1,28 +1,52 @@
 package com.example.pacify;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.List;
+
 
 public class SearchFragment extends Fragment {
-    Button btnPop;
+    ImageButton btnPop;
     Button btnCountry;
     Button btnRock;
     Button btnHipHop;
     Button btnArabic;
     Button btnParty;
     Button btnCharts;
+    List<Song> songs = new ArrayList<>();
+    ListView songsListView;
 
+    public void showSongList(){
+
+        Intent intent= new Intent(getContext(),SongList.class);
+        startActivity(intent);
+
+    }
     public void popGenre(View view){
-        Toast.makeText(getActivity(), "Pop", Toast.LENGTH_LONG).show();
+
+        //Song testSong= new Song("1","testiiiing", "1","1");
+
+        //songs.add(testSong);
+
+        //SongListAdapter adapter = new SongListAdapter(this,songs);
+
+        //songsListView.setAdapter(adapter);
+        showSongList();
+
     }
     public void countryGenre(View view){
         Toast.makeText(getActivity(), "Country", Toast.LENGTH_LONG).show();
@@ -49,14 +73,16 @@ public class SearchFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View v= inflater.inflate(R.layout.fragment_search, container, false);
+        View w= inflater.inflate(R.layout.song_list_view, container, false);
+        songsListView= (ListView) w.findViewById(R.id.songListView);
         btnPop=v.findViewById(R.id.btnPop);
         btnPop.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                popGenre(v);
+            public void onClick(View w) {
+                popGenre(w);
             }
         });
         btnCountry=v.findViewById(R.id.btnCountry);
