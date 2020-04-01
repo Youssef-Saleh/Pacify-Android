@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+    android:key="go_back_to_settings"
+    android:title="Edit Profile"
+    android:icon="@drawable/ic_backarrow_black_24dp" />
+
+    <PreferenceCategory>
+
+        <Preference
+            android:key="edit_email"
+            android:title="Change your Email"/>
+        <Preference
+            android:key="edit_password"
+            android:title="Change your Password"/>
+        <Preference
+            android:key="edit_personal_data"
+            android:title="Edit personal data "/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

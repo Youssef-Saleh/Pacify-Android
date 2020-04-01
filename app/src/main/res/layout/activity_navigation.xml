@@ -15,7 +15,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/playNav"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="105dp"
             android:layout_gravity="bottom"
             android:alpha="0"
             android:visibility="invisible">
@@ -24,7 +24,7 @@
                 android:id="@+id/playPauseBarButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="top|center"
                 android:backgroundTint="@color/design_default_color_on_secondary"
                 android:longClickable="false"
                 android:onClick="test"
@@ -68,6 +68,31 @@
                 android:backgroundTint="@color/design_default_color_on_secondary"
                 app:srcCompat="@android:drawable/ic_media_rew" />
 
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="269dp"
+                android:layout_height="62dp"
+                android:layout_gravity="bottom|left"
+                android:backgroundTint="@color/signUp_color"
+                android:progressDrawable="@drawable/green_roundbutton" />
+
+            <SeekBar
+                android:id="@+id/volumeBar"
+                android:layout_width="98dp"
+                android:layout_height="62dp"
+                android:layout_gravity="bottom|right"
+                android:progressDrawable="@drawable/green_roundbutton" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/temp"
+                android:layout_width="30dp"
+                android:layout_height="62dp"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="99dp"
+                android:clickable="true"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/grayframeondark_rountbutton" />
+
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -75,7 +100,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
-            android:layout_marginBottom="70dp"
+            android:layout_marginBottom="120dp"
+            android:alpha="0.8"
             android:clickable="true"
             android:onClick="playFab"
             app:srcCompat="@android:drawable/stat_sys_upload" />
