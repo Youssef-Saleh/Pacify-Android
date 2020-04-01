@@ -17,16 +17,20 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.LocaleList;
 import android.util.Log;
+import android.widget.SeekBar;
 
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PlayerService extends Service {
 
     MediaPlayer mediaPlayer=new MediaPlayer();
     private final IBinder mBinder = new MyBinder();
+
 
     public class MyBinder extends Binder{
         PlayerService getService(){
@@ -54,11 +58,9 @@ public class PlayerService extends Service {
             Log.d("info", "Play Pressed");
 
             togglePlayer();
-
         }
         else if (intent.getAction().equals(Constants.ACTION.NEXT_ACTION)){
             Log.d("info", "Next Pressed");
-
         }
         else if (intent.getAction().equals(Constants.ACTION.STOPFOREGROUND_ACTION)){
             Log.d("info", "Stop Recieved");
@@ -66,6 +68,19 @@ public class PlayerService extends Service {
             stopSelf();
         }
         return START_NOT_STICKY;
+    }
+    public   void sendPlayerStatus (){
+        if (mediaPlayer!=null && mediaPlayer.isPlaying()) {
+            int currentLocation = mediaPlayer.getCurrentPosition();
+            int maxLocation = mediaPlayer.getDuration();
+            Intent playerStat = new Intent("scrubberUpdates");
+            playerStat.putExtra("CurrentLocation", currentLocation);
+            playerStat.putExtra("Maxtime", maxLocation);
+
+            LocalBroadcastManager.getInstance(this).sendBroadcast(playerStat);
+
+        }
+
     }
 
    /* private void startMyOwnForeground(){
@@ -185,6 +200,7 @@ public class PlayerService extends Service {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     playPlayer();
+
                 }
             });
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -212,6 +228,15 @@ public class PlayerService extends Service {
             mediaPlayer.start();
             flipPlayPauseButton(true);
             showNotification();
+            new Timer().scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    sendPlayerStatus();
+                }
+            },0,2);
+
+
+
         }catch (Exception e){
             Log.d("Info","Infooo");
         }
@@ -222,6 +247,10 @@ public class PlayerService extends Service {
         // add data
         intent.putExtra("isPlaying",isPlaying);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+
+    }
+    public void seekPlayer(int seekValue){
+        mediaPlayer.seekTo(seekValue);
     }
     public void togglePlayer(){
         try {
@@ -233,4 +262,6 @@ public class PlayerService extends Service {
             Log.d("Infooo","infoe");
         }
     }
+
+
 }
