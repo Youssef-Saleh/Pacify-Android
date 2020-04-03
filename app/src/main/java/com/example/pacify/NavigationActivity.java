@@ -27,7 +27,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.pacify.Settings.EditProfileFragment;
+import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
+import com.example.pacify.Settings.Edit_profile.ChangeUserCountry;
+import com.example.pacify.Settings.Edit_profile.ChangeUserDoB;
 import com.example.pacify.Settings.Edit_profile.ChangeUserEmail;
+import com.example.pacify.Settings.Edit_profile.ChangeUserGender;
 import com.example.pacify.Settings.Edit_profile.ChangeUserPassword;
 import com.example.pacify.Settings.MySettingsFragment;
 import com.example.pacify.Utilities.PreferenceUtilities;
@@ -260,6 +264,34 @@ private void startStreamingService(String url)
                 .commit();
     }
 
+    public void GoToEditPhoneNumber(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangePhoneNumber())
+                .commit();
+    }
+
+    public void GoToEditCounty(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangeUserCountry())
+                .commit();
+    }
+
+    public void GoToEditGender(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangeUserGender())
+                .commit();
+    }
+
+    public void GoToEditDoB(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangeUserDoB())
+                .commit();
+    }
+
     public boolean ConfirmEmailChange(String newEmail){
         //TODO(Adham): Change email
         return true;
@@ -270,6 +302,25 @@ private void startStreamingService(String url)
         return true;
     }
 
+    public boolean ConfirmPhoneChange(String newNumber) {
+        //TODO(Adham): Change phone number
+        return true;
+    }
+
+    public boolean ConfirmCountryChange(String newCountry) {
+        //TODO(Adham): Change Country
+        return true;
+    }
+
+    public boolean ConfirmGenderChange(String gender) {
+        //TODO(Adham): Change Gender
+        return true;
+    }
+
+    public boolean ConfirmDobChange(int year, int month, int day) {
+        //TODO(Adham): Change DoB
+        return true;
+    }
 
     public void LogOut(){
         PreferenceUtilities.saveState("false", this);
