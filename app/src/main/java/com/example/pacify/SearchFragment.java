@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import androidx.annotation.Nullable;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.List;
 
@@ -27,24 +28,22 @@ public class SearchFragment extends Fragment {
     Button btnArabic;
     Button btnParty;
     Button btnCharts;
+
     List<Song> songs = new ArrayList<>();
     ListView songsListView;
 
     public void showSongList(){
 
-        Intent intent= new Intent(getContext(),SongList.class);
-        startActivity(intent);
+//        Intent intent= new Intent(getContext(),SongList.class);
+//        startActivity(intent);
+        Fragment fragment= new SongList();
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                fragment).commit();
+
 
     }
     public void popGenre(View view){
 
-        //Song testSong= new Song("1","testiiiing", "1","1");
-
-        //songs.add(testSong);
-
-        //SongListAdapter adapter = new SongListAdapter(this,songs);
-
-        //songsListView.setAdapter(adapter);
         showSongList();
 
     }

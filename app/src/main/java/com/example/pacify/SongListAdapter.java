@@ -16,15 +16,16 @@ import androidx.fragment.app.Fragment;
  * Description
  */
 public class SongListAdapter extends BaseAdapter {
-   // private Fragment fragment;
-    private Activity activity;
+    private Fragment fragment;
+    //private Activity activity;
     private List<Song> songs;
     private  LayoutInflater inflater = null;
 
-    public SongListAdapter (Activity a , List<Song> s){
-        activity=a;
+    public SongListAdapter (Fragment f , List<Song> s){
+        fragment=f;
         songs=s;
-        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) f.getLayoutInflater();
     }
 
     public int getCount(){
