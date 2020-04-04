@@ -23,7 +23,8 @@ public class SignUp_DoB_Fragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
+            , @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_signup_dob, container, false);
 
         MyDoB = view.findViewById(R.id.signUp_datePicker);

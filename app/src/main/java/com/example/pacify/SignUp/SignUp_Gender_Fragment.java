@@ -23,7 +23,8 @@ public class SignUp_Gender_Fragment extends Fragment {
     private Button buttonBack;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
+            , @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_signup_gender, container, false);
 
         Male_btn = view.findViewById(R.id.male_button);

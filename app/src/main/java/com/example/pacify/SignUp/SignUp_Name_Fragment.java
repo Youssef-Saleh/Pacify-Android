@@ -22,7 +22,8 @@ public class SignUp_Name_Fragment extends Fragment {
     private EditText editTextName;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
+            , @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_signup_name, container, false);
 
         buttonCreate = view.findViewById(R.id.signUp_Name_Create_button);
@@ -47,7 +48,8 @@ public class SignUp_Name_Fragment extends Fragment {
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).signUp_name = editTextName.getText().toString().trim();
+                ((SignUpActivity)getActivity()).signUp_name =
+                        editTextName.getText().toString().trim();
                 ((SignUpActivity)getActivity()).createAccount();
                 ((SignUpActivity)getActivity()).backToMainMenu();
             }

@@ -17,7 +17,8 @@ public class LibraryFragment extends Fragment {
 
     private Button logOut;
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
+            , @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_library, container, false);
 
         logOut = view.findViewById(R.id.logout_button);

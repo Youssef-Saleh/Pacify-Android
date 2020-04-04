@@ -23,7 +23,8 @@ public class SignUp_Email_Fragment extends Fragment {
     private EditText editTextEmail;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
+            , @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_signup_email, container, false);
 
         buttonNext = view.findViewById(R.id.signUp_email_Next_button);

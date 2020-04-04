@@ -27,7 +27,8 @@ public class SignUp_Password_Fragment extends Fragment {
     private EditText msgText;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
+            , @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_signup_password, container, false);
 
         buttonNext = view.findViewById(R.id.signUp_password_Next_button);
@@ -85,10 +86,12 @@ public class SignUp_Password_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(CheckPasswordMatch()) {
-                    ((SignUpActivity)getActivity()).signUp_password = editTextPassword.getText().toString();
+                    ((SignUpActivity)getActivity()).signUp_password =
+                            editTextPassword.getText().toString();
                     ((SignUpActivity)getActivity()).openSignUpDobFragment();
                 }else {
-                    Toast.makeText(getActivity(), "Passwords do not match.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Passwords do not match."
+                            , Toast.LENGTH_SHORT).show();
                 }
             }
         });

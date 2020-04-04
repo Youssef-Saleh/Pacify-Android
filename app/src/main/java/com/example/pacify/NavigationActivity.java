@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -13,18 +12,12 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
-import android.widget.Toast;
-import android.media.MediaPlayer;
 import android.media.AudioManager;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.example.pacify.Settings.EditProfileFragment;
 import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
@@ -35,6 +28,7 @@ import com.example.pacify.Settings.Edit_profile.ChangeUserGender;
 import com.example.pacify.Settings.Edit_profile.ChangeUserPassword;
 import com.example.pacify.Settings.MySettingsFragment;
 import com.example.pacify.Utilities.PreferenceUtilities;
+import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -96,12 +90,29 @@ public class NavigationActivity extends AppCompatActivity {
     public String UserName;
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        Bundle bundle = getIntent().getExtras();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if (accessToken != null) {
+            UserName = bundle.getString("fb_username");
+        }else {
+            UserName = bundle.getString("username");
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
         Bundle bundle = getIntent().getExtras();
-        UserName = bundle.getString("username");
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if (accessToken != null) {
+            UserName = bundle.getString("fb_username");
+        }else {
+            UserName = bundle.getString("username");
+        }
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -196,6 +207,15 @@ private void startStreamingService(String url)
             unbindService(mServiceConnection);
             mServiceBound = false;
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new HomeFragment())
+                .commit();
     }
 
     @Override
