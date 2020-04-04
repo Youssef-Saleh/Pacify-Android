@@ -92,10 +92,16 @@ public class NavigationActivity extends AppCompatActivity {
             progressBarUpdate(currentPos,maxLocation);
         }
     };
+
+    public String UserName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        Bundle bundle = getIntent().getExtras();
+        UserName = bundle.getString("username");
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -113,7 +119,25 @@ public class NavigationActivity extends AppCompatActivity {
             }
         });
 
-        String url="https://secure21.syncusercontent.com/mfs-60:b6bafe6205587ae39a5b2645ed47e17a=============================/p/Abdo3azma_Corona%20(online-audio-converter.com).mp3?allowdd=0&datakey=Wct5MWHYjAShNV95b9Ku7n6QGbRt1BWqVV5hPLRVGykBu7zhZ8j6U3/iFAuzj9ZMy6C5uMDJ+7j9AulruvdtOO07wFbgm8xj1pkX16G9MOZsbHeYUJ0oWVVScty3bk16nO1qOgKHhBXj8miRDCqfvpqg9lW1c0ZjrtxKS6E6JjggeApGUzSfMnCGqG0emyF8ofuLfAMIQDq/zSE2rCu52kGELCgDKTYQ0bPqEbJYYEG6VFcWUexgtKC7/iOUEqGdOQTGGmE6/FAa1pLOwewNjTQPVl5c45ThnmeERSJGVSCa52Bq6JbziY5L68l/FLUS0omzzv3LUKE/TrTvgpze6g&engine=ln-3.1.31&errurl=F/yAA2/EFtOATd+SQVHyVA2gYESwBd2LwD0aa0VQJ3IUanQAjpmEQNwXDPeF94WbNhqWQAUG8tv7lLXfzf03fimmtC/2jDQE4ZJl8SmtWaQ3PW6JsLUxjQ4WbZSivU4r2VRsEqBoxXaceQ7kg6TJu6K+C48lIwvm61Mf8cXhLdvunj5/eUl4s5brKqx2Me0Y4VqR3PEzljEgf0O6htPa2Ia9j+ezy5uLUcGH78LrnFkfELGQzpcSWZeIap8g/0NizVNj+JSdzF4Y2iV5l5MY7MPG/q6HHcKnvR2J/fbzSIYD2cxMdVbfsUIHkQUToEy9NNVI9yEEuIAwXQQRw4GCXg==&header1=Q29udGVudC1UeXBlOiBhdWRpby9tcGVn&header2=Q29udGVudC1EaXNwb3NpdGlvbjogaW5saW5lOyBmaWxlbmFtZT0iQWJkbzNhem1hX0Nvcm9uYSUyMChvbmxpbmUtYXVkaW8tY29udmVydGVyLmNvbSkubXAzIjtmaWxlbmFtZSo9VVRGLTgnJ0FiZG8zYXptYV9Db3JvbmElMjAob25saW5lLWF1ZGlvLWNvbnZlcnRlci5jb20pLm1wMzs&ipaddress=68f899f035261119843b278bd4dc159ca54e8415&linkcachekey=042f25820&linkoid=1105370009&mode=100&sharelink_id=3478773060009&timestamp=1585697349372&uagent=a55e5ff7b5a5bd370e5f2751eabd22df4ac4f3dd&signature=348abbffdec55321869f8539f636eac9843b0b02&cachekey=60:b6bafe6205587ae39a5b2645ed47e17a=============================";
+        String url="https://secure21.syncusercontent.com/mfs-60:b6bafe6205587ae39a5b2645ed47e17a" +
+                "=============================/p/Abdo3azma_Corona%20(online-audio-converter.com)" +
+                ".mp3?allowdd=0&datakey=Wct5MWHYjAShNV95b9Ku7n6QGbRt1BWqVV5hPLRVGykBu7zhZ8j6U3/i" +
+                "FAuzj9ZMy6C5uMDJ+7j9AulruvdtOO07wFbgm8xj1pkX16G9MOZsbHeYUJ0oWVVScty3bk16nO1qOgK" +
+                "HhBXj8miRDCqfvpqg9lW1c0ZjrtxKS6E6JjggeApGUzSfMnCGqG0emyF8ofuLfAMIQDq/zSE2rCu52k" +
+                "GELCgDKTYQ0bPqEbJYYEG6VFcWUexgtKC7/iOUEqGdOQTGGmE6/FAa1pLOwewNjTQPVl5c45ThnmeER" +
+                "SJGVSCa52Bq6JbziY5L68l/FLUS0omzzv3LUKE/TrTvgpze6g&engine=ln-3.1.31&errurl=F/yAA" +
+                "2/EFtOATd+SQVHyVA2gYESwBd2LwD0aa0VQJ3IUanQAjpmEQNwXDPeF94WbNhqWQAUG8tv7lLXfzf03" +
+                "fimmtC/2jDQE4ZJl8SmtWaQ3PW6JsLUxjQ4WbZSivU4r2VRsEqBoxXaceQ7kg6TJu6K+C48lIwvm61M" +
+                "f8cXhLdvunj5/eUl4s5brKqx2Me0Y4VqR3PEzljEgf0O6htPa2Ia9j+ezy5uLUcGH78LrnFkfELGQzp" +
+                "cSWZeIap8g/0NizVNj+JSdzF4Y2iV5l5MY7MPG/q6HHcKnvR2J/fbzSIYD2cxMdVbfsUIHkQUToEy9N" +
+                "NVI9yEEuIAwXQQRw4GCXg==&header1=Q29udGVudC1UeXBlOiBhdWRpby9tcGVn&header2=Q29udG" +
+                "VudC1EaXNwb3NpdGlvbjogaW5saW5lOyBmaWxlbmFtZT0iQWJkbzNhem1hX0Nvcm9uYSUyMChvbmxpb" +
+                "mUtYXVkaW8tY29udmVydGVyLmNvbSkubXAzIjtmaWxlbmFtZSo9VVRGLTgnJ0FiZG8zYXptYV9Db3Jv" +
+                "bmElMjAob25saW5lLWF1ZGlvLWNvbnZlcnRlci5jb20pLm1wMzs&ipaddress=68f899f0352611198" +
+                "43b278bd4dc159ca54e8415&linkcachekey=042f25820&linkoid=1105370009&mode=100&shar" +
+                "elink_id=3478773060009&timestamp=1585697349372&uagent=a55e5ff7b5a5bd370e5f2751e" +
+                "abd22df4ac4f3dd&signature=348abbffdec55321869f8539f636eac9843b0b02&cachekey=60:" +
+                "b6bafe6205587ae39a5b2645ed47e17a=============================";
         startStreamingService(url);
         audioManager= (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -177,9 +201,10 @@ private void startStreamingService(String url)
     @Override
     protected void onResume() {
         super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageRecevier,new IntentFilter("changePlayButton"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(playerMassenger,new IntentFilter("scrubberUpdates"));
-
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageRecevier
+                ,new IntentFilter("changePlayButton"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(playerMassenger
+                ,new IntentFilter("scrubberUpdates"));
     }
 
     @Override
@@ -205,6 +230,7 @@ private void startStreamingService(String url)
         scrubber.setProgress(currentPosition);
 
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override

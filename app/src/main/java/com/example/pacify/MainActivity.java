@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.pacify.SignUp.SignUpActivity;
 import com.example.pacify.Utilities.PreferenceUtilities;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -41,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         try {
             if (PreferenceUtilities.getState(this).equals("true")) {
-                Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
-                startActivity(intent);
+                Intent in = new Intent(MainActivity.this, NavigationActivity.class);
+                startActivity(in);
             }
         }
         catch(Exception e){
@@ -71,8 +73,11 @@ public class MainActivity extends AppCompatActivity {
                 if (accessToken != null) {
                     //saveFacebookData();
                     loginWithFacebook();
-                    Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
-                    startActivity(intent);
+                    Intent in = new Intent(MainActivity.this, NavigationActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", facebook_name);
+                    in.putExtras(bundle);
+                    startActivity(in);
                     return;
                 }
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -121,13 +126,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        /*
         accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null) {
-            loadFacebookData();
-            loginWithFacebook();
+            useLoginInformation(accessToken);
+            login_button.setText("Log in with facebook");
         }
-        */
     }
 
     private boolean loginWithFacebook(){
@@ -160,7 +163,8 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     facebook_name = object.getString("name");
                     facebook_email = object.getString("email");
-                    facebook_profilePicture = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                    facebook_profilePicture = object.getJSONObject("picture").getJSONObject("data")
+                            .getString("url");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -181,7 +185,8 @@ public class MainActivity extends AppCompatActivity {
             this.finishAffinity();
             return;
         } else {
-            backToast = Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT);
+            backToast = Toast.makeText(getBaseContext(), "Press back again to exit"
+                    , Toast.LENGTH_SHORT);
             backToast.show();
         }
         backPressedTime = System.currentTimeMillis();

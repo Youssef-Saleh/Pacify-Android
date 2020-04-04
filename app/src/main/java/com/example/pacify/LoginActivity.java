@@ -98,8 +98,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void Login(){
         SaveUserData();
-        Intent intent = new Intent(LoginActivity.this
-                                    , NavigationActivity.class);
+
+        Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("username", "Dummy");
+        intent.putExtras(bundle);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }

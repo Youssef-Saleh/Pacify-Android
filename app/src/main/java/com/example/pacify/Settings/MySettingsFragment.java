@@ -13,6 +13,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 import com.example.pacify.Utilities.PreferenceUtilities;
+import com.facebook.AccessToken;
 
 public class MySettingsFragment extends PreferenceFragmentCompat {
 
@@ -22,6 +23,8 @@ public class MySettingsFragment extends PreferenceFragmentCompat {
         view.setBackgroundColor(Color.GRAY);
         return view;
     }
+
+    private AccessToken accessToken;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -45,8 +48,14 @@ public class MySettingsFragment extends PreferenceFragmentCompat {
         });
 
         Preference logoutPreference = findPreference("logout");
-        String name = PreferenceUtilities.getUserName(getContext());
-        logoutPreference.setSummary("You are logged in as " + name);
+        accessToken = AccessToken.getCurrentAccessToken();
+        if (accessToken != null) {
+            logoutPreference.setSummary("You are logged by Facebook\n"
+                    + "As " + ((NavigationActivity)getActivity()).UserName);
+        }else{
+            logoutPreference.setSummary("You are logged in as "
+                    + ((NavigationActivity)getActivity()).UserName);
+        }
         logoutPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
                 ((NavigationActivity)getActivity()).LogOut();
