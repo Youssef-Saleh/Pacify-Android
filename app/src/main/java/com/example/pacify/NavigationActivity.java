@@ -35,6 +35,7 @@ import com.example.pacify.Settings.Edit_profile.ChangeUserGender;
 import com.example.pacify.Settings.Edit_profile.ChangeUserPassword;
 import com.example.pacify.Settings.MySettingsFragment;
 import com.example.pacify.Utilities.PreferenceUtilities;
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -54,8 +55,6 @@ public class NavigationActivity extends AppCompatActivity {
             playerNav.setVisibility(View.INVISIBLE);
             playerNav.animate().alpha(0f).setDuration(500);
             fab.setImageResource(android.R.drawable.stat_sys_upload);
-
-
         }
     }
 
@@ -327,6 +326,8 @@ private void startStreamingService(String url)
         PreferenceUtilities.saveEmail("",this);
         PreferenceUtilities.savePassword("",this);
         PreferenceUtilities.saveUserName("",this);
+
+        LoginManager.getInstance().logOut();
 
         Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
         startActivity(intent);

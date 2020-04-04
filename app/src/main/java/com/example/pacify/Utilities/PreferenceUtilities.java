@@ -19,10 +19,10 @@ public class PreferenceUtilities {
     }
 
     public static void savePassword(String password, Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor prefsEditor = prefs.edit();
-        prefsEditor.putString(Constants.KEY_PASSWORD, password);
-        prefsEditor.apply();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(Constants.KEY_PASSWORD, password);
+        editor.apply();
     }
 
     public static String getPassword(Context context) {
@@ -52,5 +52,41 @@ public class PreferenceUtilities {
     public static String getUserName(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(Constants.USER_NAME, null);
+    }
+
+    public static void saveFacebookName(String f_name, Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.FACEBOOK_NAME, f_name);
+        prefsEditor.apply();
+    }
+
+    public static String getFacebookName(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.FACEBOOK_NAME, null);
+    }
+
+    public static void saveFacebookEmail(String f_email, Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.FACEBOOK_EMAIL, f_email);
+        prefsEditor.apply();
+    }
+
+    public static String getFacebookEmail(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.FACEBOOK_EMAIL, null);
+    }
+
+    public static void saveFacebookPP(String f_pp, Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.FACEBOOK_PP, f_pp);
+        prefsEditor.apply();
+    }
+
+    public static String getFacebookPP(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.FACEBOOK_PP, null);
     }
 }
