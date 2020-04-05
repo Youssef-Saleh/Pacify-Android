@@ -196,14 +196,14 @@ public class NavigationActivity extends AppCompatActivity {
             }
         });
     }
-public void startStreamingService(String url)
-{
-    Intent i = new Intent(this,PlayerService.class);
-    i.putExtra("url",url) ;
-    i.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
-    startService(i);
-    bindService(i,mServiceConnection,Context.BIND_AUTO_CREATE);
-}
+    public void startStreamingService(String url)
+    {
+        Intent i = new Intent(this,PlayerService.class);
+        i.putExtra("url",url) ;
+        i.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
+        startService(i);
+        bindService(i,mServiceConnection,Context.BIND_AUTO_CREATE);
+    }
 
     @Override
     protected void onStop() {
@@ -283,16 +283,16 @@ public void startStreamingService(String url)
                 }
             };
 
+    public void GoBackFromSettings(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new LibraryFragment()).commit();
+    }
+
     public void OpenSettingsFragment(){
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, new MySettingsFragment())
                 .commit();
-    }
-
-    public void GoBackFromSettings(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-               new LibraryFragment()).commit();
     }
 
     public void GoToEditProfile(){

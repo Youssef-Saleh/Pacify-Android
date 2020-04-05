@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.example.pacify.SignUp.SignUpActivity;
 import com.example.pacify.Utilities.PreferenceUtilities;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -34,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     AccessToken accessToken;
-    AccessTokenTracker accessTokenTracker;
-    boolean isLoggedIn;
 
     private String facebook_name;
     private String facebook_email;
@@ -43,18 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
-            if (PreferenceUtilities.getState(this).equals("true")) {
-                Intent in = new Intent(MainActivity.this, NavigationActivity.class);
-                startActivity(in);
-            }
-        }
-        catch(Exception e){
-            PreferenceUtilities.saveState("false", this);
-            PreferenceUtilities.saveEmail("", this);
-            PreferenceUtilities.savePassword("", this);
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -85,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         contWithFacebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                /**
+                 * If logging in with facebook was successful, log him in.
+                 */
                 accessToken = loginResult.getAccessToken();
                 useLoginInformation(accessToken);
                 contWithFacebook_button.setEnabled(false);
@@ -100,9 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         if (facebook_name == null){
                             LoginManager.getInstance().logOut();
-                            contWithFacebook_button.setEnabled(true);
-                            login_button.setEnabled(true);
-                            signUp_button.setEnabled(true);
+                            afterFbLoginFail();
                             return;
                         }
                         Toast.makeText(getBaseContext(), facebook_name, Toast.LENGTH_SHORT).show();
@@ -134,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        /**
+         * If the app was closed and the user opens it, check if was
+         * logged in by facebook, and if yes take him to home page
+        */
         accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null) {
             useLoginInformation(accessToken);
@@ -152,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         if(facebook_name == null){
                             LoginManager.getInstance().logOut();
+                            afterFbLoginFail();
                             return;
                         }
                         loginWithFacebook();
@@ -159,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                         Bundle bundle = new Bundle();
                         bundle.putString("fb_username", facebook_name);
                         in.putExtras(bundle);
-                        startActivity(in);
+                        startActivity(in); 
                     }
             }, 1500);
         }
@@ -168,6 +159,15 @@ public class MainActivity extends AppCompatActivity {
     private boolean loginWithFacebook(){
         //TODO(Adham): Send name, email and profile picture
         return true;
+    }
+
+    private void afterFbLoginFail(){
+        contWithFacebook_button.setEnabled(true);
+        login_button.setEnabled(true);
+        signUp_button.setEnabled(true);
+
+        Toast.makeText(getBaseContext(), "Login failed\nTry again"
+                , Toast.LENGTH_SHORT).show();
     }
 
     private void saveFacebookData(){
@@ -213,6 +213,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        /**
+         * Close the app after pressing back twice in 2.5 sec.
+         */
         if (backPressedTime + 2500 > System.currentTimeMillis()) {
             backToast.cancel();
             this.finishAffinity();
