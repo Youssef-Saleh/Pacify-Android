@@ -31,9 +31,12 @@ public class SongList extends Fragment {
 
         Song testSong= new Song("1","Dancin","https://www.mboxdrive.com/dancin%202.mp3", "0","0");
         songs.add(testSong);
-        testSong= new Song("2","Abdobeatz","https://www.mboxdrive.com/AbdoBeatz.mp3", "0","0");
+        testSong= new Song("2","katyusha","http://www.noiseaddicts.com/samples_1w72b820/1450.mp3", "0","0");
         songs.add(testSong);
-
+        testSong= new Song("3","Real national anthem","http://www.noiseaddicts.com/samples_1w72b820/4250.mp3", "0","0");
+        songs.add(testSong);
+        testSong= new Song("4","Egyptian national anthem","http://www.noiseaddicts.com/samples_1w72b820/4051.mp3", "0","0");
+        songs.add(testSong);
         SongListAdapter adapter = new SongListAdapter(this,songs);
         songListView.setAdapter(adapter);
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

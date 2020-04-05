@@ -153,8 +153,8 @@ public class NavigationActivity extends AppCompatActivity {
             }
         });
 
-        String url="https://www.mboxdrive.com/dancin%202.mp3";
-        startStreamingService(url);
+        //String url="http://www.noiseaddicts.com/samples_1w72b820/4250.mp3";
+        //startStreamingService(url);
         audioManager= (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         int currentVolume = audioManager.getStreamVolume((AudioManager.STREAM_MUSIC));
