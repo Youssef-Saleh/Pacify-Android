@@ -1,5 +1,6 @@
 package com.example.pacify;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ import java.util.List;
 public class SongList extends Fragment {
 
     ListView songListView;
-
+    List<Song> songs=new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,15 +26,24 @@ public class SongList extends Fragment {
 
         songListView=(ListView) v.findViewById(R.id.songListView);
 
-        List<Song> songs=new ArrayList<>();
 
-        for(int i=0 ; i<15;i++){
-        Song testSong= new Song("1","STILL TESTIIIING", "2","1");
-        songs.add(testSong);}
+
+
+        Song testSong= new Song("1","Dancin","https://www.mboxdrive.com/dancin%202.mp3", "0","0");
+        songs.add(testSong);
+        testSong= new Song("2","Abdobeatz","https://www.mboxdrive.com/AbdoBeatz.mp3", "0","0");
+        songs.add(testSong);
 
         SongListAdapter adapter = new SongListAdapter(this,songs);
         songListView.setAdapter(adapter);
-
+        songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Song song=songs.get(position);
+                String songAdress=song.getUrl();
+                ((NavigationActivity)getActivity()).startStreamingService(songAdress);
+            }
+        });
         return v;
     }
 }

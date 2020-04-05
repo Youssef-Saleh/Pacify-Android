@@ -156,7 +156,7 @@ public class NavigationActivity extends AppCompatActivity {
             }
         });
     }
-private void startStreamingService(String url)
+public void startStreamingService(String url)
 {
     Intent i = new Intent(this,PlayerService.class);
     i.putExtra("url",url) ;
