@@ -103,17 +103,24 @@ public class PlayerService extends Service {
 
         Intent prevIntent = new Intent(this, PlayerService.class);
         prevIntent.setAction(Constants.ACTION.PREV_ACTION);
-        PendingIntent pPrevIntent = PendingIntent.getActivity(this,0,prevIntent,0);
+        PendingIntent pPrevIntent = PendingIntent.getService(this,0,prevIntent,0);
 
         Intent playIntent = new Intent(this, PlayerService.class);
         playIntent.setAction(Constants.ACTION.PLAY_ACTION);
-        PendingIntent pPlayIntent = PendingIntent.getActivity(this,0,playIntent,0);
+        PendingIntent pPlayIntent = PendingIntent.getService(this,0,playIntent,0);
 
         Intent nextIntent = new Intent(this, PlayerService.class);
         nextIntent.setAction(Constants.ACTION.NEXT_ACTION);
-        PendingIntent pNextIntent = PendingIntent.getActivity(this,0,nextIntent,0);
+        PendingIntent pNextIntent = PendingIntent.getService(this,0,nextIntent,0);
 
         Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.tree);
+        int playPauseButtonId= android.R.drawable.ic_media_play;
+        String playOrPause= "Play";
+        if (mediaPlayer!=null && mediaPlayer.isPlaying())
+        {
+            playPauseButtonId=android.R.drawable.ic_media_pause;
+            playOrPause="Pause";
+        }
         Notification notification = notificationBuilder.setOngoing(true)
                 .setContentTitle("TreeCify")
                 .setTicker("Playing Oh Yeah Music")
@@ -123,7 +130,7 @@ public class PlayerService extends Service {
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .addAction(android.R.drawable.ic_media_previous,"Previous",pPrevIntent)
-                .addAction(android.R.drawable.ic_media_play,"Play",pPlayIntent)
+                .addAction(playPauseButtonId,playOrPause,pPlayIntent)
                 .addAction(android.R.drawable.ic_media_next,"Next",pNextIntent)
                 .build();
         startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,notification);
