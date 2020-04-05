@@ -56,7 +56,7 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".SignUp.SignUpActivity"
             android:label="Create account"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />

@@ -1,27 +1,34 @@
-package com.example.pacify;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.pacify.SignUp;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.util.Patterns;
 
-public class SignUpActivity extends AppCompatActivity {
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.example.pacify.NavigationActivity;
+import com.example.pacify.R;
+
+
+public class SignUp_Email_Fragment extends Fragment {
 
     private Button buttonNext;
     private EditText editTextEmail;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
+            , @Nullable Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_signup_email, container, false);
 
-        buttonNext = findViewById(R.id.signUpNext_button);
-        editTextEmail = findViewById(R.id.signUpEmail_editText);
+        buttonNext = view.findViewById(R.id.signUp_email_Next_button);
+        editTextEmail = view.findViewById(R.id.signUp_Email_editText);
 
         buttonNext.setEnabled(false); //The button is initially disabled
 
@@ -41,8 +48,13 @@ public class SignUpActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO(Adham): sign up
+                ((SignUpActivity)getActivity()).signUp_email = editTextEmail.getText().toString().trim();;
+                ((SignUpActivity)getActivity()).openSignUpPasswordFragment();
             }
         });
+
+        return view;
     }
 }
+
+

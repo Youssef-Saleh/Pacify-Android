@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -13,18 +12,12 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
-import android.widget.Toast;
-import android.media.MediaPlayer;
 import android.media.AudioManager;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.example.pacify.Settings.EditProfileFragment;
 import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
@@ -35,30 +28,50 @@ import com.example.pacify.Settings.Edit_profile.ChangeUserGender;
 import com.example.pacify.Settings.Edit_profile.ChangeUserPassword;
 import com.example.pacify.Settings.MySettingsFragment;
 import com.example.pacify.Utilities.PreferenceUtilities;
+import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 
 public class NavigationActivity extends AppCompatActivity {
 
     public void playFab(View view){
         BottomNavigationView playerNav=(BottomNavigationView)findViewById(R.id.playNav);
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.floatingActionButton);
+        NavigationView bigPlayer = (NavigationView)findViewById(R.id.bigPlayer) ;
+        //FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.menimizeWindow);
 
-        if (playerNav.getVisibility()== view.INVISIBLE){
-            playerNav.setVisibility(View.VISIBLE);
-            playerNav.animate().alpha(0.7f).setDuration(1000);
-            fab.setImageResource(android.R.drawable.stat_sys_download);
+        if (bigPlayer.getVisibility()== view.INVISIBLE){
+            bigPlayer.setVisibility(View.VISIBLE);
+            playerNav.setVisibility((View.INVISIBLE));
         }
         else{
-            playerNav.setVisibility(View.INVISIBLE);
-            playerNav.animate().alpha(0f).setDuration(500);
-            fab.setImageResource(android.R.drawable.stat_sys_upload);
+            bigPlayer.setVisibility(View.INVISIBLE);
+            playerNav.setVisibility(View.VISIBLE);
         }
     }
+    boolean songLiked= false;
+    public void likeButton (View view){
+        FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
+        FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
+        if (songLiked == false)
+        {
+            likeSmall.setImageResource(R.drawable.nolikeheart);
+            likeBig.setImageResource(R.drawable.nolikeheart);
+            songLiked = true;
+        }
+        else if (songLiked == true){
+            likeSmall.setImageResource(R.drawable.likeheart);
+            likeBig.setImageResource(R.drawable.likeheart);
+            songLiked = false;
 
-    static ImageButton playPauseButton ;
+        }
+
+    }
+
+    ImageButton playPauseButton ;
+    FloatingActionButton bigPlayPauseButton;
     PlayerService mBoundService;
     boolean mServiceBound = false;
 
@@ -92,10 +105,33 @@ public class NavigationActivity extends AppCompatActivity {
             progressBarUpdate(currentPos,maxLocation);
         }
     };
+
+    public String UserName;
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Bundle bundle = getIntent().getExtras();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if (accessToken != null) {
+            UserName = bundle.getString("fb_username");
+        }else {
+            UserName = bundle.getString("username");
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        Bundle bundle = getIntent().getExtras();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        /*if (accessToken != null) {
+            UserName = bundle.getString("fb_username");
+        }else {
+            UserName = bundle.getString("username");
+        }*/
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -106,10 +142,14 @@ public class NavigationActivity extends AppCompatActivity {
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mServiceBound){
                     mBoundService.togglePlayer();
-
-                }
+            }
+        });
+        bigPlayPauseButton = (FloatingActionButton) findViewById((R.id.bigPlay));
+        bigPlayPauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBoundService.togglePlayer();
             }
         });
 
@@ -175,11 +215,21 @@ public void startStreamingService(String url)
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new HomeFragment())
+                .commit();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageRecevier,new IntentFilter("changePlayButton"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(playerMassenger,new IntentFilter("scrubberUpdates"));
-
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageRecevier
+                ,new IntentFilter("changePlayButton"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(playerMassenger
+                ,new IntentFilter("scrubberUpdates"));
     }
 
     @Override
@@ -190,11 +240,13 @@ public void startStreamingService(String url)
     }
 
 
-    public static void flipPlayPauseButton(boolean isPlaying) {
+    public  void flipPlayPauseButton(boolean isPlaying) {
         if (isPlaying) {
             playPauseButton.setImageResource(android.R.drawable.ic_media_pause);
+            bigPlayPauseButton.setImageResource(R.drawable.bigpause);
         } else {
             playPauseButton.setImageResource(android.R.drawable.ic_media_play );
+            bigPlayPauseButton.setImageResource(R.drawable.bigplay );
 
         }
     }
@@ -205,6 +257,7 @@ public void startStreamingService(String url)
         scrubber.setProgress(currentPosition);
 
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override

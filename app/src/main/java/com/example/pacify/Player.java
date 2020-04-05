@@ -6,7 +6,7 @@ import android.util.Log;
 import java.io.IOException;
 public class Player {
 
-    MediaPlayer mediaPlayer=new MediaPlayer();
+  /*  MediaPlayer mediaPlayer=new MediaPlayer();
    public static Player player;
    String url="";
 
@@ -70,5 +70,5 @@ public class Player {
        }catch (Exception e){
            Log.d("Infooo","infoe");
        }
-    }
+    }*/
 }

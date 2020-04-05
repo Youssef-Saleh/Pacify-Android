@@ -3,9 +3,12 @@ package com.example.pacify;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.pacify.SignUp.SignUpActivity;
 import com.example.pacify.Utilities.PreferenceUtilities;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -14,6 +17,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
@@ -41,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         try {
             if (PreferenceUtilities.getState(this).equals("true")) {
-                Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
-                startActivity(intent);
+                Intent in = new Intent(MainActivity.this, NavigationActivity.class);
+                startActivity(in);
             }
         }
         catch(Exception e){
@@ -67,14 +71,6 @@ public class MainActivity extends AppCompatActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                accessToken = AccessToken.getCurrentAccessToken();
-                if (accessToken != null) {
-                    //saveFacebookData();
-                    loginWithFacebook();
-                    Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
-                    startActivity(intent);
-                    return;
-                }
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
@@ -83,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         contWithFacebook_button = findViewById(R.id.login_forget_password_button);
         contWithFacebook_button.setPermissions("email");
         contWithFacebook_button.setLoginText("CONTINUE WITH FACEBOOK");
-        contWithFacebook_button.setLogoutText("LOG OUT");
+        contWithFacebook_button.setLogoutText("LOGGING IN...");
         callbackManager = CallbackManager.Factory.create();
 
         contWithFacebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -91,7 +87,33 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 accessToken = loginResult.getAccessToken();
                 useLoginInformation(accessToken);
-                login_button.setText("Log in with facebook");
+                contWithFacebook_button.setEnabled(false);
+                login_button.setEnabled(false);
+                signUp_button.setEnabled(false);
+
+                new Handler().postDelayed(new Runnable() {
+                    /**
+                     * Making some delay to give some time until
+                     * the data are retrieved from facebook
+                     */
+                    @Override
+                    public void run() {
+                        if (facebook_name == null){
+                            LoginManager.getInstance().logOut();
+                            contWithFacebook_button.setEnabled(true);
+                            login_button.setEnabled(true);
+                            signUp_button.setEnabled(true);
+                            return;
+                        }
+                        Toast.makeText(getBaseContext(), facebook_name, Toast.LENGTH_SHORT).show();
+                        loginWithFacebook();
+                        Intent in = new Intent(MainActivity.this, NavigationActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("fb_username", facebook_name);
+                        in.putExtras(bundle);
+                        startActivity(in);
+                    }
+                }, 1500);
             }
             @Override
             public void onCancel() {
@@ -101,15 +123,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
-                                                       AccessToken currentAccessToken) {
-                if (currentAccessToken == null) {
-                    login_button.setText("LOG IN");
-                }
-            }
-        };
     }
 
     @Override
@@ -121,13 +134,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        /*
         accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null) {
-            loadFacebookData();
-            loginWithFacebook();
+            useLoginInformation(accessToken);
+            contWithFacebook_button.setEnabled(false);
+            login_button.setEnabled(false);
+            signUp_button.setEnabled(false);
+
+            //Intent in = new Intent(MainActivity.this, SplashActivity.class);
+            //startActivity(in);
+            new Handler().postDelayed(new Runnable() {
+                    /**
+                     * Making some delay to give some time until
+                     * the data are retrieved from facebook
+                     */
+                    @Override
+                    public void run() {
+                        if(facebook_name == null){
+                            LoginManager.getInstance().logOut();
+                            return;
+                        }
+                        loginWithFacebook();
+                        Intent in = new Intent(MainActivity.this, NavigationActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("fb_username", facebook_name);
+                        in.putExtras(bundle);
+                        startActivity(in);
+                    }
+            }, 1500);
         }
-        */
     }
 
     private boolean loginWithFacebook(){
@@ -152,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
          Creating the GraphRequest to fetch user details
          1st Param - AccessToken
          2nd Param - Callback (which will be invoked once the request is successful)
+         //Source: https://androidclarified.com/android-facebook-login-example/
          **/
         GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             //OnCompleted is invoked once the GraphRequest is successful
@@ -160,7 +196,8 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     facebook_name = object.getString("name");
                     facebook_email = object.getString("email");
-                    facebook_profilePicture = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                    facebook_profilePicture = object.getJSONObject("picture").getJSONObject("data")
+                            .getString("url");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -181,7 +218,8 @@ public class MainActivity extends AppCompatActivity {
             this.finishAffinity();
             return;
         } else {
-            backToast = Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT);
+            backToast = Toast.makeText(getBaseContext(), "Press back again to exit"
+                    , Toast.LENGTH_SHORT);
             backToast.show();
         }
         backPressedTime = System.currentTimeMillis();
