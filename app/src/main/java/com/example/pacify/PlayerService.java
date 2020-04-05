@@ -19,6 +19,7 @@ import android.os.LocaleList;
 import android.util.Log;
 import android.widget.SeekBar;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -41,6 +42,7 @@ public class PlayerService extends Service {
     public PlayerService() {
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getStringExtra("url") != null)
@@ -83,13 +85,16 @@ public class PlayerService extends Service {
 
     }
 
-    private void startMyOwnForeground(){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void showNotification(){
         String NOTIFICATION_CHANNEL_ID = "com.example.pacify";
         String channelName = "Pacify";
-        NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_HIGH);
+        NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_LOW);
+        chan.setDescription("no sound");
+        chan.setSound(null,null);
+        chan.enableLights(false);
         chan.setLightColor(Color.BLUE);
-
-        chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+        chan.enableVibration(false);
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         assert manager != null;
         manager.createNotificationChannel(chan);
@@ -121,70 +126,71 @@ public class PlayerService extends Service {
             playPauseButtonId=android.R.drawable.ic_media_pause;
             playOrPause="Pause";
         }
-        Notification notification = notificationBuilder.setOngoing(true)
+        Notification notification = notificationBuilder
+                .setOngoing(false)
                 .setContentTitle("TreeCify")
-                .setTicker("Playing Oh Yeah Music")
                 .setContentText("Shalood Song")
-                .setSmallIcon(R.drawable.tree)
+                .setSmallIcon(R.drawable.songimage)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setLargeIcon(Bitmap.createScaledBitmap(icon,128,128,false))
                 .setContentIntent(pendingIntent)
-                .setOngoing(true)
                 .addAction(android.R.drawable.ic_media_previous,"Previous",pPrevIntent)
                 .addAction(playPauseButtonId,playOrPause,pPlayIntent)
                 .addAction(android.R.drawable.ic_media_next,"Next",pNextIntent)
                 .build();
         startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,notification);
     }
-    private void showNotification(){
-
-        String NOTIFICATION_CHANNEL_ID = "com.example.pacify";
-        Intent notificationIntent = new Intent(this, NavigationActivity.class);
-        notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
-       // notificationIntent.setFlags((Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK));
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,notificationIntent,0);
-
-        Intent prevIntent = new Intent(this, PlayerService.class);
-        prevIntent.setAction(Constants.ACTION.PREV_ACTION);
-        PendingIntent pPrevIntent = PendingIntent.getService(this,0,prevIntent,0);
-
-        Intent playIntent = new Intent(this, PlayerService.class);
-        playIntent.setAction(Constants.ACTION.PLAY_ACTION);
-        PendingIntent pPlayIntent = PendingIntent.getService(this,0,playIntent,0);
-
-        Intent nextIntent = new Intent(this, PlayerService.class);
-        nextIntent.setAction(Constants.ACTION.NEXT_ACTION);
-        PendingIntent pNextIntent = PendingIntent.getService(this,0,nextIntent,0);
-
-        Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.tree);
-
-
-        int playPauseButtonId= android.R.drawable.ic_media_play;
-        String playOrPause= "Play";
-        if (mediaPlayer!=null && mediaPlayer.isPlaying())
-        {
-            playPauseButtonId=android.R.drawable.ic_media_pause;
-            playOrPause="Pause";
-        }
-        Notification notification = new NotificationCompat.Builder(this,NOTIFICATION_CHANNEL_ID)
-                .setContentTitle("TreeCify")
-                .setContentText("Shalood Song")
-                .setSmallIcon(R.drawable.tree)
-                .setLargeIcon(Bitmap.createScaledBitmap(icon,128,128,false))
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setOngoing(true)
-                .addAction(android.R.drawable.ic_media_previous,"Previous",pPrevIntent)
-                .addAction(playPauseButtonId,playOrPause,pPlayIntent)
-                .addAction(android.R.drawable.ic_media_next,"Next",pNextIntent)
-                .build();
-
+    /*private void showNotification(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-           startMyOwnForeground();
-        else
-            startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,notification);
+            startMyOwnForeground();
+        else {
+            String NOTIFICATION_CHANNEL_ID = "com.example.pacify";
+            Intent notificationIntent = new Intent(this, NavigationActivity.class);
+            notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
+            // notificationIntent.setFlags((Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
-    }
+            Intent prevIntent = new Intent(this, PlayerService.class);
+            prevIntent.setAction(Constants.ACTION.PREV_ACTION);
+            PendingIntent pPrevIntent = PendingIntent.getService(this, 0, prevIntent, 0);
+
+            Intent playIntent = new Intent(this, PlayerService.class);
+            playIntent.setAction(Constants.ACTION.PLAY_ACTION);
+            PendingIntent pPlayIntent = PendingIntent.getService(this, 0, playIntent, 0);
+
+            Intent nextIntent = new Intent(this, PlayerService.class);
+            nextIntent.setAction(Constants.ACTION.NEXT_ACTION);
+            PendingIntent pNextIntent = PendingIntent.getService(this, 0, nextIntent, 0);
+
+            Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.tree);
+
+
+            int playPauseButtonId = android.R.drawable.ic_media_play;
+            String playOrPause = "Play";
+            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                playPauseButtonId = android.R.drawable.ic_media_pause;
+                playOrPause = "Pause";
+            }
+            Notification notification = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                    .setContentTitle("TreeCify")
+                    .setContentText("Shalood Song")
+                    .setSmallIcon(R.drawable.tree)
+                    .setSound(null)
+                    .setVibrate(null)
+                    .setLargeIcon(Bitmap.createScaledBitmap(icon, 128, 128, false))
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
+                    .setDefaults(0)
+                    .setOngoing(true)
+                    .addAction(android.R.drawable.ic_media_previous, "Previous", pPrevIntent)
+                    .addAction(playPauseButtonId, playOrPause, pPlayIntent)
+                    .addAction(android.R.drawable.ic_media_next, "Next", pNextIntent)
+                    .build();
+
+
+            startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, notification);
+        }
+    }*/
     @Override
     public IBinder onBind(Intent intent) {
        return mBinder ;

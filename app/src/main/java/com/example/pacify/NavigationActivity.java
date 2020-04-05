@@ -40,7 +40,7 @@ public class NavigationActivity extends AppCompatActivity {
     public void playFab(View view){
         BottomNavigationView playerNav=(BottomNavigationView)findViewById(R.id.playNav);
         NavigationView bigPlayer = (NavigationView)findViewById(R.id.bigPlayer) ;
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.menimizeWindow);
+        //FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.menimizeWindow);
 
         if (bigPlayer.getVisibility()== view.INVISIBLE){
             bigPlayer.setVisibility(View.VISIBLE);
@@ -49,9 +49,6 @@ public class NavigationActivity extends AppCompatActivity {
         else{
             bigPlayer.setVisibility(View.INVISIBLE);
             playerNav.setVisibility(View.VISIBLE);
-
-
-
         }
     }
     boolean songLiked= false;
@@ -130,11 +127,11 @@ public class NavigationActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if (accessToken != null) {
+        /*if (accessToken != null) {
             UserName = bundle.getString("fb_username");
         }else {
             UserName = bundle.getString("username");
-        }
+        }*/
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -145,10 +142,7 @@ public class NavigationActivity extends AppCompatActivity {
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                     mBoundService.togglePlayer();
-
-
             }
         });
         bigPlayPauseButton = (FloatingActionButton) findViewById((R.id.bigPlay));

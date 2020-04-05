@@ -18,9 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#2C2C2C"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:itemBackground="@color/loginMainMenu"
-            tools:visibility="visible">
+            tools:visibility="invisible">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/menimizeWindow"
@@ -154,7 +154,7 @@
             android:background="@color/loginMainMenu"
             android:clickable="true"
             android:onClick="playFab"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/songName"
