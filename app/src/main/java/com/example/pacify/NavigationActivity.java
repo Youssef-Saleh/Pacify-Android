@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -21,10 +20,16 @@ import android.widget.SeekBar;
 import android.media.AudioManager;
 
 import com.example.pacify.Settings.EditProfileFragment;
+import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
+import com.example.pacify.Settings.Edit_profile.ChangeUserCountry;
+import com.example.pacify.Settings.Edit_profile.ChangeUserDoB;
 import com.example.pacify.Settings.Edit_profile.ChangeUserEmail;
+import com.example.pacify.Settings.Edit_profile.ChangeUserGender;
 import com.example.pacify.Settings.Edit_profile.ChangeUserPassword;
 import com.example.pacify.Settings.MySettingsFragment;
 import com.example.pacify.Utilities.PreferenceUtilities;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -103,10 +108,33 @@ public class NavigationActivity extends AppCompatActivity {
             progressBarUpdate(currentPos,maxLocation);
         }
     };
+
+    public String UserName;
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Bundle bundle = getIntent().getExtras();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if (accessToken != null) {
+            UserName = bundle.getString("fb_username");
+        }else {
+            UserName = bundle.getString("username");
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        Bundle bundle = getIntent().getExtras();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if (accessToken != null) {
+            UserName = bundle.getString("fb_username");
+        }else {
+            UserName = bundle.getString("username");
+        }
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -193,11 +221,21 @@ private void startStreamingService(String url)
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new HomeFragment())
+                .commit();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageRecevier,new IntentFilter("changePlayButton"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(playerMassenger,new IntentFilter("scrubberUpdates"));
-
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageRecevier
+                ,new IntentFilter("changePlayButton"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(playerMassenger
+                ,new IntentFilter("scrubberUpdates"));
     }
 
     @Override
@@ -225,6 +263,7 @@ private void startStreamingService(String url)
         scrubber.setProgress(currentPosition);
 
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -283,6 +322,34 @@ private void startStreamingService(String url)
                 .commit();
     }
 
+    public void GoToEditPhoneNumber(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangePhoneNumber())
+                .commit();
+    }
+
+    public void GoToEditCounty(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangeUserCountry())
+                .commit();
+    }
+
+    public void GoToEditGender(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangeUserGender())
+                .commit();
+    }
+
+    public void GoToEditDoB(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChangeUserDoB())
+                .commit();
+    }
+
     public boolean ConfirmEmailChange(String newEmail){
         //TODO(Adham): Change email
         return true;
@@ -293,12 +360,33 @@ private void startStreamingService(String url)
         return true;
     }
 
+    public boolean ConfirmPhoneChange(String newNumber) {
+        //TODO(Adham): Change phone number
+        return true;
+    }
+
+    public boolean ConfirmCountryChange(String newCountry) {
+        //TODO(Adham): Change Country
+        return true;
+    }
+
+    public boolean ConfirmGenderChange(String gender) {
+        //TODO(Adham): Change Gender
+        return true;
+    }
+
+    public boolean ConfirmDobChange(int year, int month, int day) {
+        //TODO(Adham): Change DoB
+        return true;
+    }
 
     public void LogOut(){
         PreferenceUtilities.saveState("false", this);
         PreferenceUtilities.saveEmail("",this);
         PreferenceUtilities.savePassword("",this);
         PreferenceUtilities.saveUserName("",this);
+
+        LoginManager.getInstance().logOut();
 
         Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
         startActivity(intent);

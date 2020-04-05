@@ -48,13 +48,38 @@ public class EditProfileFragment extends PreferenceFragmentCompat {
             }
         });
 
-        Preference EditPersonalData = findPreference("edit_personal_data");
-        EditPersonalData.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Preference EditPhoneNumber = findPreference("edit_phone");
+        EditPhoneNumber.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-
+                ((NavigationActivity)getActivity()).GoToEditPhoneNumber();
                 return true;
             }
         });
+
+        Preference EditCounty = findPreference("edit_country");
+        EditCounty.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                ((NavigationActivity)getActivity()).GoToEditCounty();
+                return true;
+            }
+        });
+
+        Preference EditGender = findPreference("edit_gender");
+        EditGender.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                ((NavigationActivity)getActivity()).GoToEditGender();
+                return true;
+            }
+        });
+
+        Preference EditDoB = findPreference("edit_dob");
+        EditDoB.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                ((NavigationActivity)getActivity()).GoToEditDoB();
+                return true;
+            }
+        });
+
     }
 
 }

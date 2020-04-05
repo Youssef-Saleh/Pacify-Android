@@ -15,8 +15,17 @@
             android:key="edit_password"
             android:title="Change your Password"/>
         <Preference
-            android:key="edit_personal_data"
-            android:title="Edit personal data "/>
+            android:key="edit_country"
+            android:title="Change your Country"/>
+        <Preference
+            android:key="edit_phone"
+            android:title="Change your Phone number"/>
+        <Preference
+            android:key="edit_gender"
+            android:title="Change your Gender"/>
+        <Preference
+            android:key="edit_dob"
+            android:title="Change your date of birth"/>
 
     </PreferenceCategory>
 </PreferenceScreen>
