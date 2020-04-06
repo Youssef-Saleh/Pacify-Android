@@ -36,10 +36,44 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class NavigationActivity extends AppCompatActivity {
 
+    List<Song> songs=new ArrayList<>();
+    int currentSongIndex=0;
+
+    public void playAll(View view,List<Song> playlist){
+        songs = playlist;
+        Song song = songs.get(currentSongIndex);
+        String songAdress=song.getUrl();
+        startStreamingService(songAdress);
+    }
+    public void playNext (){
+        if (currentSongIndex >= (songs.size()-1)) {
+            currentSongIndex = 0;
+        }
+        else{
+            currentSongIndex += 1;
+        }
+        Song song = songs.get(currentSongIndex);
+        String songAdress=song.getUrl();
+        startStreamingService(songAdress);
+    }
+
+    public void playPrevious (){
+        if (currentSongIndex == 0 ) {
+            currentSongIndex = (songs.size()-1);
+        }
+        else{
+            currentSongIndex -= 1;
+        }
+        Song song = songs.get(currentSongIndex);
+        String songAdress=song.getUrl();
+        startStreamingService(songAdress);
+    }
     public void playFab(View view){
         BottomNavigationView playerNav=(BottomNavigationView)findViewById(R.id.playNav);
         NavigationView bigPlayer = (NavigationView)findViewById(R.id.bigPlayer) ;
@@ -74,6 +108,8 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     ImageButton playPauseButton ;
+    ImageButton playNext;
+    ImageButton playPrevious;
     FloatingActionButton bigPlayPauseButton;
     PlayerService mBoundService;
     boolean mServiceBound = false;
@@ -111,6 +147,14 @@ public class NavigationActivity extends AppCompatActivity {
         }
     };
 
+    private  BroadcastReceiver isFinished = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Boolean isFinished = intent.getBooleanExtra("isFinished",false);
+            playNext();
+
+        }
+    };
     public String UserName;
 
     @Override
@@ -200,6 +244,21 @@ public class NavigationActivity extends AppCompatActivity {
                 mBoundService.togglePlayer();
             }
         });
+        playNext= (ImageButton) findViewById(R.id.nextSong);
+        playNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playNext();
+            }
+        });
+        playPrevious= (ImageButton) findViewById(R.id.prevSong);
+        playPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playPrevious();
+            }
+        });
+
     }
     public void startStreamingService(String url)
     {
@@ -235,6 +294,8 @@ public class NavigationActivity extends AppCompatActivity {
                 ,new IntentFilter("changePlayButton"));
         LocalBroadcastManager.getInstance(this).registerReceiver(playerMassenger
                 ,new IntentFilter("scrubberUpdates"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(isFinished
+                ,new IntentFilter("isFinished"));
     }
 
     @Override
@@ -242,6 +303,7 @@ public class NavigationActivity extends AppCompatActivity {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageRecevier);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(playerMassenger);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(isFinished);
     }
 
 

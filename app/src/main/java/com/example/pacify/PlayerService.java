@@ -28,7 +28,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class PlayerService extends Service {
-
+    Boolean isFinished= false;
     MediaPlayer mediaPlayer=new MediaPlayer();
     private final IBinder mBinder = new MyBinder();
 
@@ -88,6 +88,13 @@ public class PlayerService extends Service {
         }
 
     }
+    public void sendIsFinished (Boolean condition) {
+        if (condition == true) {
+            Intent songStatus = new Intent("isFinished");
+            songStatus.putExtra("isFinished", isFinished);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(songStatus);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void showNotification(){
@@ -132,8 +139,8 @@ public class PlayerService extends Service {
         }
         Notification notification = notificationBuilder
                 .setOngoing(false)
-                .setContentTitle("TreeCify")
-                .setContentText("Shalood Song")
+                .setContentTitle("Pacify")
+                .setContentText("Playing Music")
                 .setSmallIcon(R.drawable.songimage)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setLargeIcon(Bitmap.createScaledBitmap(icon,128,128,false))
@@ -216,6 +223,7 @@ public class PlayerService extends Service {
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
+                    isFinished=false;
                     playPlayer();
 
                 }
@@ -224,7 +232,8 @@ public class PlayerService extends Service {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     flipPlayPauseButton(false);
-
+                    //isFinished=true;
+                    sendIsFinished(true);
                 }
             });
             mediaPlayer.prepareAsync();
