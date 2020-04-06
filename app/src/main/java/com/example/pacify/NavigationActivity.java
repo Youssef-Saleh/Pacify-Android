@@ -34,6 +34,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class NavigationActivity extends AppCompatActivity {
 
@@ -74,6 +77,8 @@ public class NavigationActivity extends AppCompatActivity {
     FloatingActionButton bigPlayPauseButton;
     PlayerService mBoundService;
     boolean mServiceBound = false;
+
+
 
     AudioManager audioManager;
     private ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -257,7 +262,10 @@ public class NavigationActivity extends AppCompatActivity {
         scrubber.setProgress(currentPosition);
 
     }
+    /*public void setPlaylist(View view,  boolean Shuffle, List<Song> songs){
 
+
+    }*/
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override

@@ -62,6 +62,7 @@
                 android:layout_marginBottom="29dp"
                 android:background="#2C2C2C"
                 android:backgroundTint="#2C2C2C"
+
                 app:srcCompat="@android:drawable/ic_media_next" />
 
             <ImageButton

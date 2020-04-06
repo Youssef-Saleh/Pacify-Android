@@ -42,7 +42,7 @@ public class PlayerService extends Service {
     public PlayerService() {
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getStringExtra("url") != null)
@@ -72,14 +72,18 @@ public class PlayerService extends Service {
         return START_NOT_STICKY;
     }
     public   void sendPlayerStatus (){
-        if (mediaPlayer!=null && mediaPlayer.isPlaying()) {
-            int currentLocation = mediaPlayer.getCurrentPosition();
-            int maxLocation = mediaPlayer.getDuration();
-            Intent playerStat = new Intent("scrubberUpdates");
-            playerStat.putExtra("CurrentLocation", currentLocation);
-            playerStat.putExtra("Maxtime", maxLocation);
+        try {
+            if (mediaPlayer!=null && mediaPlayer.isPlaying()) {
+                int currentLocation = mediaPlayer.getCurrentPosition();
+                int maxLocation = mediaPlayer.getDuration();
+                Intent playerStat = new Intent("scrubberUpdates");
+                playerStat.putExtra("CurrentLocation", currentLocation);
+                playerStat.putExtra("Maxtime", maxLocation);
 
-            LocalBroadcastManager.getInstance(this).sendBroadcast(playerStat);
+                LocalBroadcastManager.getInstance(this).sendBroadcast(playerStat);
+
+            }
+        }catch(Exception e){
 
         }
 
@@ -220,6 +224,7 @@ public class PlayerService extends Service {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     flipPlayPauseButton(false);
+
                 }
             });
             mediaPlayer.prepareAsync();
