@@ -6,6 +6,7 @@ public class Song {
     String url;
     int numPlays;
     int numLikes;
+    Boolean isLiked=false;
 
 
     public  Song(String id,String title,String url,String numPlays,String numLikes){
@@ -34,4 +35,8 @@ public class Song {
     public int getNumLikes(){
         return numLikes;
     }
+
+    public void setIsLiked(Boolean condition){isLiked=condition;}
+
+    public Boolean getIsLiked(){return isLiked;}
 }
