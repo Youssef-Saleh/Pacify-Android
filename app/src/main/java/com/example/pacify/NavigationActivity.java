@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.media.AudioManager;
+import android.widget.TextView;
 
 import com.example.pacify.Settings.EditProfileFragment;
 import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
@@ -36,6 +37,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,36 +46,64 @@ public class NavigationActivity extends AppCompatActivity {
 
     List<Song> songs=new ArrayList<>();
     int currentSongIndex=0;
+    Boolean shuffleSong = false;
+    Boolean loopSong = false;
+    boolean songLiked;
 
     public void playAll(View view,List<Song> playlist){
         songs = playlist;
         Song song = songs.get(currentSongIndex);
         String songAdress=song.getUrl();
+        String songName = song.getTitle();
+        //setSongName(songName);
         startStreamingService(songAdress);
     }
     public void playNext (){
-        if (currentSongIndex >= (songs.size()-1)) {
-            currentSongIndex = 0;
+        if (shuffleSong==true){
+            Random random = new Random();
+            currentSongIndex = random.nextInt(songs.size());
         }
-        else{
+        else
+        {
             currentSongIndex += 1;
         }
+        if (currentSongIndex > (songs.size()-1)) {
+            currentSongIndex = 0;
+        }
+
         Song song = songs.get(currentSongIndex);
         String songAdress=song.getUrl();
+        String songName = song.getTitle();
+        //setSongName(songName);
         startStreamingService(songAdress);
     }
 
     public void playPrevious (){
-        if (currentSongIndex == 0 ) {
-            currentSongIndex = (songs.size()-1);
-        }
-        else{
-            currentSongIndex -= 1;
+
+        currentSongIndex -= 1;
+
+        if (currentSongIndex < 0) {
+            currentSongIndex = songs.size()-1;
         }
         Song song = songs.get(currentSongIndex);
         String songAdress=song.getUrl();
+        String songName = song.getTitle();
+       // setSongName(songName);
         startStreamingService(songAdress);
+
+
     }
+
+    public void setSongNameNav(final String songName){
+        TextView smallBar = (TextView) findViewById(R.id.songName);
+        TextView bigBar = (TextView) findViewById(R.id.bigSongName);
+        smallBar.setText(songName);
+        bigBar.setText(songName);
+
+        mBoundService.setSongName(songName);
+
+        }
+
     public void playFab(View view){
         BottomNavigationView playerNav=(BottomNavigationView)findViewById(R.id.playNav);
         NavigationView bigPlayer = (NavigationView)findViewById(R.id.bigPlayer) ;
@@ -88,25 +118,99 @@ public class NavigationActivity extends AppCompatActivity {
             playerNav.setVisibility(View.VISIBLE);
         }
     }
-    boolean songLiked= false;
+
     public void likeButton (View view){
         FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
         FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
+        Song song = songs.get(currentSongIndex);
+        songLiked =song.getIsLiked();
+
+        if (songLiked == false)
+        {
+            songLiked = true;
+            song.setIsLiked(songLiked);
+            showIfLiked();
+        }
+        else if (songLiked == true){
+
+            songLiked = false;
+            song.setIsLiked(songLiked);
+            showIfLiked();
+        }
+
+    }
+    public void showIfLiked(){
+        FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
+        FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
+        Song song = songs.get(currentSongIndex);
+        songLiked =song.getIsLiked();
+
+
         if (songLiked == false)
         {
             likeSmall.setImageResource(R.drawable.nolikeheart);
             likeBig.setImageResource(R.drawable.nolikeheart);
-            songLiked = true;
+
         }
         else if (songLiked == true){
             likeSmall.setImageResource(R.drawable.likeheart);
             likeBig.setImageResource(R.drawable.likeheart);
-            songLiked = false;
 
         }
 
     }
+    public void showIfLooping(){
+        songLooping = (ImageButton) findViewById(R.id.playAgainButton);
+        if (loopSong == false){
+            songLooping.setImageResource(R.drawable.repeatoff);
+        }
+        else {
+            songLooping.setImageResource(R.drawable.repeaton);
 
+        }
+
+    }
+    public void showIfShuffle(){
+            songShuffle = (ImageButton)findViewById(R.id.shuffleButton);
+        if (shuffleSong == false)
+        {
+            songShuffle.setImageResource(R.drawable.shuffleoff);
+        }
+        else {
+            songShuffle.setImageResource(R.drawable.shuffleonpng);
+
+        }
+
+    }
+    public void isLooping(View view){
+        if (loopSong == false){
+
+            loopSong = true ;
+            mBoundService.loopSong(loopSong);
+            showIfLooping();
+        }
+        else {
+            loopSong = false ;
+            mBoundService.loopSong(loopSong);
+            showIfLooping();
+        }
+    }
+
+    public void isOnShuffle (View view){
+        songShuffle = (ImageButton)findViewById(R.id.shuffleButton);
+        if (shuffleSong == false)
+        {
+            shuffleSong=true;
+            showIfShuffle();
+        }
+        else {
+            shuffleSong=false;
+            showIfShuffle();
+
+        }
+    }
+    ImageButton songShuffle;
+    ImageButton songLooping;
     ImageButton playPauseButton ;
     ImageButton playNext;
     ImageButton playPrevious;
@@ -151,10 +255,32 @@ public class NavigationActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Boolean isFinished = intent.getBooleanExtra("isFinished",false);
-            playNext();
+            if (isFinished == true)
+                playNext();
 
         }
     };
+    private  BroadcastReceiver prevPressed = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Boolean prevPressed = intent.getBooleanExtra("Prev",false);
+            if (prevPressed == true)
+                playPrevious();
+
+        }
+    };
+    private  BroadcastReceiver updateNotification = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Boolean update = intent.getBooleanExtra("Update",false);
+
+                Song song = songs.get(currentSongIndex);
+                String songName = song.getTitle();
+                setSongNameNav(songName);
+
+        }
+    };
+
     public String UserName;
 
     @Override
@@ -262,11 +388,15 @@ public class NavigationActivity extends AppCompatActivity {
     }
     public void startStreamingService(String url)
     {
+        showIfLiked();
+        showIfShuffle();
+        showIfLooping();
         Intent i = new Intent(this,PlayerService.class);
         i.putExtra("url",url) ;
         i.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
         startService(i);
         bindService(i,mServiceConnection,Context.BIND_AUTO_CREATE);
+
     }
 
     @Override
@@ -296,6 +426,10 @@ public class NavigationActivity extends AppCompatActivity {
                 ,new IntentFilter("scrubberUpdates"));
         LocalBroadcastManager.getInstance(this).registerReceiver(isFinished
                 ,new IntentFilter("isFinished"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(prevPressed
+                ,new IntentFilter("Prev"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(updateNotification
+                ,new IntentFilter("Update"));
     }
 
     @Override
@@ -304,6 +438,8 @@ public class NavigationActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageRecevier);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(playerMassenger);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(isFinished);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(prevPressed);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(updateNotification);
     }
 
 
@@ -322,12 +458,12 @@ public class NavigationActivity extends AppCompatActivity {
 
         scrubber.setMax(duration);
         scrubber.setProgress(currentPosition);
+        /*if (scrubber.getMax()==scrubber.getProgress()){
+            playNext();
+        }*/
 
     }
-    /*public void setPlaylist(View view,  boolean Shuffle, List<Song> songs){
 
-
-    }*/
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override

@@ -18,7 +18,8 @@
         <service
             android:name=".PlayerService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+             android:stopWithTask="true"/>/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

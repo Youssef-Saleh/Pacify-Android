@@ -5,8 +5,10 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,9 +17,7 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
-import android.os.LocaleList;
 import android.util.Log;
-import android.widget.SeekBar;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -29,6 +29,7 @@ import java.util.TimerTask;
 
 public class PlayerService extends Service {
     Boolean isFinished= false;
+    String songName = "";
     MediaPlayer mediaPlayer=new MediaPlayer();
     private final IBinder mBinder = new MyBinder();
 
@@ -54,6 +55,7 @@ public class PlayerService extends Service {
         }
         else if (intent.getAction().equals(Constants.ACTION.PREV_ACTION)){
             Log.d("info", "Prev Pressed");
+            sendPrev();
 
         }
         else if (intent.getAction().equals(Constants.ACTION.PLAY_ACTION)){
@@ -62,6 +64,7 @@ public class PlayerService extends Service {
             togglePlayer();
         }
         else if (intent.getAction().equals(Constants.ACTION.NEXT_ACTION)){
+            sendIsFinished();
             Log.d("info", "Next Pressed");
         }
         else if (intent.getAction().equals(Constants.ACTION.STOPFOREGROUND_ACTION)){
@@ -70,6 +73,15 @@ public class PlayerService extends Service {
             stopSelf();
         }
         return START_NOT_STICKY;
+
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Intent endService = new Intent(this,PlayerService.class);
+
+        endService.setAction(Constants.ACTION.STOPFOREGROUND_ACTION);
+
     }
     public   void sendPlayerStatus (){
         try {
@@ -88,12 +100,22 @@ public class PlayerService extends Service {
         }
 
     }
-    public void sendIsFinished (Boolean condition) {
-        if (condition == true) {
+    public void sendIsFinished () {
+
             Intent songStatus = new Intent("isFinished");
-            songStatus.putExtra("isFinished", isFinished);
+            songStatus.putExtra("isFinished", true);
             LocalBroadcastManager.getInstance(this).sendBroadcast(songStatus);
-        }
+
+    }
+    public void sendPrev (){
+        Intent prevIntent = new Intent("Prev");
+        prevIntent.putExtra("Prev", true);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(prevIntent);
+    }
+    public void updateNotification(){
+        Intent updateNotification = new Intent( "Update");
+        updateNotification.putExtra("Update",true);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(updateNotification);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -140,7 +162,7 @@ public class PlayerService extends Service {
         Notification notification = notificationBuilder
                 .setOngoing(false)
                 .setContentTitle("Pacify")
-                .setContentText("Playing Music")
+                .setContentText(songName)
                 .setSmallIcon(R.drawable.songimage)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setLargeIcon(Bitmap.createScaledBitmap(icon,128,128,false))
@@ -210,7 +232,7 @@ public class PlayerService extends Service {
         if (mediaPlayer != null){
             try {
 
-                mediaPlayer.stop();
+                mediaPlayer.reset();
             }catch (Exception e){
 
             }
@@ -223,17 +245,23 @@ public class PlayerService extends Service {
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-                    isFinished=false;
+
                     playPlayer();
 
                 }
             });
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
                     flipPlayPauseButton(false);
-                    //isFinished=true;
-                    sendIsFinished(true);
+
+                    sendIsFinished();
+                }
+            });
+            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    return true;
                 }
             });
             mediaPlayer.prepareAsync();
@@ -246,14 +274,16 @@ public class PlayerService extends Service {
             mediaPlayer.pause();
             flipPlayPauseButton(false);
             showNotification();
+            unregisterReceiver(noisyAudioStreamReceiver);
         }catch (Exception e){
             Log.d("Info","Infooo");
         }
     }
     public void playPlayer(){
         try {
-            mediaPlayer.start();
+            getAudioFoucusAndPlay();
             flipPlayPauseButton(true);
+            updateNotification();
             showNotification();
             new Timer().scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -276,6 +306,14 @@ public class PlayerService extends Service {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
     }
+    public void loopSong(boolean isLooping){
+       try {
+           if (mediaPlayer != null)
+           {mediaPlayer.setLooping(isLooping);}
+       }catch (Exception e ){
+           e.printStackTrace();
+       }
+    }
     public void seekPlayer(int seekValue){
         mediaPlayer.seekTo(seekValue);
     }
@@ -289,6 +327,57 @@ public class PlayerService extends Service {
             Log.d("Infooo","infoe");
         }
     }
+    public void setSongName(String navName){
+            songName = navName;
+            showNotification();
+    }
+    // audio focus section
+    private AudioManager am;
+    private boolean playingBeforeInterruption = false;
 
+    public void getAudioFoucusAndPlay (){
+        am = (AudioManager) this.getBaseContext().getSystemService(Context.AUDIO_SERVICE);
+        // request audio focus
+        int result = am.requestAudioFocus(afChangeListener,AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED){
+            mediaPlayer.start();
+            registerReceiver(noisyAudioStreamReceiver,intentFilter);
+        }
+    }
+
+    AudioManager.OnAudioFocusChangeListener afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT){
+                if (mediaPlayer.isPlaying()){
+                    playingBeforeInterruption = true;
+                } else {
+                    playingBeforeInterruption = false;
+                }
+                pausePlayer();
+            }
+            else if (focusChange == AudioManager.AUDIOFOCUS_GAIN){
+                if (playingBeforeInterruption == true)
+                    playPlayer();
+            }
+            else if (focusChange == AudioManager.AUDIOFOCUS_LOSS){
+                pausePlayer();
+                am.abandonAudioFocus(afChangeListener);
+            }
+        }
+    };
+
+    // audio rerouted
+    private class NoisyAudioStreamReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intent.getAction())){
+                pausePlayer();
+            }
+        }
+    }
+
+    private IntentFilter intentFilter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
+    private NoisyAudioStreamReceiver noisyAudioStreamReceiver = new NoisyAudioStreamReceiver();
 
 }

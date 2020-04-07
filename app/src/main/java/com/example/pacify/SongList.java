@@ -1,5 +1,6 @@
 package com.example.pacify;
 
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -48,7 +49,7 @@ public class SongList extends Fragment {
         songs.add(testSong);
         testSong= new Song("3","Real national anthem","http://www.noiseaddicts.com/samples_1w72b820/4250.mp3", "0","0");
         songs.add(testSong);
-        testSong= new Song("4","Egyptian national anthem","http://www.noiseaddicts.com/samples_1w72b820/4051.mp3", "0","0");
+        testSong= new Song("4","Egyptian  anthem","http://www.noiseaddicts.com/samples_1w72b820/4051.mp3", "0","0");
         songs.add(testSong);
         testSong= new Song("5","Dancin","https://www.mboxdrive.com/dancin%202.mp3", "0","0");
         songs.add(testSong);
@@ -60,9 +61,11 @@ public class SongList extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Song song=songs.get(position);
                 String songAdress=song.getUrl();
+                String songName = song.getTitle();
                 ((NavigationActivity)getActivity()).currentSongIndex=position;
                 ((NavigationActivity)getActivity()).songs=songs;
                 ((NavigationActivity)getActivity()).startStreamingService(songAdress);
+               // ((NavigationActivity)getActivity()).setSongNameNav(songName);
             }
         });
         return v;

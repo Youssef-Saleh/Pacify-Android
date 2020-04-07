@@ -74,7 +74,8 @@
                 android:layout_marginBottom="30dp"
                 android:background="#2C2C2C"
                 android:backgroundTint="#2C2C2C"
-                app:srcCompat="@drawable/shuffle" />
+                android:onClick="isOnShuffle"
+                app:srcCompat="@drawable/shuffleoff" />
 
             <ImageButton
                 android:id="@+id/prevSong"
@@ -91,9 +92,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|bottom"
-                android:layout_marginBottom="28dp"
+                android:layout_marginBottom="23dp"
                 android:backgroundTint="#2C2C2C"
-                app:srcCompat="@drawable/repeatsong" />
+                android:onClick="isLooping"
+                app:srcCompat="@drawable/repeatoff" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/bigLikeButton"
