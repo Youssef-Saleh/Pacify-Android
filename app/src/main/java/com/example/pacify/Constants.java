@@ -24,4 +24,5 @@ public class Constants {
     }
 
     public static String SIGNUP_URL = "http://localhost:5000/signup";
+    public static String EDIT_PROFILE_URL = "http://localhost:5000/account/profile";
 }

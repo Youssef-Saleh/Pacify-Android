@@ -115,8 +115,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void createAccount(){
-        //TODO(Adham): Create account
-
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Constants.SIGNUP_URL;
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
