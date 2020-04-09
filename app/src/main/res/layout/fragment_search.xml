@@ -29,7 +29,7 @@
             app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCountry"
+            app:layout_constraintTop_toBottomOf="@+id/btnElectronic"
             app:layout_constraintWidth_percent="0.44" />
 
         <Button
@@ -89,18 +89,15 @@
             app:layout_constraintTop_toBottomOf="@+id/btnPop"
             app:layout_constraintWidth_percent="0.44" />
 
-        <Button
-            android:id="@+id/btnCountry"
+        <ImageButton
+            android:id="@+id/btnElectronic"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="20sp"
-            android:background="@drawable/search_view_rounded"
-            android:backgroundTint="#B89EE6"
-            android:text="Country"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="sans"
+            android:background="@drawable/round_buttons"
+            android:backgroundTint="#FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/electronic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.95"

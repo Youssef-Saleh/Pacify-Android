@@ -35,7 +35,7 @@ import java.util.List;
 
 public class SearchFragment extends Fragment {
     ImageButton btnPop;
-    Button btnCountry;
+    ImageButton btnElectronic;
     Button btnRock;
     Button btnHipHop;
     Button btnArabic;
@@ -70,12 +70,14 @@ public class SearchFragment extends Fragment {
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
+
                         }
                     }
                 },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(getActivity(), "Server Error", Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(request);
@@ -94,8 +96,8 @@ public class SearchFragment extends Fragment {
 
 
     }
-    public void countryGenre(View view){
-        theJsonParser(Constants.PLAYLIST_ID.COUNTRY);
+    public void electronicGenre(View view){
+        theJsonParser(Constants.PLAYLIST_ID.ELECTRONIC);
         ((NavigationActivity)getActivity()).songs=mysongs;
     }
 
@@ -135,11 +137,11 @@ public class SearchFragment extends Fragment {
 
             }
         });
-        btnCountry=v.findViewById(R.id.btnCountry);
-        btnCountry.setOnClickListener(new View.OnClickListener() {
+        btnElectronic=v.findViewById(R.id.btnElectronic);
+        btnElectronic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                countryGenre(v);
+                electronicGenre(v);
             }
         });
         btnRock=v.findViewById(R.id.btnRock);
