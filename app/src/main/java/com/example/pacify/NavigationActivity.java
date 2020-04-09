@@ -13,16 +13,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.icu.text.DateIntervalFormat;
+import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.IBinder;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.media.AudioManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.pacify.Settings.EditProfileFragment;
 import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
 import com.example.pacify.Settings.Edit_profile.ChangeUserCountry;
@@ -38,8 +49,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -577,23 +591,84 @@ public class NavigationActivity extends AppCompatActivity {
 
     public boolean ConfirmPhoneChange(String newNumber) {
         //TODO(Adham): Change phone number
-        return true;
+        toChange = "phone";
+        changedObject = newNumber;
+        return ApplyChange();
     }
 
     public boolean ConfirmCountryChange(String newCountry) {
         //TODO(Adham): Change Country
-        return true;
+        toChange = "country";
+        changedObject = newCountry;
+        return ApplyChange();
     }
 
     public boolean ConfirmGenderChange(String gender) {
         //TODO(Adham): Change Gender
-        return true;
+        toChange = "gender";
+        changedObject = gender;
+        return ApplyChange();
     }
 
     public boolean ConfirmDobChange(int year, int month, int day) {
-        //TODO(Adham): Change DoB
-        return true;
+        toChange = "birthdate";
+
+        DecimalFormat df = new DecimalFormat("##");
+        changedObject = year + "-" + df.format(month) + "-" + day + "T00:00.000Z" ;
+
+        return ApplyChange();
     }
+
+    String toChange;
+    String changedObject;
+    boolean successful;
+    MediaSession.Token tok;
+    public boolean ApplyChange(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = Constants.EDIT_PROFILE_URL;
+
+        StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        /*Toast.makeText(NavigationActivity.this, "Changed successful"
+                                , Toast.LENGTH_SHORT).show();*/
+                        successful = true;
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        /*Toast.makeText(NavigationActivity.this, "An error occurred\n" +
+                                        ",please try again.", Toast.LENGTH_SHORT).show();*/
+                        successful = false;
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(toChange, changedObject);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                params.put("Accept","application/json");
+                return params;
+            }
+        };
+
+        queue.add(putRequest);
+        return successful;
+    }
+
+
 
     public void LogOut(){
         /**

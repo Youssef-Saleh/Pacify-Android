@@ -1,7 +1,6 @@
 package com.example.pacify.Settings;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
-import com.example.pacify.Utilities.PreferenceUtilities;
 import com.facebook.AccessToken;
 
 public class MySettingsFragment extends PreferenceFragmentCompat {
