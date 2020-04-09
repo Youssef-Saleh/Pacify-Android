@@ -97,28 +97,27 @@ public class SearchFragment extends Fragment {
 
     }
     public void electronicGenre(View view){
-        theJsonParser(Constants.PLAYLIST_ID.ELECTRONIC);
-        ((NavigationActivity)getActivity()).songs=mysongs;
+        Toast.makeText(getActivity(), "Electronic: No Playlist To Show", Toast.LENGTH_SHORT).show();
     }
 
     public void rockGenre(View view){
-        Toast.makeText(getActivity(), "Rock", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Rock", Toast.LENGTH_SHORT).show();
     }
 
     public void hiphopGenre(View view){
-        Toast.makeText(getActivity(), "Hip Hop", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Hip Hop", Toast.LENGTH_SHORT).show();
     }
 
     public void arabicGenre(View view){
-        Toast.makeText(getActivity(), "Arabic", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Arabic", Toast.LENGTH_SHORT).show();
     }
 
     public void partyGenre(View view){
-        Toast.makeText(getActivity(), "Party", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Party", Toast.LENGTH_SHORT).show();
     }
 
     public void chartsGenre(View view){
-        Toast.makeText(getActivity(), "Charts", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Charts", Toast.LENGTH_SHORT).show();
     }
 
     @Override
