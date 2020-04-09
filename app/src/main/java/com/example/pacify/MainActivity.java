@@ -67,11 +67,12 @@ public class MainActivity extends AppCompatActivity {
         contWithFacebook_button.setLogoutText("LOGGING IN...");
         callbackManager = CallbackManager.Factory.create();
 
-        contWithFacebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        contWithFacebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>(){
             @Override
             public void onSuccess(LoginResult loginResult) {
                 /**
                  * If logging in with facebook was successful, log him in.
+                 * And if the data was not received yet, Cancel operation
                  */
                 accessToken = loginResult.getAccessToken();
                 useLoginInformation(accessToken);
@@ -91,9 +92,9 @@ public class MainActivity extends AppCompatActivity {
                             afterFbLoginFail();
                             return;
                         }
-                        Toast.makeText(getBaseContext(), facebook_name, Toast.LENGTH_SHORT).show();
                         loginWithFacebook();
-                        Intent in = new Intent(MainActivity.this, NavigationActivity.class);
+                        Intent in = new Intent(MainActivity.this
+                                , NavigationActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("fb_username", facebook_name);
                         in.putExtras(bundle);
@@ -146,11 +147,12 @@ public class MainActivity extends AppCompatActivity {
                             return;
                         }
                         loginWithFacebook();
-                        Intent in = new Intent(MainActivity.this, NavigationActivity.class);
+                        Intent in = new Intent(MainActivity.this
+                                , NavigationActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("fb_username", facebook_name);
                         in.putExtras(bundle);
-                        startActivity(in); 
+                        startActivity(in);
                     }
             }, 1500);
         }
@@ -188,8 +190,9 @@ public class MainActivity extends AppCompatActivity {
          1st Param - AccessToken
          2nd Param - Callback (which will be invoked once the request is successful)
          //Source: https://androidclarified.com/android-facebook-login-example/
-         **/
-        GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+         */
+        GraphRequest request = GraphRequest.newMeRequest(accessToken
+                , new GraphRequest.GraphJSONObjectCallback() {
             //OnCompleted is invoked once the GraphRequest is successful
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {

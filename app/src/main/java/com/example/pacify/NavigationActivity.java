@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -44,7 +47,7 @@ import java.util.TimerTask;
 
 public class NavigationActivity extends AppCompatActivity {
 
-    List<Song> songs=new ArrayList<>();
+    List<Song> songs;
     int currentSongIndex=0;
     Boolean shuffleSong = false;
     Boolean loopSong = false;
@@ -52,11 +55,12 @@ public class NavigationActivity extends AppCompatActivity {
 
     public void playAll(View view,List<Song> playlist){
         songs = playlist;
-        Song song = songs.get(currentSongIndex);
+        Song song = songs.get(0);
         String songAdress=song.getUrl();
         String songName = song.getTitle();
-        //setSongName(songName);
+        //setSongNameNav(songName);
         startStreamingService(songAdress);
+
     }
     public void playNext (){
         if (shuffleSong==true){
@@ -300,9 +304,9 @@ public class NavigationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
-        Bundle bundle = getIntent().getExtras();
+        /*Bundle bundle = getIntent().getExtras();
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        /*if (accessToken != null) {
+        if (accessToken != null) {
             UserName = bundle.getString("fb_username");
         }else {
             UserName = bundle.getString("username");
@@ -582,6 +586,10 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     public void LogOut(){
+        /**
+         * It delete the saved user data, logout the user from facebook (if he was logged
+         * in using facebook) and reset the app
+         */
         PreferenceUtilities.saveState("false", this);
         PreferenceUtilities.saveEmail("",this);
         PreferenceUtilities.savePassword("",this);
@@ -589,8 +597,15 @@ public class NavigationActivity extends AppCompatActivity {
 
         LoginManager.getInstance().logOut();
 
-        Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
-        startActivity(intent);
+    //Source: https://stackoverflow.com/questions/6609414/how-do-i-programmatically-restart-an-android-app
+        Intent mStartActivity = new Intent(this, MainActivity.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId,
+                mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        System.exit(0);
+    ///////////////
     }
 
     @Override
