@@ -46,11 +46,11 @@ public class SignUp_Password_Fragment extends Fragment {
                 String new_password_again = editTextConfirmPassword.getText().toString().trim();
 
                 if(!CheckPasswordPattern()){
-                    msgText.setError("You password should be 8 chars," +
+                    editTextConfirmPassword.setError("You password should be 8 chars," +
                             " contain [a-z],[A-Z],[0-9]," +
                             " and no white spaces allowed");
                 }else{
-                    msgText.setError(null);
+                    editTextConfirmPassword.setError(null);
                 }
 
                 buttonNext.setEnabled(!new_password.isEmpty() &&
@@ -88,6 +88,7 @@ public class SignUp_Password_Fragment extends Fragment {
                 if(CheckPasswordMatch()) {
                     ((SignUpActivity)getActivity()).signUp_password =
                             editTextPassword.getText().toString();
+                    ((SignUpActivity)getActivity()).hideKeyboard(getActivity());
                     ((SignUpActivity)getActivity()).openSignUpDobFragment();
                 }else {
                     Toast.makeText(getActivity(), "Passwords do not match."

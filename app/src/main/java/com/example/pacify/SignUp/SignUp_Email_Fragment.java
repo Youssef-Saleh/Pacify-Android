@@ -48,7 +48,10 @@ public class SignUp_Email_Fragment extends Fragment {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).signUp_email = editTextEmail.getText().toString().trim();;
+                ((SignUpActivity)getActivity()).signUp_email = editTextEmail.getText()
+                        .toString().trim();
+
+                ((SignUpActivity)getActivity()).hideKeyboard(getActivity());
                 ((SignUpActivity)getActivity()).openSignUpPasswordFragment();
             }
         });

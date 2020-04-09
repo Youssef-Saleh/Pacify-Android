@@ -37,7 +37,7 @@ public class SignUp_DoB_Fragment extends Fragment {
                 ((SignUpActivity)getActivity()).signUp_dob_year =  MyDoB.getYear();
                 ((SignUpActivity)getActivity()).signUp_dob_month = MyDoB.getMonth() + 1;
                 ((SignUpActivity)getActivity()).signUp_dob_day = MyDoB.getDayOfMonth();
-                ((SignUpActivity)getActivity()).openSignUpGenderFragment();
+                ((SignUpActivity)getActivity()).openSignUpPhoneNumberFragment();
             }
         });
 
