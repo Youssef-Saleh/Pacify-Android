@@ -44,7 +44,7 @@ import java.util.TimerTask;
 
 public class NavigationActivity extends AppCompatActivity {
 
-    List<Song> songs=new ArrayList<>();
+    List<Song> songs;
     int currentSongIndex=0;
     Boolean shuffleSong = false;
     Boolean loopSong = false;
@@ -52,11 +52,12 @@ public class NavigationActivity extends AppCompatActivity {
 
     public void playAll(View view,List<Song> playlist){
         songs = playlist;
-        Song song = songs.get(currentSongIndex);
+        Song song = songs.get(0);
         String songAdress=song.getUrl();
         String songName = song.getTitle();
-        //setSongName(songName);
+        //setSongNameNav(songName);
         startStreamingService(songAdress);
+
     }
     public void playNext (){
         if (shuffleSong==true){

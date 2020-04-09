@@ -1,7 +1,7 @@
 package com.example.pacify;
 
 public class Song {
-    int id;
+    String id;
     String title;
     String url;
     int numPlays;
@@ -9,15 +9,15 @@ public class Song {
     Boolean isLiked=false;
 
 
-    public  Song(String id,String title,String url,String numPlays,String numLikes){
-        this.id=Integer.parseInt(id);
-        this.numPlays=Integer.parseInt(numPlays);
-        this.numLikes=Integer.parseInt(numLikes);
+    public  Song(String id,String title,String url,int numPlays,int numLikes){
+        this.id=id;
+        this.numPlays=numPlays;
+        this.numLikes=numLikes;
         this.url=url;
         this.title=title;
     }
 
-    public int getId(){
+    public String getId(){
         return id;
     }
 

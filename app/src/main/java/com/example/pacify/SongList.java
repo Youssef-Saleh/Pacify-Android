@@ -28,10 +28,13 @@ public class SongList extends Fragment {
     public List<Song> getSongList(){
         return songs;
     }
-
+    public void setSongList(List<Song> songsToSet){
+        songs=songsToSet;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         View v= inflater.inflate(R.layout.song_list_view, container, false);
 
         songListView=(ListView) v.findViewById(R.id.songListView);
@@ -40,22 +43,25 @@ public class SongList extends Fragment {
             @Override
             public void onClick(View v) {
                 ((NavigationActivity)getActivity()).playAll(v,songs);
+
             }
         });
 
-        Song testSong= new Song("1","Ein Prosit","http://www.noiseaddicts.com/samples_1w72b820/2553.mp3", "0","0");
-        songs.add(testSong);
-        testSong= new Song("2","katyusha","http://www.noiseaddicts.com/samples_1w72b820/1450.mp3", "0","0");
-        songs.add(testSong);
-        testSong= new Song("3","Real national anthem","http://www.noiseaddicts.com/samples_1w72b820/4250.mp3", "0","0");
-        songs.add(testSong);
-        testSong= new Song("4","Egyptian  anthem","http://www.noiseaddicts.com/samples_1w72b820/4051.mp3", "0","0");
-        songs.add(testSong);
-        testSong= new Song("5","Dancin","https://www.mboxdrive.com/dancin%202.mp3", "0","0");
-        songs.add(testSong);
+//        Song testSong= new Song("1","Ein Prosit","http://www.noiseaddicts.com/samples_1w72b820/2553.mp3", "0","0");
+//        songs.add(testSong);
+//        testSong= new Song("2","katyusha","http://www.noiseaddicts.com/samples_1w72b820/1450.mp3", "0","0");
+//        songs.add(testSong);
+//        testSong= new Song("3","Real national anthem","http://www.noiseaddicts.com/samples_1w72b820/4250.mp3", "0","0");
+//        songs.add(testSong);
+//        testSong= new Song("4","Egyptian  anthem","http://www.noiseaddicts.com/samples_1w72b820/4051.mp3", "0","0");
+//        songs.add(testSong);
+//        testSong= new Song("5","Dancin","https://www.mboxdrive.com/dancin%202.mp3", "0","0");
+//        songs.add(testSong);
 
+        songs=((NavigationActivity)getActivity()).songs;
         SongListAdapter adapter = new SongListAdapter(this,songs);
         songListView.setAdapter(adapter);
+
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

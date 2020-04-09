@@ -17,4 +17,9 @@ public class Constants {
     public interface NOTIFICATION_ID{
         public static int FOREGROUND_SERVICE = 101;
     }
+
+    public interface PLAYLIST_ID {
+        public static String POP = "http://192.168.43.130:5000/Playlist/5e8e0396a1a3730480cc0a66";
+        public static String HIP_HOP = "http://192.168.43.130:5000/Playlist/5e8e0396a1a3730480cc0a68";
+    }
 }
