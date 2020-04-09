@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         String emailInput = editTextEmail.getText().toString().trim();
         String passwordInput = editTextPassword.getText().toString();
 
+        
         //TODO(Adham): Send email and password and wait for response
         return true;
     }
