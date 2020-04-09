@@ -22,4 +22,6 @@ public class Constants {
         public static String POP = "http://192.168.43.130:5000/allSongs";
         public static String ELECTRONIC= "http://192.168.43.130:5000/Playlist/5e8e0396a1a3730480cc0a68";
     }
+
+    public static String SIGNUP_URL = "http://localhost:5000/signup";
 }
