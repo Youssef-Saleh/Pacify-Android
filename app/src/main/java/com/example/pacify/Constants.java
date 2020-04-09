@@ -19,7 +19,7 @@ public class Constants {
     }
 
     public interface PLAYLIST_ID {
-        public static String POP = "https://pacify.tech/api/allSongs";
+        public static String POP = "http://www.mocky.io/v2/5e8fb410330000551827d2d8";
         public static String ELECTRONIC= "http://192.168.43.130:5000/Playlist/5e8e0396a1a3730480cc0a68"; //not in use
     }
 
