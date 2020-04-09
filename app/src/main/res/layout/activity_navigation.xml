@@ -135,7 +135,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="200dp"
                 android:fontFamily="casual"
-                android:text="Now Playing AbdoBeatz"
+                android:text="Choose a song to play!"
                 android:textColor="@color/design_default_color_background" />
 
             <ImageView
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="casual"
-                android:text="Now Playing AbdoBeatz"
+                android:text="Choose a song to play!"
                 android:textColor="@color/design_default_color_background" />
 
             <ImageView
