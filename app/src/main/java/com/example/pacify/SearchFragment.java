@@ -70,12 +70,14 @@ public class SearchFragment extends Fragment {
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
+
                         }
                     }
                 },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(getActivity(), "Server Error", Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(request);
