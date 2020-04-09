@@ -19,9 +19,10 @@ public class Constants {
     }
 
     public interface PLAYLIST_ID {
-        public static String POP = "http://192.168.43.130:5000/allSongs";
-        public static String ELECTRONIC= "http://pacify.tech/api/Playlist/5e8e0396a.1a3730480cc0a68";
+        public static String POP = "http://pacify.tech/api/Playlist/5e8e0396a1a3730480cc0a66";
+        public static String ELECTRONIC= "http://pacify.tech/api/Playlist/5e8e0396a1a3730480cc0a68";
     }
 
-    public static String SIGNUP_URL = "http://192.168.43.130:5000/signup";
+    public static String SIGNUP_URL = "http://localhost:5000/signup";
+    public static String EDIT_PROFILE_URL = "http://localhost:5000/account/profile";
 }
