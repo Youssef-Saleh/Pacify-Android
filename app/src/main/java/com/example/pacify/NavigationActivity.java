@@ -388,6 +388,7 @@ public class NavigationActivity extends AppCompatActivity {
     }
     public void startStreamingService(String url)
     {
+        loopSong = false ;
         showIfLiked();
         showIfShuffle();
         showIfLooping();
