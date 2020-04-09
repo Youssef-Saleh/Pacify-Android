@@ -95,7 +95,8 @@ public class SearchFragment extends Fragment {
 
     }
     public void countryGenre(View view){
-        Toast.makeText(getActivity(), "Country", Toast.LENGTH_LONG).show();
+        theJsonParser(Constants.PLAYLIST_ID.COUNTRY);
+        ((NavigationActivity)getActivity()).songs=mysongs;
     }
 
     public void rockGenre(View view){
@@ -103,8 +104,7 @@ public class SearchFragment extends Fragment {
     }
 
     public void hiphopGenre(View view){
-        theJsonParser(Constants.PLAYLIST_ID.HIP_HOP);
-        ((NavigationActivity)getActivity()).songs=mysongs;
+        Toast.makeText(getActivity(), "Hip Hop", Toast.LENGTH_LONG).show();
     }
 
     public void arabicGenre(View view){

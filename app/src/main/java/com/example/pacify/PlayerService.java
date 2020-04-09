@@ -119,7 +119,7 @@ public class PlayerService extends Service {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void showNotification(){
+    private void startMyOwnForeground(){
         String NOTIFICATION_CHANNEL_ID = "com.example.pacify";
         String channelName = "Pacify";
         NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_LOW);
@@ -173,7 +173,7 @@ public class PlayerService extends Service {
                 .build();
         startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,notification);
     }
-    /*private void showNotification(){
+    private void showNotification(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             startMyOwnForeground();
         else {
@@ -205,25 +205,20 @@ public class PlayerService extends Service {
                 playOrPause = "Pause";
             }
             Notification notification = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                    .setContentTitle("TreeCify")
-                    .setContentText("Shalood Song")
-                    .setSmallIcon(R.drawable.tree)
-                    .setSound(null)
-                    .setVibrate(null)
-                    .setLargeIcon(Bitmap.createScaledBitmap(icon, 128, 128, false))
+                    .setOngoing(false)
+                    .setContentTitle("Pacify")
+                    .setContentText(songName)
+                    .setSmallIcon(R.drawable.songimage)
+                    .setPriority(NotificationCompat.PRIORITY_LOW)
+                    .setLargeIcon(Bitmap.createScaledBitmap(icon,128,128,false))
                     .setContentIntent(pendingIntent)
-                    .setAutoCancel(true)
-                    .setDefaults(0)
-                    .setOngoing(true)
-                    .addAction(android.R.drawable.ic_media_previous, "Previous", pPrevIntent)
-                    .addAction(playPauseButtonId, playOrPause, pPlayIntent)
-                    .addAction(android.R.drawable.ic_media_next, "Next", pNextIntent)
+                    .addAction(android.R.drawable.ic_media_previous,"Previous",pPrevIntent)
+                    .addAction(playPauseButtonId,playOrPause,pPlayIntent)
+                    .addAction(android.R.drawable.ic_media_next,"Next",pNextIntent)
                     .build();
-
-
             startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, notification);
         }
-    }*/
+    }
     @Override
     public IBinder onBind(Intent intent) {
        return mBinder ;

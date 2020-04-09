@@ -321,14 +321,24 @@ public class NavigationActivity extends AppCompatActivity {
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
                     mBoundService.togglePlayer();
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         });
         bigPlayPauseButton = (FloatingActionButton) findViewById((R.id.bigPlay));
         bigPlayPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mBoundService.togglePlayer();
+                try {
+                    mBoundService.togglePlayer();
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
