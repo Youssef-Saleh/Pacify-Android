@@ -73,6 +73,4 @@ public class ExampleUnitTest {
                     assertEquals(200, service.mediaPlayer.getCurrentPosition());
                     service.mediaPlayer.pause();
                     assertEquals(false, service.mediaPlayer.isPlaying());*/
-
-
     }}
