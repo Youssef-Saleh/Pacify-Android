@@ -123,7 +123,7 @@ public class NavigationActivity extends AppCompatActivity {
         smallBar.setText(songName);
         bigBar.setText(songName);
 
-       // mBoundService.setSongName(songName);
+        mBoundService.setSongName(songName);
 
         }
     /**
@@ -243,8 +243,8 @@ public class NavigationActivity extends AppCompatActivity {
     /**
      * This method is called when the user selects to shuffle the playlist
      */
-    public void isOnShuffle (){
-        //songShuffle = (ImageButton)findViewById(R.id.shuffleButton);
+    public void isOnShuffle (View view){
+        songShuffle = (ImageButton)findViewById(R.id.shuffleButton);
         if (shuffleSong == false)
         {
             shuffleSong=true;
