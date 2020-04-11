@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
     private void afterFbLoginFail(){
         /**
          * Enabling the buttons and telling the user that the login
-         * with facebook failed
+         * with facebook failed.
          */
         contWithFacebook_button.setEnabled(true);
         login_button.setEnabled(true);

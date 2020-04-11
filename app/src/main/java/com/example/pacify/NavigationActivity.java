@@ -597,6 +597,9 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     public boolean ConfirmDobChange(int year, int month, int day) {
+        /**
+         * Reformatting the dare to be the same as in the server.
+         */
         toChange = "birthdate";
 
         DecimalFormat df = new DecimalFormat("##");
@@ -666,7 +669,7 @@ public class NavigationActivity extends AppCompatActivity {
     public void LogOut(){
         /**
          * It delete the saved user data, logout the user from facebook (if he was logged
-         * in using facebook) and reset the app
+         * in using facebook) and reset the app.
          */
         PreferenceUtilities.saveState("false", this);
         PreferenceUtilities.saveEmail("",this);
