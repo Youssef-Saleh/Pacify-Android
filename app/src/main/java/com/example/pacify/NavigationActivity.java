@@ -625,19 +625,19 @@ public class NavigationActivity extends AppCompatActivity {
 
     String toChange;
     String changedObject;
-    boolean successful;
+    boolean successful = true;
     MediaSession.Token tok;
     public boolean ApplyChange(){
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Constants.EDIT_PROFILE_URL;
 
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
+       /* StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
                 new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response) {
-                        /*Toast.makeText(NavigationActivity.this, "Changed successful"
-                                , Toast.LENGTH_SHORT).show();*/
+                        //Toast.makeText(NavigationActivity.this, "Changed successful"
+                        //        , Toast.LENGTH_SHORT).show();
                         successful = true;
                     }
                 },
@@ -645,8 +645,8 @@ public class NavigationActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        /*Toast.makeText(NavigationActivity.this, "An error occurred\n" +
-                                        ",please try again.", Toast.LENGTH_SHORT).show();*/
+                        //Toast.makeText(NavigationActivity.this, "An error occurred\n" +
+                        //                ",please try again.", Toast.LENGTH_SHORT).show();
                         successful = false;
                     }
                 }
@@ -668,7 +668,7 @@ public class NavigationActivity extends AppCompatActivity {
             }
         };
 
-        queue.add(putRequest);
+        queue.add(putRequest);*/
         return successful;
     }
 
