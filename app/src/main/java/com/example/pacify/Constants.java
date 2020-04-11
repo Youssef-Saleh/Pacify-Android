@@ -19,10 +19,10 @@ public class Constants {
     }
 
     public interface PLAYLIST_ID {
-        public static String POP = "http://www.mocky.io/v2/5e8fb410330000551827d2d8";
-        public static String ELECTRONIC = "http://www.mocky.io/v2/5e8fb410330000551827d2d8";
+        public static String POP = "http://www.pacify.tech/api/allSongs";
+        public static String ELECTRONIC= "http://192.168.43.130:5000/Playlist/5e8e0396a1a3730480cc0a68"; //not in use
     }
 
-    public static String SIGNUP_URL = "http://192.168.43.127:5000/signup";
-    public static String EDIT_PROFILE_URL = "http://192.168.43.127:5000/account/profile";
+    public static String SIGNUP_URL = "http://pacify.tech/api/signup";
+    public static String EDIT_PROFILE_URL = "http://pacify.tech/api/account/profile";
 }
