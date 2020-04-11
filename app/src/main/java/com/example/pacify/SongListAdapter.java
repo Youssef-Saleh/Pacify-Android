@@ -1,19 +1,18 @@
 package com.example.pacify;
 
-import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import java.util.List;
-import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.List;
+
 /**
- * Description
+ * bridge between loading song playlists and UI,
+ * takes the song playlist and shows all songs in a vertical list in the UI
  */
 public class SongListAdapter extends BaseAdapter {
     private Fragment fragment;
@@ -40,6 +39,7 @@ public class SongListAdapter extends BaseAdapter {
     public long getItemId (int position){
         return position;
     }
+
 
     public View getView (int position, View convertView, ViewGroup parent){
         View v =convertView;

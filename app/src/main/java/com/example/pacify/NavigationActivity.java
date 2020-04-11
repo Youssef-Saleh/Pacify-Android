@@ -1,10 +1,5 @@
 package com.example.pacify;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -16,13 +11,17 @@ import android.content.ServiceConnection;
 import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.IBinder;
-
+import android.media.AudioManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
-import android.media.AudioManager;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -54,6 +53,11 @@ public class NavigationActivity extends AppCompatActivity {
     Boolean loopSong = false;
     boolean songLiked;
 
+    /**
+     * plays the songs in the sent playlist from the beginning
+     * @param view view that was clicked
+     * @param playlist playlist that  we want played from the beginning
+     */
     public void playAll(View view,List<Song> playlist){
         songs = playlist;
         Song song = songs.get(0);
@@ -63,6 +67,11 @@ public class NavigationActivity extends AppCompatActivity {
         startStreamingService(songAdress);
 
     }
+    /**
+     * This method is called whenever the user presses the next button on the player , the songs finishes to play the next in the Queue,or next on notification.
+     * It increments the song index and make sure it doesn't exeed the size oh the song list
+     * if the shuffle Boolean is on, it generates a random index
+     */
     public void playNext (){
         if (shuffleSong==true){
             Random random = new Random();
@@ -82,6 +91,10 @@ public class NavigationActivity extends AppCompatActivity {
         //setSongName(songName);
         startStreamingService(songAdress);
     }
+    /**
+     * This method is called whenever the user presses the prev button on the player or the notification
+     * It decrements the song index and make sure it doesn't get less than 0
+     */
 
     public void playPrevious (){
 
@@ -98,17 +111,25 @@ public class NavigationActivity extends AppCompatActivity {
 
 
     }
-
+    /**
+     * This method is called whenever the a new song is sent to be played
+     * It sets the player bar with the name of the song and notification too
+     * @param songName
+     */
     public void setSongNameNav(final String songName){
         TextView smallBar = (TextView) findViewById(R.id.songName);
+
         TextView bigBar = (TextView) findViewById(R.id.bigSongName);
         smallBar.setText(songName);
         bigBar.setText(songName);
 
-        mBoundService.setSongName(songName);
+       // mBoundService.setSongName(songName);
 
         }
-
+    /**
+     * This method is called whenever the user presses the small player bar or the bigger one to shift between them
+     * @param view
+     */
     public void playFab(View view){
         BottomNavigationView playerNav=(BottomNavigationView)findViewById(R.id.playNav);
         NavigationView bigPlayer = (NavigationView)findViewById(R.id.bigPlayer) ;
@@ -123,6 +144,11 @@ public class NavigationActivity extends AppCompatActivity {
             playerNav.setVisibility(View.VISIBLE);
         }
     }
+    /**
+     * This method is called whenever the user presses the like button to like the song
+     * it sets the (Like boolean) in the song object according to the user choice
+     * @param view
+     */
 
     public void likeButton (View view){
         FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
@@ -144,6 +170,9 @@ public class NavigationActivity extends AppCompatActivity {
         }
 
     }
+    /**
+     * This method is called after the user likes a song to update the player bar
+     */
     public void showIfLiked(){
         FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
         FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
@@ -164,6 +193,9 @@ public class NavigationActivity extends AppCompatActivity {
         }
 
     }
+    /**
+     * This method is called after the user presses loop  song to update the player bar
+     */
     public void showIfLooping(){
         songLooping = (ImageButton) findViewById(R.id.playAgainButton);
         if (loopSong == false){
@@ -175,6 +207,9 @@ public class NavigationActivity extends AppCompatActivity {
         }
 
     }
+    /**
+     * This method is called after the user presses shuffle  song to update the player bar
+     */
     public void showIfShuffle(){
             songShuffle = (ImageButton)findViewById(R.id.shuffleButton);
         if (shuffleSong == false)
@@ -187,6 +222,11 @@ public class NavigationActivity extends AppCompatActivity {
         }
 
     }
+    /**
+     * This method is called when the user selects to loop a current song
+     * @param view
+     */
+
     public void isLooping(View view){
         if (loopSong == false){
 
@@ -200,19 +240,29 @@ public class NavigationActivity extends AppCompatActivity {
             showIfLooping();
         }
     }
-
-    public void isOnShuffle (View view){
-        songShuffle = (ImageButton)findViewById(R.id.shuffleButton);
+    /**
+     * This method is called when the user selects to shuffle the playlist
+     */
+    public void isOnShuffle (){
+        //songShuffle = (ImageButton)findViewById(R.id.shuffleButton);
         if (shuffleSong == false)
         {
             shuffleSong=true;
-            showIfShuffle();
+            try {
+                showIfShuffle();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         else {
             shuffleSong=false;
-            showIfShuffle();
-
+            try {
+                showIfShuffle();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
+
     }
     ImageButton songShuffle;
     ImageButton songLooping;
@@ -223,9 +273,11 @@ public class NavigationActivity extends AppCompatActivity {
     PlayerService mBoundService;
     boolean mServiceBound = false;
 
-
-
     AudioManager audioManager;
+    /**
+     * This is the method that makes the service connection between this activity and playservice
+     * it creates a new PlayerService mBinder that can call functions in the service when called here.
+     */
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -239,6 +291,10 @@ public class NavigationActivity extends AppCompatActivity {
         mServiceBound = false ;
         }
     };
+    /**
+     * This is the Broadcast Receiver that receives messages and intents sent from the service to this activity
+     * This particular Receiver is used to check if the media player is playing or nor and change the player bar accordingly
+     */
     private BroadcastReceiver mMessageRecevier = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -246,7 +302,9 @@ public class NavigationActivity extends AppCompatActivity {
             flipPlayPauseButton(isPlaying);
         }
     };
-
+    /**
+     * This particular Receiver is used to update the seekBar with the progress of the song and seek song according to where the user moves it
+     */
     private  BroadcastReceiver playerMassenger = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -255,7 +313,10 @@ public class NavigationActivity extends AppCompatActivity {
             progressBarUpdate(currentPos,maxLocation);
         }
     };
-
+    /**
+     * This particular Receiver is used to receive a check from service when the song is finished to call next player function and play next song
+     * It's also used if the user pressed next song button on the notification
+     */
     private  BroadcastReceiver isFinished = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -265,6 +326,9 @@ public class NavigationActivity extends AppCompatActivity {
 
         }
     };
+    /**
+     * This Receiver is used whenever the user presses the prev button on the notification to call prev Function.
+     */
     private  BroadcastReceiver prevPressed = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -274,6 +338,10 @@ public class NavigationActivity extends AppCompatActivity {
 
         }
     };
+    /**
+     * This Recevier has a significant importance as it signals when the service is created and now we can change the notificaiton text according to the song.
+     * Without it the app will crash if we tried to sit the notification context with song name.
+     */
     private  BroadcastReceiver updateNotification = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -299,7 +367,11 @@ public class NavigationActivity extends AppCompatActivity {
             UserName = bundle.getString("username");
         }
     }
-
+    /**
+     * This function is called when this activity is created after a succesful log in
+     * it also sets the volume bar that controls the app volume
+     * it sets the play/pause button to comunicate with the service through mBoundService
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -401,8 +473,14 @@ public class NavigationActivity extends AppCompatActivity {
         });
 
     }
+    /**
+     * This is the method that starts the service and sets the foreground action to start
+     * @param url the song url that's fitched from the song list and json data.
+     *            it sets the shuffle, loop, like according to user choice .
+     */
     public void startStreamingService(String url)
     {
+        loopSong = false ;
         showIfLiked();
         showIfShuffle();
         showIfLooping();
@@ -457,7 +535,10 @@ public class NavigationActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(updateNotification);
     }
 
-
+    /**
+     * This is the ui version of flipPlay/Pause that changes the buttons according to the media playe state
+     * @param isPlaying that's received from thebroadcastt receiver and were passed from the service
+     */
     public  void flipPlayPauseButton(boolean isPlaying) {
         if (isPlaying) {
             playPauseButton.setImageResource(android.R.drawable.ic_media_pause);
@@ -468,6 +549,11 @@ public class NavigationActivity extends AppCompatActivity {
 
         }
     }
+    /**
+     * This is the function that's called from the broadcast receiver that receives the song updates and update the seekbar accordingly.
+     * @param currentPosition the current sec of the song being played
+     * @param duration the length of the song to set the max of the bar with it
+     */
     public void progressBarUpdate(final int currentPosition, final int duration){
         final SeekBar scrubber = (SeekBar) findViewById(R.id.seekBar);
 
