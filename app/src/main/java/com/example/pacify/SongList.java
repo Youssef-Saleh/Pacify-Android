@@ -16,7 +16,9 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Used to make a list of song objects to play
+ */
 public class SongList extends Fragment {
 
     ListView songListView;
@@ -28,9 +30,11 @@ public class SongList extends Fragment {
     public List<Song> getSongList(){
         return songs;
     }
+
     public void setSongList(List<Song> songsToSet){
         songs=songsToSet;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,12 @@ public class SongList extends Fragment {
 
         songListView=(ListView) v.findViewById(R.id.songListView);
         btnPlayAll=(Button) v.findViewById(R.id.btnPlayAll);
+        /**
+         * Play All button, calls playAll function in NavigationActivity
+         * @params view the view where the button is
+         * @params songs list of songs to play
+         *
+         */
         btnPlayAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +57,7 @@ public class SongList extends Fragment {
             }
         });
 
-//        Song testSong= new Song("1","Ein Prosit","http://www.noiseaddicts.com/samples_1w72b820/2553.mp3", "0","0");
+/*        Song testSong= new Song("1","Ein Prosit","http://www.noiseaddicts.com/samples_1w72b820/2553.mp3", "0","0");
 //        songs.add(testSong);
 //        testSong= new Song("2","katyusha","http://www.noiseaddicts.com/samples_1w72b820/1450.mp3", "0","0");
 //        songs.add(testSong);
@@ -56,12 +66,18 @@ public class SongList extends Fragment {
 //        testSong= new Song("4","Egyptian  anthem","http://www.noiseaddicts.com/samples_1w72b820/4051.mp3", "0","0");
 //        songs.add(testSong);
 //        testSong= new Song("5","Dancin","https://www.mboxdrive.com/dancin%202.mp3", "0","0");
-//        songs.add(testSong);
-
+//        songs.add(testSong);*/
+        /**
+         * sets this class's song list to the one in navigation activity, then sets the adapter
+         * to the list view that shows the songs in the list
+         */
         songs=((NavigationActivity)getActivity()).songs;
         SongListAdapter adapter = new SongListAdapter(this,songs);
         songListView.setAdapter(adapter);
 
+        /**
+         * makes each item in the dynamic song list view clickable, and able to play
+         */
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

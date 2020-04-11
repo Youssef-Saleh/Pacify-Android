@@ -67,6 +67,11 @@ public class NavigationActivity extends AppCompatActivity {
     Boolean loopSong = false;
     boolean songLiked;
 
+    /**
+     * plays the songs in the sent playlist from the beginning
+     * @param view view that was clicked
+     * @param playlist playlist that  we want played from the beginning
+     */
     public void playAll(View view,List<Song> playlist){
         songs = playlist;
         Song song = songs.get(0);

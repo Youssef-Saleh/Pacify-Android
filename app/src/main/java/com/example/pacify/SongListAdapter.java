@@ -13,7 +13,8 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 /**
- * Description
+ * bridge between loading song playlists and UI,
+ * takes the song playlist and shows all songs in a vertical list in the UI
  */
 public class SongListAdapter extends BaseAdapter {
     private Fragment fragment;
@@ -40,6 +41,7 @@ public class SongListAdapter extends BaseAdapter {
     public long getItemId (int position){
         return position;
     }
+
 
     public View getView (int position, View convertView, ViewGroup parent){
         View v =convertView;
