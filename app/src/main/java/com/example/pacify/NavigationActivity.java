@@ -684,7 +684,7 @@ public class NavigationActivity extends AppCompatActivity {
 
     public boolean ConfirmDobChange(int year, int month, int day) {
         /**
-         * Reformatting the dare to be the same as in the server.
+         * Reformatting the date to be the same as in the server.
          */
         toChange = "birthdate";
 
