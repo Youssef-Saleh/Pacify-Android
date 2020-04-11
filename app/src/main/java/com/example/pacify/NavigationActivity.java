@@ -13,26 +13,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.icu.text.DateIntervalFormat;
 import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.IBinder;
 
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.media.AudioManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pacify.Settings.EditProfileFragment;
 import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
@@ -50,13 +42,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class NavigationActivity extends AppCompatActivity {
@@ -623,6 +610,13 @@ public class NavigationActivity extends AppCompatActivity {
     boolean successful = true;
     MediaSession.Token tok;
     public boolean ApplyChange(){
+        /**
+         * A PUT request is send to the server, it works for country,
+         * gender, phone number and date of birth, and the change is
+         * applied to what 'toChange' string hold, and is changed to
+         * what 'changedObject' string hold.
+         * It return true if the operation was successful, false if not.
+         */
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Constants.EDIT_PROFILE_URL;
 

@@ -10,26 +10,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Cache;
-import com.android.volley.Network;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pacify.Constants;
 import com.example.pacify.MainActivity;
 import com.example.pacify.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,7 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void hideKeyboard(Activity activity) {
         /**
-         * Source: https://stackoverflow.com/questions/1109022/close-hide-android-soft-keyboard
+         * Source: https://stackoverflow.com/a/17789187/12963182
          */
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
@@ -115,6 +105,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void createAccount(){
+        /**
+         * It uses all its public values that was changed through out
+         * the signing up process then send a POST request to the server
+         */
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Constants.SIGNUP_URL;
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
