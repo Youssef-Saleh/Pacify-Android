@@ -242,6 +242,7 @@ public class PlayerService extends Service {
                 public void onPrepared(MediaPlayer mp) {
 
                     playPlayer();
+                    //mediaPlayer.start();
 
                 }
             });
@@ -286,8 +287,6 @@ public class PlayerService extends Service {
                     sendPlayerStatus();
                 }
             },0,2);
-
-
 
         }catch (Exception e){
             Log.d("Info","Infooo");

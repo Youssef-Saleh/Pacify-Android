@@ -1,10 +1,5 @@
 package com.example.pacify;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -13,19 +8,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.icu.text.DateIntervalFormat;
+import android.media.AudioManager;
 import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.IBinder;
-
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
-import android.media.AudioManager;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -50,13 +46,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class NavigationActivity extends AppCompatActivity {
@@ -111,14 +104,14 @@ public class NavigationActivity extends AppCompatActivity {
 
 
     }
-
     public void setSongNameNav(final String songName){
         TextView smallBar = (TextView) findViewById(R.id.songName);
+
         TextView bigBar = (TextView) findViewById(R.id.bigSongName);
         smallBar.setText(songName);
         bigBar.setText(songName);
 
-        mBoundService.setSongName(songName);
+       // mBoundService.setSongName(songName);
 
         }
 
@@ -214,18 +207,26 @@ public class NavigationActivity extends AppCompatActivity {
         }
     }
 
-    public void isOnShuffle (View view){
-        songShuffle = (ImageButton)findViewById(R.id.shuffleButton);
+    public void isOnShuffle (){
+        //songShuffle = (ImageButton)findViewById(R.id.shuffleButton);
         if (shuffleSong == false)
         {
             shuffleSong=true;
-            showIfShuffle();
+            try {
+                showIfShuffle();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         else {
             shuffleSong=false;
-            showIfShuffle();
-
+            try {
+                showIfShuffle();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
+
     }
     ImageButton songShuffle;
     ImageButton songLooping;
@@ -312,11 +313,13 @@ public class NavigationActivity extends AppCompatActivity {
             UserName = bundle.getString("username");
         }
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+
+
 
         /*Bundle bundle = getIntent().getExtras();
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
