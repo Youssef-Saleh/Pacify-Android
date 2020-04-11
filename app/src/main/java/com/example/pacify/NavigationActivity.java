@@ -8,10 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.media.AudioManager;
 import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.media.AudioManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -683,6 +683,9 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     public boolean ConfirmDobChange(int year, int month, int day) {
+        /**
+         * Reformatting the date to be the same as in the server.
+         */
         toChange = "birthdate";
 
         DecimalFormat df = new DecimalFormat("##");
@@ -696,6 +699,13 @@ public class NavigationActivity extends AppCompatActivity {
     boolean successful = true;
     MediaSession.Token tok;
     public boolean ApplyChange(){
+        /**
+         * A PUT request is send to the server, it works for country,
+         * gender, phone number and date of birth, and the change is
+         * applied to what 'toChange' string hold, and is changed to
+         * what 'changedObject' string hold.
+         * It return true if the operation was successful, false if not.
+         */
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Constants.EDIT_PROFILE_URL;
 
@@ -745,7 +755,7 @@ public class NavigationActivity extends AppCompatActivity {
     public void LogOut(){
         /**
          * It delete the saved user data, logout the user from facebook (if he was logged
-         * in using facebook) and reset the app
+         * in using facebook) and reset the app.
          */
         PreferenceUtilities.saveState("false", this);
         PreferenceUtilities.saveEmail("",this);

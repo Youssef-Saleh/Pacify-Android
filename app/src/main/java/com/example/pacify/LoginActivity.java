@@ -80,6 +80,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private boolean CheckLoginCredentials(){
+        /**
+         *
+         */
         String emailInput = editTextEmail.getText().toString().trim();
         String passwordInput = editTextPassword.getText().toString();
 

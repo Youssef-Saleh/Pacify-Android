@@ -159,11 +159,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean loginWithFacebook(){
+        /**
+         * Data should be sent to the server from here
+         */
         //TODO(Adham): Send name, email and profile picture
         return true;
     }
 
     private void afterFbLoginFail(){
+        /**
+         * Enabling the buttons and telling the user that the login
+         * with facebook failed.
+         */
         contWithFacebook_button.setEnabled(true);
         login_button.setEnabled(true);
         signUp_button.setEnabled(true);
