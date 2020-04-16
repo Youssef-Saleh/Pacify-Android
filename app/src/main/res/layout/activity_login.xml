@@ -73,6 +73,7 @@
             android:inputType="textPassword"
             android:paddingLeft="8sp"
             android:paddingRight="8sp"
+            android:maxLength="16"
             android:textColor="#FFFFFF"
             android:textCursorDrawable="@drawable/cursor"
             android:textSize="20sp"

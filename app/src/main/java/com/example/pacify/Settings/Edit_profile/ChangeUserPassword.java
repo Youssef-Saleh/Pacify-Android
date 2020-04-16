@@ -77,7 +77,16 @@ public class ChangeUserPassword  extends Fragment {
                 ChangePassword.setEnabled(!old_password.isEmpty() &&
                         !new_password.isEmpty() &&
                         !new_password_again.isEmpty() &&
+                        new_password.length() <= 16 &&
                         CheckPasswordPattern());
+
+                if(new_password.length() > 16) {
+                    NewPassword.setError("Password is too long (max.16)");
+                }else if(!CheckPasswordPattern()){
+                    NewPassword.setError("You password should be 8 chars," +
+                            " contain [a-z],[A-Z],[0-9]," +
+                            " and no white spaces allowed");
+                }
             }
 
             @Override
@@ -85,11 +94,6 @@ public class ChangeUserPassword  extends Fragment {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                if(!CheckPasswordPattern()){
-                    NewPassword.setError("You password should be 8 chars," +
-                                         " contain [a-z],[A-Z],[0-9]," +
-                                         " and no white spaces allowed");
-                }
             }
         });
 
@@ -106,6 +110,7 @@ public class ChangeUserPassword  extends Fragment {
             ChangePassword.setEnabled(!old_password.isEmpty() &&
                     !new_password.isEmpty() &&
                     !new_password_again.isEmpty() &&
+                    new_password.length() <= 16 &&
                     CheckPasswordPattern());
         }
         @Override
