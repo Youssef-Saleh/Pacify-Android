@@ -3,7 +3,6 @@ package com.example.pacify.SignUp;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ public class SignUp_Password_Fragment extends Fragment {
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
     private Button buttonBack;
-    private EditText msgText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
@@ -35,7 +33,6 @@ public class SignUp_Password_Fragment extends Fragment {
         editTextPassword = view.findViewById(R.id.signUp_Password_editText);
         editTextConfirmPassword = view.findViewById(R.id.signUp_Password_confirm_editText);
         buttonBack = view.findViewById(R.id.signUp_password_Back_button);
-        msgText = view.findViewById(R.id.editText);
 
         buttonNext.setEnabled(false); //The button is initially disabled
 
@@ -47,10 +44,9 @@ public class SignUp_Password_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(CheckPasswordMatch()) {
-                    ((SignUpActivity)getActivity()).signUp_password =
+                    ((SignUpActivity)requireActivity()).signUp_password =
                             editTextPassword.getText().toString();
-                    ((SignUpActivity)getActivity()).hideKeyboard(getActivity());
-                    ((SignUpActivity)getActivity()).openSignUpDobFragment();
+                    ((SignUpActivity)requireActivity()).openSignUpDobFragment();
                 }else {
                     Toast.makeText(getActivity(), "Passwords do not match."
                             , Toast.LENGTH_SHORT).show();
@@ -61,7 +57,7 @@ public class SignUp_Password_Fragment extends Fragment {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    ((SignUpActivity)getActivity()).openSignUpEmailFragment();
+                    ((SignUpActivity)requireActivity()).openSignUpEmailFragment();
             }
         });
 
@@ -70,7 +66,9 @@ public class SignUp_Password_Fragment extends Fragment {
 
     private TextWatcher PasswordTextWatcher = new TextWatcher() {
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        public void onTextChanged(CharSequence s, int start, int before, int count) { }
+        @Override
+        public void afterTextChanged(Editable s) {
             String new_password = editTextPassword.getText().toString();
             String new_password_again = editTextConfirmPassword.getText().toString();
 
@@ -90,9 +88,9 @@ public class SignUp_Password_Fragment extends Fragment {
                     CheckPasswordPattern());
         }
         @Override
-        public void afterTextChanged(Editable s) {}
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
     };
 
     private boolean CheckPasswordPattern(){

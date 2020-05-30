@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.pacify.Forget_Password.ForgetPasswordActivity;
 import com.example.pacify.Utilities.PreferenceUtilities;
 
 
@@ -53,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this
-                                            ,ForgetPasswordActivity.class);
+                                            , ForgetPasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -89,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         
         //TODO(Adham): Send email and password and wait for response
         return true;
-    }
+}
 
     private void SaveUserData(){
         String emailInput = editTextEmail.getText().toString().trim();
@@ -108,6 +110,12 @@ public class LoginActivity extends AppCompatActivity {
         bundle.putString("username", "Dummy");
         intent.putExtras(bundle);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

@@ -2,11 +2,8 @@ package com.example.pacify.SignUp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -16,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pacify.CommonFunctions;
 import com.example.pacify.Constants;
 import com.example.pacify.MainActivity;
 import com.example.pacify.R;
@@ -43,66 +41,6 @@ public class SignUpActivity extends AppCompatActivity {
         openSignUpEmailFragment();
     }
 
-    public void openSignUpEmailFragment(){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_signUp, new SignUp_Email_Fragment())
-                .commit();
-    }
-
-    public void openSignUpPasswordFragment(){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_signUp, new SignUp_Password_Fragment())
-                .commit();
-    }
-
-    public void openSignUpDobFragment(){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_signUp, new SignUp_DoB_Fragment())
-                .commit();
-    }
-
-    public void openSignUpPhoneNumberFragment(){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_signUp, new SignUp_PhoneNumber_Fragment())
-                .commit();
-    }
-
-    public void openSignUpGenderFragment(){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_signUp, new SignUp_Gender_Fragment())
-                .commit();
-    }
-
-    public void openSignUpNameFragment(){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_signUp, new SignUp_Name_Fragment())
-                .commit();
-    }
-
-    public void backToMainMenu(){
-        Intent in = new Intent(SignUpActivity.this, MainActivity.class);
-        startActivity(in);
-    }
-
-    public void hideKeyboard(Activity activity) {
-        /**
-         * Source: https://stackoverflow.com/a/17789187/12963182
-         */
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(activity);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
 
     public void createAccount(){
         /**
@@ -151,5 +89,59 @@ public class SignUpActivity extends AppCompatActivity {
             }
         };
         queue.add(postRequest);
+    }
+
+    public void openSignUpEmailFragment(){
+        CommonFunctions.hideKeyboard(this);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_signUp, new SignUp_Email_Fragment())
+                .commit();
+    }
+
+    public void openSignUpPasswordFragment(){
+        CommonFunctions.hideKeyboard(this);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_signUp, new SignUp_Password_Fragment())
+                .commit();
+    }
+
+    public void openSignUpDobFragment(){
+        CommonFunctions.hideKeyboard(this);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_signUp, new SignUp_DoB_Fragment())
+                .commit();
+    }
+
+    public void openSignUpPhoneNumberFragment(){
+        CommonFunctions.hideKeyboard(this);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_signUp, new SignUp_PhoneNumber_Fragment())
+                .commit();
+    }
+
+    public void openSignUpGenderFragment(){
+        CommonFunctions.hideKeyboard(this);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_signUp, new SignUp_Gender_Fragment())
+                .commit();
+    }
+
+    public void openSignUpNameFragment(){
+        CommonFunctions.hideKeyboard(this);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_signUp, new SignUp_Name_Fragment())
+                .commit();
+    }
+
+    public void backToMainMenu(){
+        CommonFunctions.hideKeyboard(this);
+        Intent in = new Intent(SignUpActivity.this, MainActivity.class);
+        startActivity(in);
     }
 }

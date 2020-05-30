@@ -75,9 +75,7 @@ public class ChangeUserPassword  extends Fragment {
                 String new_password_again = NewPasswordAgain.getText().toString().trim();
 
                 ChangePassword.setEnabled(!old_password.isEmpty() &&
-                        !new_password.isEmpty() &&
                         !new_password_again.isEmpty() &&
-                        new_password.length() <= 16 &&
                         CheckPasswordPattern());
 
                 if(new_password.length() > 16) {
@@ -86,15 +84,14 @@ public class ChangeUserPassword  extends Fragment {
                     NewPassword.setError("You password should be 8 chars," +
                             " contain [a-z],[A-Z],[0-9]," +
                             " and no white spaces allowed");
+                }else{
+                    NewPasswordAgain.setError(null);
                 }
             }
-
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         return view;
@@ -104,13 +101,10 @@ public class ChangeUserPassword  extends Fragment {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String old_password = OldPassword.getText().toString();
-            String new_password = NewPassword.getText().toString();
             String new_password_again = NewPasswordAgain.getText().toString();
 
             ChangePassword.setEnabled(!old_password.isEmpty() &&
-                    !new_password.isEmpty() &&
                     !new_password_again.isEmpty() &&
-                    new_password.length() <= 16 &&
                     CheckPasswordPattern());
         }
         @Override

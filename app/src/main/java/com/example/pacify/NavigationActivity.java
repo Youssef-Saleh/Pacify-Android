@@ -370,7 +370,7 @@ public class NavigationActivity extends AppCompatActivity {
     /**
      * This function is called when this activity is created after a succesful log in
      * it also sets the volume bar that controls the app volume
-     * it sets the play/pause button to comunicate with the service through mBoundService
+     * it sets the play/pause button to communicate with the service through mBoundService
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -591,8 +591,10 @@ public class NavigationActivity extends AppCompatActivity {
             };
 
     public void GoBackFromSettings(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new LibraryFragment()).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new LibraryFragment())
+                .commit();
     }
 
     public void OpenSettingsFragment(){

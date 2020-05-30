@@ -50,7 +50,6 @@ public class SignUp_Name_Fragment extends Fragment {
             public void onClick(View v) {
                 ((SignUpActivity)getActivity()).signUp_name =
                         editTextName.getText().toString().trim();
-                ((SignUpActivity)getActivity()).hideKeyboard(getActivity());
                 ((SignUpActivity)getActivity()).createAccount();
                 ((SignUpActivity)getActivity()).backToMainMenu();
             }
