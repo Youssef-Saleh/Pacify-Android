@@ -15,7 +15,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pacify.CommonFunctions;
 import com.example.pacify.Constants;
+import com.example.pacify.LoginActivity;
 import com.example.pacify.MainActivity;
+import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 
 import java.util.HashMap;
@@ -32,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
     public String signUp_gender;
     public String signUp_name;
     public String signUp_phone_num;
+    public String VerCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class SignUpActivity extends AppCompatActivity {
          * It uses all its public values that was changed through out
          * the signing up process then send a POST request to the server
          */
+
+
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Constants.SIGNUP_URL;
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -138,10 +143,21 @@ public class SignUpActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container_signUp, new SignUp_Name_Fragment())
                 .commit();
     }
-
-    public void backToMainMenu(){
+ 
+    public void openSignUpVerificationFragment(){
+        VerCode = CommonFunctions.GenerateRandChars(6);
         CommonFunctions.hideKeyboard(this);
-        Intent in = new Intent(SignUpActivity.this, MainActivity.class);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_signUp, new SignUp_VerifyEmail_Fragment())
+                .commit();
+    }
+
+    public void logTheUserOn(){
+        //TODO(Adham): Log in the user request, check validity
+        CommonFunctions.hideKeyboard(this);
+        Intent in = new Intent(SignUpActivity.this, NavigationActivity.class);
         startActivity(in);
     }
+
 }

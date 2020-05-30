@@ -1,7 +1,4 @@
-package com.example.pacify.Forget_Password;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+package com.example.pacify.SignUp;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,9 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.example.pacify.Forget_Password.ForgetPasswordActivity;
 import com.example.pacify.R;
 
-public class ForgetPasswordStep2_Fragment extends Fragment {
+public class SignUp_VerifyEmail_Fragment extends Fragment {
 
     private String Vcode;
     private Button buttonConfirm;
@@ -26,13 +27,13 @@ public class ForgetPasswordStep2_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
             , @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_forget_password_step2, container, false);
+        View view =  inflater.inflate(R.layout.fragment_signup_verify_account, container, false);
 
-        buttonConfirm = view.findViewById(R.id.ForgetPass_step2_conf_button);
-        editTextVerCode = view.findViewById(R.id.ForgetPass_step2_v_code);
-        VcodeHint = view.findViewById(R.id.ForgetPass_step2_ver_code_hint);
+        buttonConfirm = view.findViewById(R.id.signup_verify_account_conf_button);
+        editTextVerCode = view.findViewById(R.id.signup_verify_account_v_code);
+        VcodeHint = view.findViewById(R.id.signup_verify_account_ver_code_hint);
 
-        Vcode = ((ForgetPasswordActivity)requireActivity()).VerCode;
+        Vcode = ((SignUpActivity)requireActivity()).VerCode;
 
         buttonConfirm.setEnabled(false);
         VcodeHint.setText("Hint: verification code is " + Vcode);
@@ -41,7 +42,8 @@ public class ForgetPasswordStep2_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(editTextVerCode.getText().toString().trim().equals(Vcode.trim())) {
-                    ((ForgetPasswordActivity)requireActivity()).openForgetPasswordStep3Fragment();
+                    ((SignUpActivity)requireActivity()).createAccount();
+                    ((SignUpActivity)requireActivity()).logTheUserOn();
                 }
                 else{
                     editTextVerCode.setTextColor(Color.RED);
