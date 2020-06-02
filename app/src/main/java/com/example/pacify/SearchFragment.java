@@ -37,6 +37,7 @@ public class SearchFragment extends Fragment {
     ImageButton btnArabic;
     ImageButton btnParty;
     ImageButton btnJazz;
+    String currentGenre;
     List<Song> mysongs = new ArrayList<>();
     private RequestQueue requestQueue;
     ListView songsListView;
@@ -61,11 +62,14 @@ public class SearchFragment extends Fragment {
                                 String id= playlistSong.getString("_id");
                                 String songName = playlistSong.getString("name");
                                 String songUrl = playlistSong.getString("url");
+                                String songGenre = playlistSong.getString("genre");
                                 int timesPlayed = playlistSong.getInt("timesPlayed");
                                 int numLikes = playlistSong.getInt("rateCount");
 
                                 Song thisSong= new Song(id,songName,songUrl, timesPlayed,numLikes);
-                                mysongs.add(thisSong);
+                                if(currentGenre.equals(songGenre)) {
+                                    mysongs.add(thisSong);
+                                }
                             }
                             showSongList();
                         }
@@ -104,6 +108,7 @@ public class SearchFragment extends Fragment {
      */
     public void popGenre(View view){
         theJsonParser(Constants.PLAYLIST_ID.POP);
+        currentGenre="Pop";
         ((NavigationActivity)getActivity()).songs=mysongs;
     }
 
@@ -112,15 +117,21 @@ public class SearchFragment extends Fragment {
      * @param view view that was clicked
      */
     public void electronicGenre(View view){
-        Toast.makeText(getActivity(), "Electronic: No Playlist To Show", Toast.LENGTH_SHORT).show();
+        theJsonParser(Constants.PLAYLIST_ID.POP);
+        currentGenre="Electronic";
+        ((NavigationActivity)getActivity()).songs=mysongs;
     }
 
     public void rockGenre(View view){
-        Toast.makeText(getActivity(), "Rock", Toast.LENGTH_SHORT).show();
+        theJsonParser(Constants.PLAYLIST_ID.POP);
+        currentGenre="Rock";
+        ((NavigationActivity)getActivity()).songs=mysongs;
     }
 
     public void hiphopGenre(View view){
-        Toast.makeText(getActivity(), "Hip Hop", Toast.LENGTH_SHORT).show();
+        theJsonParser(Constants.PLAYLIST_ID.POP);
+        currentGenre="HipHop";
+        ((NavigationActivity)getActivity()).songs=mysongs;
     }
 
     public void arabicGenre(View view){
