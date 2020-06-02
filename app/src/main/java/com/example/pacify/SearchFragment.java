@@ -32,11 +32,11 @@ import java.util.List;
 public class SearchFragment extends Fragment {
     ImageButton btnPop;
     ImageButton btnElectronic;
-    Button btnRock;
-    Button btnHipHop;
-    Button btnArabic;
-    Button btnParty;
-    Button btnCharts;
+    ImageButton btnRock;
+    ImageButton btnHipHop;
+    ImageButton btnArabic;
+    ImageButton btnParty;
+    ImageButton btnJazz;
     List<Song> mysongs = new ArrayList<>();
     private RequestQueue requestQueue;
     ListView songsListView;
@@ -132,7 +132,7 @@ public class SearchFragment extends Fragment {
     }
 
     public void chartsGenre(View view){
-        Toast.makeText(getActivity(), "Charts", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Jazz", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -189,8 +189,8 @@ public class SearchFragment extends Fragment {
                 partyGenre(v);
             }
         });
-        btnCharts=v.findViewById(R.id.btnCharts);
-        btnCharts.setOnClickListener(new View.OnClickListener() {
+        btnJazz=v.findViewById(R.id.btnJazz);
+        btnJazz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chartsGenre(v);

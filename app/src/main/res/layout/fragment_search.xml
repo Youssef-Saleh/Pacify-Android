@@ -13,18 +13,15 @@
         android:clickable="false"
         tools:context=".SearchActivity">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnHipHop"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="40sp"
-            android:background="@drawable/search_view_rounded"
-            android:backgroundTint="#63B353"
-            android:text="Hip-Hop"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="sans"
+            android:background="@drawable/round_buttons"
+            android:backgroundTint="#FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/hiphop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.95"
@@ -32,18 +29,15 @@
             app:layout_constraintTop_toBottomOf="@+id/btnElectronic"
             app:layout_constraintWidth_percent="0.44" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnParty"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="40sp"
-            android:background="@drawable/search_view_rounded"
-            android:backgroundTint="#C84E79E2"
-            android:text="Party"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="sans"
+            android:background="@drawable/round_buttons"
+            android:backgroundTint="#FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/party"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.95"
@@ -51,18 +45,15 @@
             app:layout_constraintTop_toBottomOf="@+id/textBrowseAll"
             app:layout_constraintWidth_percent="0.44" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnArabic"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="40sp"
-            android:background="@drawable/search_view_rounded"
-            android:backgroundTint="#80D8FF"
-            android:text="Arabic"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="sans"
+            android:background="@drawable/round_buttons"
+            android:backgroundTint="#FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/arabic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.05"
@@ -70,18 +61,15 @@
             app:layout_constraintTop_toBottomOf="@+id/textBrowseAll"
             app:layout_constraintWidth_percent="0.44" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnRock"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="40sp"
-            android:background="@drawable/search_view_rounded"
-            android:backgroundTint="#DD2323"
-            android:text="Rock"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="sans"
+            android:background="@drawable/round_buttons"
+            android:backgroundTint="#FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/rock"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.05"
@@ -149,18 +137,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btnCharts"
+        <ImageButton
+            android:id="@+id/btnJazz"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="40sp"
-            android:background="@drawable/search_view_rounded"
-            android:backgroundTint="#1E9760"
-            android:text="Charts"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="sans"
+            android:background="@drawable/round_buttons"
+            android:backgroundTint="#FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/jazz"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.10"
             app:layout_constraintHorizontal_bias="0.05"
@@ -205,7 +190,7 @@
             android:layout_marginTop="80dp"
             android:text=" "
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCharts" />
+            app:layout_constraintTop_toBottomOf="@+id/btnJazz" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

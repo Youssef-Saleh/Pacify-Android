@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -49,7 +50,9 @@ public class SongListAdapter extends BaseAdapter {
         }
 
         TextView title=(TextView) v.findViewById(R.id.songListViewText);
+        ImageView pic=(ImageView) v.findViewById(R.id.songListViewImage);
         Song song= songs.get(position);
+        pic.setImageResource(R.drawable.dualipa);
         title.setText(song.getTitle());
         return v;
     }
