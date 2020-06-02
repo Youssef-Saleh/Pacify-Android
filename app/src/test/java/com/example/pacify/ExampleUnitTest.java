@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 
+
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
@@ -27,11 +28,11 @@ public class ExampleUnitTest {
         Boolean shuffle = navigationActivity.shuffleSong;
 
         if (shuffle == false){
-            navigationActivity.isOnShuffle();
+            //navigationActivity.isOnShuffle();
             assertEquals(true,navigationActivity.shuffleSong);
         }
         else {
-            navigationActivity.isOnShuffle();
+            //navigationActivity.isOnShuffle();
             assertEquals(false,navigationActivity.shuffleSong);
         }
     }

@@ -75,22 +75,23 @@ public class ChangeUserPassword  extends Fragment {
                 String new_password_again = NewPasswordAgain.getText().toString().trim();
 
                 ChangePassword.setEnabled(!old_password.isEmpty() &&
-                        !new_password.isEmpty() &&
                         !new_password_again.isEmpty() &&
                         CheckPasswordPattern());
-            }
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(!CheckPasswordPattern()){
+                if(new_password.length() > 16) {
+                    NewPassword.setError("Password is too long (max.16)");
+                }else if(!CheckPasswordPattern()){
                     NewPassword.setError("You password should be 8 chars," +
-                                         " contain [a-z],[A-Z],[0-9]," +
-                                         " and no white spaces allowed");
+                            " contain [a-z],[A-Z],[0-9]," +
+                            " and no white spaces allowed");
+                }else{
+                    NewPasswordAgain.setError(null);
                 }
             }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
         });
 
         return view;
@@ -100,11 +101,9 @@ public class ChangeUserPassword  extends Fragment {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String old_password = OldPassword.getText().toString();
-            String new_password = NewPassword.getText().toString();
             String new_password_again = NewPasswordAgain.getText().toString();
 
             ChangePassword.setEnabled(!old_password.isEmpty() &&
-                    !new_password.isEmpty() &&
                     !new_password_again.isEmpty() &&
                     CheckPasswordPattern());
         }
