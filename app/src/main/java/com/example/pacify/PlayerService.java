@@ -27,13 +27,21 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * @author Abdulrahman Hammouda
+ * @version 2
+ * PlayerService class that extends Service
+ * It handles everything about foreground service, player notification, media player, audio interruptions and audio focus.
+ */
 public class PlayerService extends Service {
     Boolean isFinished= false;
     String songName = "";
     MediaPlayer mediaPlayer=new MediaPlayer();
     private final IBinder mBinder = new MyBinder();
 
-
+    /**
+     * This is the MyBinder class that is used to communicate with navigation activity
+     */
     public class MyBinder extends Binder{
         PlayerService getService(){
             return PlayerService.this;
@@ -43,7 +51,12 @@ public class PlayerService extends Service {
     public PlayerService() {
     }
 
-
+    /**
+     * This onStart command is fired whenever the service is started
+     * @param flags if there's any flags, but in our case we don't use them
+     * @param intent the intent that carries the message and info about the action , url for example.
+     * @param startId  we don't use it aswell in our case
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getStringExtra("url") != null)
@@ -75,6 +88,11 @@ public class PlayerService extends Service {
         return START_NOT_STICKY;
 
     }
+    /**
+     * This onDestroy command is fired whenever the user closes the app, logs out.
+     * It kills the service and remove the notification
+     *
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -83,6 +101,9 @@ public class PlayerService extends Service {
         endService.setAction(Constants.ACTION.STOPFOREGROUND_ACTION);
 
     }
+    /**
+     * This is where we send that broadcast that carries information about song current location and max duration to update the seekBar
+     */
     public   void sendPlayerStatus (){
         try {
             if (mediaPlayer!=null && mediaPlayer.isPlaying()) {
@@ -100,6 +121,9 @@ public class PlayerService extends Service {
         }
 
     }
+    /**
+     * This is where we send that broadcast that carries information when the song is finished
+     */
     public void sendIsFinished () {
 
             Intent songStatus = new Intent("isFinished");
@@ -107,17 +131,25 @@ public class PlayerService extends Service {
             LocalBroadcastManager.getInstance(this).sendBroadcast(songStatus);
 
     }
+    /**
+     * This is where we send that broadcast that carries information that the user pressed prev button on the notification
+     */
     public void sendPrev (){
         Intent prevIntent = new Intent("Prev");
         prevIntent.putExtra("Prev", true);
         LocalBroadcastManager.getInstance(this).sendBroadcast(prevIntent);
     }
+    /**
+     * This is where we send that broadcast that carries information that the service is created and now we can update the notification name.
+     */
     public void updateNotification(){
         Intent updateNotification = new Intent( "Update");
         updateNotification.putExtra("Update",true);
         LocalBroadcastManager.getInstance(this).sendBroadcast(updateNotification);
     }
-
+    /**
+     * This is the function that builds the notification for devices having higher android build versions
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startMyOwnForeground(){
         String NOTIFICATION_CHANNEL_ID = "com.example.pacify";
@@ -173,6 +205,9 @@ public class PlayerService extends Service {
                 .build();
         startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,notification);
     }
+    /**
+     * This is the function that builds the notification for devices having lower android build versions
+     */
     private void showNotification(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             startMyOwnForeground();
@@ -223,6 +258,11 @@ public class PlayerService extends Service {
     public IBinder onBind(Intent intent) {
        return mBinder ;
     }
+    /**
+     * This is the method that starts the media player
+     * @param url the url that's sent from navigation activity according to the chosen song
+     */
+
     public void playStream(String url){
         if (mediaPlayer != null){
             try {
@@ -242,6 +282,7 @@ public class PlayerService extends Service {
                 public void onPrepared(MediaPlayer mp) {
 
                     playPlayer();
+                    //mediaPlayer.start();
 
                 }
             });
@@ -264,6 +305,10 @@ public class PlayerService extends Service {
             e.printStackTrace();
         }
     }
+    /**
+     * This is the function that pauses the media player and calls the flipPlay/Pause button according to the state of media player.
+     * it also updates the notification
+     */
     public void pausePlayer(){
         try {
             mediaPlayer.pause();
@@ -274,6 +319,11 @@ public class PlayerService extends Service {
             Log.d("Info","Infooo");
         }
     }
+    /**
+     * This fucntion calls getAudioFoucusAndPlay function to get the audio focus of the device and start playing the music
+     * it also updates the notification
+     * @version 3
+     */
     public void playPlayer(){
         try {
             getAudioFoucusAndPlay();
@@ -287,12 +337,15 @@ public class PlayerService extends Service {
                 }
             },0,2);
 
-
-
         }catch (Exception e){
             Log.d("Info","Infooo");
         }
     }
+    /**
+     * This is the service version of flip function.
+     * it sends a broadcast to navigation activity to update the player bar.
+     * @param isPlaying states the state of the media player
+     */
     public void flipPlayPauseButton(boolean isPlaying){
         // code to commuinicate with navigation thread
         Intent intent = new Intent("changePlayButton");
@@ -301,6 +354,11 @@ public class PlayerService extends Service {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
     }
+    /**
+     *This funcion is called by navigation activity when the user chooses to loop the song or not.
+     * @param isLooping a booelen passed from the activity with the user's choice
+     */
+
     public void loopSong(boolean isLooping){
        try {
            if (mediaPlayer != null)
@@ -309,9 +367,15 @@ public class PlayerService extends Service {
            e.printStackTrace();
        }
     }
+    /**
+     *This funcion is called by navigation activity when the user seeks the seekbar to certain position so the music will play from that position.
+     */
     public void seekPlayer(int seekValue){
         mediaPlayer.seekTo(seekValue);
     }
+    /**
+     * This function toggels between play and pause and updates the notification accordingly.
+     */
     public void togglePlayer(){
         try {
             if (mediaPlayer.isPlaying())
@@ -322,6 +386,10 @@ public class PlayerService extends Service {
             Log.d("Infooo","infoe");
         }
     }
+    /**
+     *This function is called by the navigation activity when it receives that the service is started to update the notification with the song name.
+     * @param navName the song name.
+     */
     public void setSongName(String navName){
             songName = navName;
             showNotification();
@@ -329,7 +397,11 @@ public class PlayerService extends Service {
     // audio focus section
     private AudioManager am;
     private boolean playingBeforeInterruption = false;
-
+    /**
+     * This is the function that gets the audio focus of the device and starts the media player
+     * it also handles interruption like (phone calls, another music app is opened , etc...)
+     * This function is extremly important so avoid any strange behaviors from the app and any crashes.
+     */
     public void getAudioFoucusAndPlay (){
         am = (AudioManager) this.getBaseContext().getSystemService(Context.AUDIO_SERVICE);
         // request audio focus
@@ -363,6 +435,9 @@ public class PlayerService extends Service {
     };
 
     // audio rerouted
+    /**
+     * This function handels when the audio becomes noisy and when the user unplugs the headphones.
+     */
     private class NoisyAudioStreamReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {

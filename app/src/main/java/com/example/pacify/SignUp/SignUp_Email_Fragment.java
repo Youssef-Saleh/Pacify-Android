@@ -51,7 +51,6 @@ public class SignUp_Email_Fragment extends Fragment {
                 ((SignUpActivity)getActivity()).signUp_email = editTextEmail.getText()
                         .toString().trim();
 
-                ((SignUpActivity)getActivity()).hideKeyboard(getActivity());
                 ((SignUpActivity)getActivity()).openSignUpPasswordFragment();
             }
         });

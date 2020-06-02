@@ -3,7 +3,6 @@ package com.example.pacify.SignUp;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ public class SignUp_Password_Fragment extends Fragment {
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
     private Button buttonBack;
-    private EditText msgText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
@@ -35,61 +33,20 @@ public class SignUp_Password_Fragment extends Fragment {
         editTextPassword = view.findViewById(R.id.signUp_Password_editText);
         editTextConfirmPassword = view.findViewById(R.id.signUp_Password_confirm_editText);
         buttonBack = view.findViewById(R.id.signUp_password_Back_button);
-        msgText = view.findViewById(R.id.editText);
 
         buttonNext.setEnabled(false); //The button is initially disabled
 
-        editTextPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String new_password = editTextPassword.getText().toString().trim();
-                String new_password_again = editTextConfirmPassword.getText().toString().trim();
+        editTextPassword.addTextChangedListener(PasswordTextWatcher);
 
-                if(!CheckPasswordPattern()){
-                    editTextConfirmPassword.setError("You password should be 8 chars," +
-                            " contain [a-z],[A-Z],[0-9]," +
-                            " and no white spaces allowed");
-                }else{
-                    editTextConfirmPassword.setError(null);
-                }
-
-                buttonNext.setEnabled(!new_password.isEmpty() &&
-                        !new_password_again.isEmpty() &&
-                        CheckPasswordPattern());
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
-        editTextConfirmPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String new_password = editTextPassword.getText().toString();
-                String new_password_again = editTextConfirmPassword.getText().toString();
-
-                buttonNext.setEnabled(!new_password.isEmpty() &&
-                                      !new_password_again.isEmpty() &&
-                                      CheckPasswordPattern());
-            }
-            @Override
-            public void afterTextChanged(Editable s) {}
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        });
+        editTextConfirmPassword.addTextChangedListener(PasswordTextWatcher);
 
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(CheckPasswordMatch()) {
-                    ((SignUpActivity)getActivity()).signUp_password =
+                    ((SignUpActivity)requireActivity()).signUp_password =
                             editTextPassword.getText().toString();
-                    ((SignUpActivity)getActivity()).hideKeyboard(getActivity());
-                    ((SignUpActivity)getActivity()).openSignUpDobFragment();
+                    ((SignUpActivity)requireActivity()).openSignUpDobFragment();
                 }else {
                     Toast.makeText(getActivity(), "Passwords do not match."
                             , Toast.LENGTH_SHORT).show();
@@ -100,12 +57,41 @@ public class SignUp_Password_Fragment extends Fragment {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    ((SignUpActivity)getActivity()).openSignUpEmailFragment();
+                    ((SignUpActivity)requireActivity()).openSignUpEmailFragment();
             }
         });
 
         return view;
     }
+
+    private TextWatcher PasswordTextWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) { }
+        @Override
+        public void afterTextChanged(Editable s) {
+            String new_password = editTextPassword.getText().toString();
+            String new_password_again = editTextConfirmPassword.getText().toString();
+
+            if(new_password.length() > 16) {
+                editTextConfirmPassword.setError("Password is too long (max.16)");
+            }else if(!CheckPasswordPattern()){
+                editTextConfirmPassword.setError("You password should be 8 chars," +
+                        " contain [a-z],[A-Z],[0-9]," +
+                        " and no white spaces allowed");
+            }else{
+                editTextConfirmPassword.setError(null);
+            }
+
+            buttonNext.setEnabled(!new_password.isEmpty() &&
+                    !new_password_again.isEmpty() &&
+                    new_password.length() <= 16 &&
+                    CheckPasswordPattern());
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+    };
 
     private boolean CheckPasswordPattern(){
         return Constants.PASSWORD_PATTERN.matcher(editTextPassword

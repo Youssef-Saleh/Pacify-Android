@@ -55,7 +55,6 @@ public class SignUp_PhoneNumber_Fragment extends Fragment {
             public void onClick(View v) {
                 ((SignUpActivity)getActivity()).signUp_phone_num = editTextPhone.getText()
                         .toString().trim();
-                ((SignUpActivity)getActivity()).hideKeyboard(getActivity());
                 ((SignUpActivity)getActivity()).openSignUpGenderFragment();
             }
         });
