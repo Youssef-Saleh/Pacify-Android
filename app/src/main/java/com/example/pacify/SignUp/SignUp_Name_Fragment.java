@@ -48,18 +48,16 @@ public class SignUp_Name_Fragment extends Fragment {
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).signUp_name =
+                ((SignUpActivity)requireActivity()).signUp_name =
                         editTextName.getText().toString().trim();
-                ((SignUpActivity)getActivity()).hideKeyboard(getActivity());
-                ((SignUpActivity)getActivity()).createAccount();
-                ((SignUpActivity)getActivity()).backToMainMenu();
+                ((SignUpActivity)requireActivity()).openSignUpVerificationFragment();
             }
         });
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).openSignUpGenderFragment();
+                ((SignUpActivity)requireActivity()).openSignUpGenderFragment();
             }
         });
 

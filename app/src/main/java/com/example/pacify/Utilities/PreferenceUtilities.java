@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+/**
+ * Saves and gets saved parameters, but it will be removed in
+ * the next version.
+ */
 public class PreferenceUtilities {
 
     public static void saveEmail(String email, Context context) {

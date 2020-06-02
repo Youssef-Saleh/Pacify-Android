@@ -21,6 +21,6 @@ public class Constants {
                     "(?=.*[A-Z])" +         //at least 1 upper case letter
                     //"(?=.*[a-zA-Z])" +      //any letter
                     "(?=\\S+$)" +           //no white spaces
-                    ".{8,}" +               //at least 8 characters
+                    ".{8,16}" +               //at least 8 characters
                     "$");
 }
