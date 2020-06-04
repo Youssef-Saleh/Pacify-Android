@@ -379,7 +379,7 @@
                         android:layout_weight="1"
                         android:background="@color/colorPrimary"
                         android:scaleType="fitXY"
-                        app:srcCompat="@drawable/dailymix2" />
+                        app:srcCompat="@drawable/dancemonkey" />
 
                     <ImageButton
                         android:id="@+id/imageButton22"
