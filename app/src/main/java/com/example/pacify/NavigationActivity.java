@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,9 @@ import com.example.pacify.Settings.Edit_profile.ChangeUserDoB;
 import com.example.pacify.Settings.Edit_profile.ChangeUserEmail;
 import com.example.pacify.Settings.Edit_profile.ChangeUserGender;
 import com.example.pacify.Settings.Edit_profile.ChangeUserPassword;
+import com.example.pacify.Settings.Go_Premium.GoPremiumStep1Fragment;
+import com.example.pacify.Settings.Go_Premium.GoPremiumStep2Fragment;
+import com.example.pacify.Settings.Go_Premium.GoPremiumStep3Fragment;
 import com.example.pacify.Settings.MySettingsFragment;
 import com.example.pacify.Utilities.PreferenceUtilities;
 import com.facebook.AccessToken;
@@ -597,12 +601,40 @@ public class NavigationActivity extends AppCompatActivity {
                 .commit();
     }
 
+    public void openGoPremiumStep1Fragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new GoPremiumStep1Fragment())
+                .commit();
+    }
+
+    public void openGoPremiumStep2Fragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new GoPremiumStep2Fragment())
+                .commit();
+    }
+
+    public void openGoPremiumStep3Fragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new GoPremiumStep3Fragment())
+                .commit();
+    }
+
     public void OpenSettingsFragment(){
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, new MySettingsFragment())
                 .commit();
     }
+
+    /*public void OpenStatisticsFragment(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new StatisticsFragment())
+                .commit();
+    }*/
 
     public void GoToEditProfile(){
         getSupportFragmentManager()
@@ -651,6 +683,17 @@ public class NavigationActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_container, new ChangeUserDoB())
                 .commit();
+    }
+
+    public void upgradeUserToPremium() {
+        //TODO(Adham): Upgrade user to premium request
+        com.example.pacify.Utilities.Constants.USER_TYPE = "premium";
+        Toast.makeText(getBaseContext(), "You Premium now\nEnjoy!"
+                , Toast.LENGTH_SHORT).show();
+    }
+
+    public void SendEmailRequest() {
+        //TODO(Adham): Send email with verification code request
     }
 
     public boolean ConfirmEmailChange(String newEmail){
@@ -781,4 +824,5 @@ public class NavigationActivity extends AppCompatActivity {
     public void onBackPressed() {
 
     }
+
 }

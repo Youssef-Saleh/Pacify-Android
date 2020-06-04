@@ -9,6 +9,10 @@
 
     <PreferenceCategory>
         <Preference
+            android:key="go_premium"
+            android:title="GO PREMIUM"/>
+
+        <Preference
             android:key="edit_profile"
             android:title="Edit profile"
             android:icon="@drawable/ic_person_black_24dp"/>

@@ -25,5 +25,7 @@
     <string name="signup_next_btn">NEXT</string>
     <string name="forgetpassword_email_hint">We\'ll send a link to your email to recover your password.</string>
     <string name="forgetpassord_button">GET LINK</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

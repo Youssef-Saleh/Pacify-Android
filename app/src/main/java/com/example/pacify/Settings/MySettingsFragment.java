@@ -11,6 +11,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
+import com.example.pacify.Utilities.Constants;
 import com.facebook.AccessToken;
 
 public class MySettingsFragment extends PreferenceFragmentCompat {
@@ -29,18 +30,27 @@ public class MySettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.preference_settings, rootKey);
 
 
-        Preference GoBack = findPreference("go_back");
-        GoBack.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Preference goBack = findPreference("go_back");
+        goBack.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                ((NavigationActivity)getActivity()).GoBackFromSettings();
+                ((NavigationActivity)requireActivity()).GoBackFromSettings();
                 return true;
             }
         });
 
-        Preference EditAccountPreference = findPreference("edit_profile");
-        EditAccountPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Preference goPremium = findPreference("go_premium");
+        goPremium.setVisible(Constants.USER_TYPE.equals("free"));
+        goPremium.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                ((NavigationActivity)getActivity()).GoToEditProfile();
+                ((NavigationActivity)requireActivity()).openGoPremiumStep1Fragment();
+                return true;
+            }
+        });
+
+        Preference editAccountPreference = findPreference("edit_profile");
+        editAccountPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                ((NavigationActivity)requireActivity()).GoToEditProfile();
                 return true;
             }
         });
@@ -49,14 +59,14 @@ public class MySettingsFragment extends PreferenceFragmentCompat {
         accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null) {
             logoutPreference.setSummary("You are logged by Facebook\n"
-                    + "As " + ((NavigationActivity)getActivity()).UserName);
+                    + "As " + ((NavigationActivity)requireActivity()).UserName);
         }else{
             logoutPreference.setSummary("You are logged in as "
-                    + ((NavigationActivity)getActivity()).UserName);
+                    + ((NavigationActivity)requireActivity()).UserName);
         }
         logoutPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                ((NavigationActivity)getActivity()).LogOut();
+                ((NavigationActivity)requireActivity()).LogOut();
                 return true;
             }
         });

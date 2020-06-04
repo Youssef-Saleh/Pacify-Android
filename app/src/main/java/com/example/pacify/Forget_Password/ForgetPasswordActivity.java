@@ -64,4 +64,5 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container_forgetPassword, new ForgetPasswordStep3_Fragment())
                 .commit();
     }
+
 }
