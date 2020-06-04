@@ -34,6 +34,14 @@ public class GoPremiumStep3Fragment extends Fragment {
         buttonConfirm = view.findViewById(R.id.go_premium_step3_conf_button);
         editTextVerCode = view.findViewById(R.id.go_premium_step3_v_code);
         VcodeHint = view.findViewById(R.id.go_premium_step3_ver_code_hint);
+        Button backArrow = view.findViewById(R.id.go_premium_step3_go_back_button);
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
+            }
+        });
 
         Vcode = GoPremiumStep2Fragment.VCode;
 

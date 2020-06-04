@@ -32,6 +32,14 @@ public class GoPremiumStep2Fragment extends Fragment {
 
         buttonGetCode = view.findViewById(R.id.go_premium_step2_get_code_button);
         editTextEmail = view.findViewById(R.id.go_premium_step2_email_text);
+        Button backArrow = view.findViewById(R.id.go_premium_step2_go_back_button);
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
+            }
+        });
 
         buttonGetCode.setEnabled(false);
 

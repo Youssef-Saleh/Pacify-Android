@@ -15,18 +15,25 @@ import com.example.pacify.R;
 
 public class GoPremiumStep1Fragment extends Fragment {
 
-    private Button getPremButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_go_premium_step1, container, false);
 
-        getPremButton = view.findViewById(R.id.go_premium_step1_button);
+        Button getPremiumButton = view.findViewById(R.id.go_premium_step1_button);
+        Button backArrow = view.findViewById(R.id.go_premium_step1_go_back_button);
 
-        getPremButton.setOnClickListener(new View.OnClickListener() {
+        getPremiumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((NavigationActivity)requireActivity()).openGoPremiumStep2Fragment();
+            }
+        });
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
             }
         });
 

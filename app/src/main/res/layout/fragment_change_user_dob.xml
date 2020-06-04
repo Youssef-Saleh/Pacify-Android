@@ -7,18 +7,34 @@
     android:layout_height="match_parent"
     android:background="@color/loginMainMenu">
 
+    <Button
+        android:id="@+id/edit_dob_go_back_button"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/ic_baseline_arrow_back_12"
+        android:letterSpacing="0.1"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="What's your date of \nbirth?"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_dob_go_back_button" />
 
     <DatePicker
         android:id="@+id/datePicker"
@@ -52,22 +68,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datePicker" />
 
-    <Button
-        android:id="@+id/edit_dob_go_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:background="@drawable/grayframeondark_rountbutton"
-        android:letterSpacing="0.1"
-        android:paddingLeft="10sp"
-        android:paddingRight="10sp"
-        android:text="I changed my mind"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Dob_confirm_button" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

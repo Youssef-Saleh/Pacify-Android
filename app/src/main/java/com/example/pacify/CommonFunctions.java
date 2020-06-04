@@ -10,6 +10,8 @@ public class CommonFunctions {
 
     public static void hideKeyboard(Activity activity) {
         /**
+         * Hides the keyboard
+         * @param activity is the activity where the keyboard is shown
          * Source: https://stackoverflow.com/a/17789187/12963182
          */
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -23,6 +25,10 @@ public class CommonFunctions {
     }
 
     public static String GenerateRandChars(int size){
+        /**
+         * Generates a random string from 'allChars' String
+         * @param size define the number of characters of the random string
+         */
         String allChars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         StringBuilder rString = new StringBuilder();

@@ -6,18 +6,34 @@
     android:layout_height="match_parent"
     android:background="@color/loginMainMenu">
 
+    <Button
+        android:id="@+id/edit_phone_number_go_back_button"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/ic_baseline_wight_arrow_back_18"
+        android:letterSpacing="0.1"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Enter your\n Phone number"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_phone_number_go_back_button" />
 
     <EditText
         android:id="@+id/edit_phone_number_text"
@@ -55,24 +71,5 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_phone_number_text" />
-
-    <Button
-        android:id="@+id/edit_phone_number_go_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/grayframeondark_rountbutton"
-        android:letterSpacing="0.1"
-        android:paddingLeft="10sp"
-        android:paddingRight="10sp"
-        android:text="I changed my mind"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_phone_number_confirm_button" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

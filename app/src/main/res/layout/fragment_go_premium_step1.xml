@@ -8,6 +8,22 @@
     tools:context=".Settings.Go_Premium.GoPremiumStep1Fragment"
     android:background="@color/loginMainMenu">
 
+    <Button
+        android:id="@+id/go_premium_step1_go_back_button"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/ic_baseline_wight_arrow_back_18"
+        android:letterSpacing="0.1"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
