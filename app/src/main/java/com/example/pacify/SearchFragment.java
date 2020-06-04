@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,6 +40,7 @@ public class SearchFragment extends Fragment {
     ImageButton btnArabic;
     ImageButton btnParty;
     ImageButton btnJazz;
+    SearchView searchBar;
     String currentGenre;
     List<Song> mysongs = new ArrayList<>();
     private RequestQueue requestQueue;
@@ -91,13 +95,13 @@ public class SearchFragment extends Fragment {
     /**
      * creates a new SongList fragment and replaces the current fragment inside the navigation view
      * to the new one.
-     * It shows the list of the songs after getting the songs from JSON file
+     * Shows the list of the songs after getting the songs from JSON file
      */
     public void showSongList(){
 
         Fragment fragment= new SongList();
         getFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                fragment).commit();
+                fragment).addToBackStack(null).commit();
     }
 
     /**
@@ -165,6 +169,21 @@ public class SearchFragment extends Fragment {
 
             }
         });
+        searchBar=v.findViewById(R.id.searchView);
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                theJsonParser("https://pacify.free.beeceptor.com/search/"+query);
+                currentGenre="Pop";
+                ((NavigationActivity)getActivity()).songs=mysongs;
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+            });
         btnElectronic=v.findViewById(R.id.btnElectronic);
         btnElectronic.setOnClickListener(new View.OnClickListener() {
             @Override
