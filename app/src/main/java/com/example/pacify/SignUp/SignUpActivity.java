@@ -15,8 +15,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pacify.CommonFunctions;
 import com.example.pacify.Constants;
-import com.example.pacify.LoginActivity;
-import com.example.pacify.MainActivity;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 

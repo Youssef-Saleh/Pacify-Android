@@ -12,6 +12,8 @@ public class Constants {
     public static String FACEBOOK_NAME = "";
     public static String FACEBOOK_PP = "";
 
+    public static String USER_TYPE = "free";
+
 
 
     public static final Pattern PASSWORD_PATTERN =

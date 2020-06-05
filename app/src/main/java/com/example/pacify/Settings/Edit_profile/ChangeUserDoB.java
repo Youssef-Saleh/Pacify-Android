@@ -35,7 +35,7 @@ public class ChangeUserDoB extends Fragment {
         ConfirmDoB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(((NavigationActivity)getActivity()).ConfirmDobChange(MyDoB.getYear()
+                if(((NavigationActivity)requireActivity()).ConfirmDobChange(MyDoB.getYear()
                         ,MyDoB.getMonth() + 1, MyDoB.getDayOfMonth())){
                     Toast.makeText(getActivity(), "Date of birth is changed successfully,", Toast.LENGTH_LONG).show();
                     GoBack.setText("Done");
@@ -48,7 +48,7 @@ public class ChangeUserDoB extends Fragment {
         GoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((NavigationActivity)getActivity()).OpenSettingsFragment();
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
             }
         });
 

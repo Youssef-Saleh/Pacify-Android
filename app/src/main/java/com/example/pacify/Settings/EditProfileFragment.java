@@ -27,7 +27,7 @@ public class EditProfileFragment extends PreferenceFragmentCompat {
         Preference GoBackToSettings = findPreference("go_back_to_settings");
         GoBackToSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                ((NavigationActivity)getActivity()).OpenSettingsFragment();
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
                 return true;
             }
         });
@@ -35,7 +35,7 @@ public class EditProfileFragment extends PreferenceFragmentCompat {
         Preference ChangeEmail = findPreference("edit_email");
         ChangeEmail.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                ((NavigationActivity)getActivity()).GoToEditEmail();
+                ((NavigationActivity)requireActivity()).GoToEditEmail();
                 return true;
             }
         });
@@ -43,7 +43,7 @@ public class EditProfileFragment extends PreferenceFragmentCompat {
         Preference ChangePassword = findPreference("edit_password");
         ChangePassword.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                ((NavigationActivity)getActivity()).GoToEditPassword();
+                ((NavigationActivity)requireActivity()).GoToEditPassword();
                 return true;
             }
         });
@@ -51,7 +51,7 @@ public class EditProfileFragment extends PreferenceFragmentCompat {
         Preference EditPhoneNumber = findPreference("edit_phone");
         EditPhoneNumber.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                ((NavigationActivity)getActivity()).GoToEditPhoneNumber();
+                ((NavigationActivity)requireActivity()).GoToEditPhoneNumber();
                 return true;
             }
         });
@@ -59,7 +59,7 @@ public class EditProfileFragment extends PreferenceFragmentCompat {
         Preference EditCounty = findPreference("edit_country");
         EditCounty.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                ((NavigationActivity)getActivity()).GoToEditCounty();
+                ((NavigationActivity)requireActivity()).GoToEditCounty();
                 return true;
             }
         });
@@ -67,7 +67,7 @@ public class EditProfileFragment extends PreferenceFragmentCompat {
         Preference EditGender = findPreference("edit_gender");
         EditGender.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                ((NavigationActivity)getActivity()).GoToEditGender();
+                ((NavigationActivity)requireActivity()).GoToEditGender();
                 return true;
             }
         });
@@ -75,7 +75,7 @@ public class EditProfileFragment extends PreferenceFragmentCompat {
         Preference EditDoB = findPreference("edit_dob");
         EditDoB.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                ((NavigationActivity)getActivity()).GoToEditDoB();
+                ((NavigationActivity)requireActivity()).GoToEditDoB();
                 return true;
             }
         });
