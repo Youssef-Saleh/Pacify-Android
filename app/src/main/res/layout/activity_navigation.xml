@@ -116,7 +116,8 @@
                 android:layout_height="62dp"
                 android:layout_gravity="bottom|right"
                 android:layout_marginBottom="100dp"
-                android:progressDrawable="@drawable/green_roundbutton" />
+                android:progress="@integer/google_play_services_version"
+                android:progressTint="@color/common_google_signin_btn_text_dark_pressed" />
 
             <SeekBar
                 android:id="@+id/seekBar"
@@ -124,8 +125,9 @@
                 android:layout_height="62dp"
                 android:layout_gravity="bottom|left"
                 android:layout_marginBottom="100dp"
-                android:backgroundTint="@color/signUp_color"
-                android:progressDrawable="@drawable/green_roundbutton" />
+                android:backgroundTint="@color/common_google_signin_btn_text_dark_pressed"
+                android:progress="@integer/google_play_services_version"
+                android:progressTint="@color/common_google_signin_btn_text_dark_pressed" />
 
             <TextView
                 android:id="@+id/bigSongName"
@@ -144,7 +146,7 @@
                 android:layout_height="311dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="150dp"
-                app:srcCompat="@drawable/bigmusicimage" />
+                app:srcCompat="@drawable/dancemonkey" />
 
         </com.google.android.material.navigation.NavigationView>
 
@@ -185,7 +187,7 @@
                 android:backgroundTint="@color/loginMainMenu"
                 android:clickable="true"
                 android:onClick="likeButton"
-                app:backgroundTint="@color/loginMainMenu"
+                app:backgroundTint="@color/colorPrimary"
                 app:srcCompat="@drawable/nolikeheart" />
 
             <ImageButton

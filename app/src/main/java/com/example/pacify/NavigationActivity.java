@@ -67,6 +67,7 @@ public class NavigationActivity extends AppCompatActivity {
         startStreamingService(songAdress);
 
     }
+
     /**
      * This method is called whenever the user presses the next button on the player , the songs finishes to play the next in the Queue,or next on notification.
      * It increments the song index and make sure it doesn't exeed the size oh the song list
