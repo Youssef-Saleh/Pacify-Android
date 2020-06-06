@@ -121,6 +121,7 @@
             android:background="@drawable/search_view_rounded"
             android:iconifiedByDefault="false"
             android:maxWidth="10000dp"
+            android:queryHint="Search For Songs"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 

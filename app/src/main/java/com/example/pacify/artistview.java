@@ -53,8 +53,13 @@ ImageView artistpic;
             artistpic.setImageResource(R.drawable.emspotify);
         }
         artistname.setText(name);
-
-        songs=((NavigationActivity)getActivity()).songs;
+        /**
+         * Play All button, calls playAll function in NavigationActivity
+         * @params view the view where the button is
+         * @params songs list of songs to play
+         *
+         */
+        songs=((NavigationActivity)getActivity()).songsToShow;
         SongListAdapter adapter = new SongListAdapter(this,songs);
         songListView.setAdapter(adapter);
 
@@ -65,10 +70,21 @@ ImageView artistpic;
                 Song song=songs.get(position);
                 String songAdress=song.getUrl();
                 String songName = song.getTitle();
-                ((NavigationActivity)getActivity()).currentSongIndex=position;
-                ((NavigationActivity)getActivity()).songs=songs;
-                ((NavigationActivity)getActivity()).startStreamingService(songAdress);
-                // ((NavigationActivity)getActivity()).setSongNameNav(songName);
+                if (song.inQueue){
+                    currentIndex=song.numberInQueue;
+                    ((NavigationActivity) getActivity()).startStreamingService(songAdress);
+
+                }
+                else {
+                    if (((NavigationActivity) getActivity()).songQueue.size() > 0) {
+                        ((NavigationActivity) getActivity()).currentSongIndex = ((NavigationActivity) getActivity()).songQueue.size() - 1;
+                        song.numberInQueue = currentIndex;
+                    }
+                    ((NavigationActivity) getActivity()).songQueue.add(song);
+                    song.inQueue = true;
+                    ((NavigationActivity) getActivity()).startStreamingService(songAdress);
+                    // ((NavigationActivity)getActivity()).setSongNameNav(songName);
+                }
             }
         });
         return v;

@@ -24,7 +24,9 @@ public class SongList extends Fragment {
     List<Song> songs=new ArrayList<>();
     int currentIndex=0;
 
-
+    public SongList(List<Song> songList){
+        songs=songList;
+    }
     public List<Song> getSongList(){
         return songs;
     }
@@ -69,7 +71,7 @@ public class SongList extends Fragment {
          * sets this class's song list to the one in navigation activity, then sets the adapter
          * to the list view that shows the songs in the list
          */
-        songs=((NavigationActivity)getActivity()).songs;
+
         SongListAdapter adapter = new SongListAdapter(this,songs);
         songListView.setAdapter(adapter);
 
@@ -80,12 +82,23 @@ public class SongList extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Song song=songs.get(position);
-                String songAdress=song.getUrl();
+                String songAdress = song.getUrl();
                 String songName = song.getTitle();
-                ((NavigationActivity)getActivity()).currentSongIndex=position;
-                ((NavigationActivity)getActivity()).songs=songs;
-                ((NavigationActivity)getActivity()).startStreamingService(songAdress);
-               // ((NavigationActivity)getActivity()).setSongNameNav(songName);
+                if (song.inQueue){
+                    currentIndex=song.numberInQueue;
+                    ((NavigationActivity) getActivity()).startStreamingService(songAdress);
+
+                }
+                else {
+                    if (((NavigationActivity) getActivity()).songQueue.size() > 0) {
+                        ((NavigationActivity) getActivity()).currentSongIndex =((NavigationActivity) getActivity()).songQueue.size() - 1;
+                        song.numberInQueue=currentIndex;
+                    }
+                    ((NavigationActivity) getActivity()).songQueue.add(song);
+                    song.inQueue=true;
+                    ((NavigationActivity) getActivity()).startStreamingService(songAdress);
+                    // ((NavigationActivity)getActivity()).setSongNameNav(songName);
+                }
             }
         });
         return v;

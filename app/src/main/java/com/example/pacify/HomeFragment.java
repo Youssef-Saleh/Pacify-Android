@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
     ImageButton adele;
     List<Song> mysongs = new ArrayList<>();
     private RequestQueue requestQueue;
+    String currentGenre;
     ListView songsListView;
     @SuppressLint("ResourceType")
 
@@ -49,7 +50,8 @@ public class HomeFragment extends Fragment {
     }
     public void popGenre(View view){
         theJsonParser(Constants.PLAYLIST_ID.POP);
-        ((NavigationActivity)getActivity()).songs=mysongs;
+        currentGenre="Pop";
+        ((NavigationActivity)getActivity()).songsToShow=mysongs;
     }
     private void theJsonParser(String url){
         //String url="https://cat-fact.herokuapp.com/facts/random";
@@ -66,11 +68,14 @@ public class HomeFragment extends Fragment {
                                 String id= playlistSong.getString("_id");
                                 String songName = playlistSong.getString("name");
                                 String songUrl = playlistSong.getString("url");
+                                String songGenre = playlistSong.getString("genre");
                                 int timesPlayed = playlistSong.getInt("timesPlayed");
                                 int numLikes = playlistSong.getInt("rateCount");
 
                                 Song thisSong= new Song(id,songName,songUrl, timesPlayed,numLikes);
-                                mysongs.add(thisSong);
+                                if(currentGenre.equals(songGenre)) {
+                                    mysongs.add(thisSong);
+                                }
                             }
                             showSongList();
                         }
