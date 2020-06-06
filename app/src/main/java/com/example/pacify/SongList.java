@@ -84,7 +84,9 @@ public class SongList extends Fragment {
                 Song song=songs.get(position);
                 String songAdress=song.getUrl();
                 String songName = song.getTitle();
-                ((NavigationActivity)getActivity()).currentSongIndex=position;
+                if(((NavigationActivity)getActivity()).songQueue.size()>0){
+                ((NavigationActivity)getActivity()).currentSongIndex+=1;
+                }
                 ((NavigationActivity)getActivity()).songQueue.add(songs.get(position));
                 ((NavigationActivity)getActivity()).startStreamingService(songAdress);
                // ((NavigationActivity)getActivity()).setSongNameNav(songName);
