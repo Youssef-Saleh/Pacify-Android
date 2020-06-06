@@ -393,7 +393,7 @@ public class NavigationActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         SeekBar scrubber = (SeekBar) findViewById(R.id.seekBar);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new HomeFragment()).commit();
+                new LibraryFragment()).commit();
         playPauseButton= (ImageButton) findViewById(R.id.playPauseBarButton);
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -510,7 +510,7 @@ public class NavigationActivity extends AppCompatActivity {
         super.onStart();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, new HomeFragment())
+                .replace(R.id.fragment_container, new LibraryFragment())
                 .commit();
     }
 
@@ -629,12 +629,12 @@ public class NavigationActivity extends AppCompatActivity {
                 .commit();
     }
 
-    /*public void OpenStatisticsFragment(){
+    public void OpenStatisticsFragment(){
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, new StatisticsFragment())
                 .commit();
-    }*/
+    }
 
     public void GoToEditProfile(){
         getSupportFragmentManager()
@@ -734,7 +734,7 @@ public class NavigationActivity extends AppCompatActivity {
         toChange = "birthdate";
 
         DecimalFormat df = new DecimalFormat("##");
-        changedObject = year + "-" + df.format(month) + "-" + day + "T00:00.000Z" ;
+        changedObject = year + "-" + df.format(month) + "-" + day;
 
         return ApplyChange();
     }

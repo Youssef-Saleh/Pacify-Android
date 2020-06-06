@@ -13,17 +13,27 @@ import androidx.fragment.app.Fragment;
 public class LibraryFragment extends Fragment {
 
     private Button logOut;
+    private Button showStats;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
             , @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_library, container, false);
 
         logOut = view.findViewById(R.id.logout_button);
+        showStats = view.findViewById(R.id.statistics_button);
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((NavigationActivity)getActivity()).OpenSettingsFragment();
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
+            }
+        });
+
+        showStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((NavigationActivity)requireActivity()).OpenStatisticsFragment();
             }
         });
 

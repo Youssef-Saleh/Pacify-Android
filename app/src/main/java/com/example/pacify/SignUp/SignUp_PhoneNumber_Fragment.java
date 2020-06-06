@@ -53,16 +53,16 @@ public class SignUp_PhoneNumber_Fragment extends Fragment {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).signUp_phone_num = editTextPhone.getText()
+                ((SignUpActivity)requireActivity()).signUp_phone_num = editTextPhone.getText()
                         .toString().trim();
-                ((SignUpActivity)getActivity()).openSignUpGenderFragment();
+                ((SignUpActivity)requireActivity()).openSignUpGenderFragment();
             }
         });
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).openSignUpDobFragment();
+                ((SignUpActivity)requireActivity()).openSignUpDobFragment();
             }
         });
 

@@ -29,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
     public int signUp_dob_day;
     public int signUp_dob_month;
     public int signUp_dob_year;
+    public String signUp_dob;
     public String signUp_gender;
     public String signUp_name;
     public String signUp_phone_num;
@@ -48,6 +49,8 @@ public class SignUpActivity extends AppCompatActivity {
          * It uses all its public values that was changed through out
          * the signing up process then send a POST request to the server
          */
+
+
 
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -78,20 +81,25 @@ public class SignUpActivity extends AppCompatActivity {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("email", signUp_email);
                 params.put("password", signUp_password);
-                params.put("nickname", signUp_name);
+                params.put("name", signUp_name);
                 params.put("gender", signUp_gender);
-                params.put("phone", signUp_phone_num);
+                params.put("phone_num", signUp_phone_num);
+                params.put("dob", signUp_dob);
+                params.put("type", "free");
+
                 return params;
             }
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/x-www-form-urlencoded");
-                params.put("Accept","application/json");
+                //params.put("Content-Length","<calculated when request is sent>");
+                //params.put("Host","<calculated when request is sent>");
+                params.put("Content-Type","application/json");
                 return params;
             }
         };
         queue.add(postRequest);
+
     }
 
     public void openSignUpEmailFragment(){
@@ -141,7 +149,7 @@ public class SignUpActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container_signUp, new SignUp_Name_Fragment())
                 .commit();
     }
- 
+
     public void openSignUpVerificationFragment(){
         VerCode = CommonFunctions.GenerateRandChars(6);
         CommonFunctions.hideKeyboard(this);

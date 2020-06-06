@@ -24,7 +24,7 @@ public class Constants {
     }
 
 
-    public static String SIGNUP_URL = "http://pacify.tech/api/signup";
+    public static String SIGNUP_URL = "http://localhost:3000/users";
     public static String EDIT_PROFILE_URL = "http://pacify.tech/api/account/profile";
 
     public static String[] countries =
