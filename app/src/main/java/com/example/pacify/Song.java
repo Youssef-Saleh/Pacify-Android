@@ -10,6 +10,8 @@ public class Song {
     String url;
     int numPlays;
     int numLikes;
+    int numberInQueue=0;
+    Boolean inQueue=false;
     Boolean isLiked=false;
 
     /**

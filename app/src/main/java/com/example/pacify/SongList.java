@@ -82,14 +82,23 @@ public class SongList extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Song song=songs.get(position);
-                String songAdress=song.getUrl();
+                String songAdress = song.getUrl();
                 String songName = song.getTitle();
-                if(((NavigationActivity)getActivity()).songQueue.size()>0){
-                ((NavigationActivity)getActivity()).currentSongIndex+=1;
+                if (song.inQueue){
+                    currentIndex=song.numberInQueue;
+                    ((NavigationActivity) getActivity()).startStreamingService(songAdress);
+
                 }
-                ((NavigationActivity)getActivity()).songQueue.add(songs.get(position));
-                ((NavigationActivity)getActivity()).startStreamingService(songAdress);
-               // ((NavigationActivity)getActivity()).setSongNameNav(songName);
+                else {
+                    if (((NavigationActivity) getActivity()).songQueue.size() > 0) {
+                        ((NavigationActivity) getActivity()).currentSongIndex =((NavigationActivity) getActivity()).songQueue.size() - 1;
+                        song.numberInQueue=currentIndex;
+                    }
+                    ((NavigationActivity) getActivity()).songQueue.add(song);
+                    song.inQueue=true;
+                    ((NavigationActivity) getActivity()).startStreamingService(songAdress);
+                    // ((NavigationActivity)getActivity()).setSongNameNav(songName);
+                }
             }
         });
         return v;
