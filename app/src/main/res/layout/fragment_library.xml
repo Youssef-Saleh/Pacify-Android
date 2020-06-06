@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/library_background">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Playlists Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"/>
+        android:id="@+id/textView"
+        android:layout_width="195sp"
+        android:layout_height="73sp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="40dp"
+        android:text="Playlists"
+        android:textColor="#ffffff"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:typeface="sans" />
 
     <Button
         android:id="@+id/logout_button"
@@ -20,5 +26,15 @@
         android:layout_marginEnd="22dp"
         android:background="@drawable/ic_settings_black_24dp"
          />
+
+    <ListView
+        android:id="@+id/playlistView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="130dp">
+
+    </ListView>
 
 </RelativeLayout>

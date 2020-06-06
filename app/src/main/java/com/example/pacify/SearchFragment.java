@@ -99,7 +99,7 @@ public class SearchFragment extends Fragment {
      */
     public void showSongList(){
 
-        Fragment fragment= new SongList();
+        Fragment fragment= new SongList(mysongs);
         getFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 fragment).addToBackStack(null).commit();
     }
@@ -113,7 +113,7 @@ public class SearchFragment extends Fragment {
     public void popGenre(View view){
         theJsonParser(Constants.PLAYLIST_ID.POP);
         currentGenre="Pop";
-        ((NavigationActivity)getActivity()).songs=mysongs;
+        ((NavigationActivity)getActivity()).songsToShow=mysongs;
     }
 
     /**
@@ -123,19 +123,19 @@ public class SearchFragment extends Fragment {
     public void electronicGenre(View view){
         theJsonParser(Constants.PLAYLIST_ID.POP);
         currentGenre="Electronic";
-        ((NavigationActivity)getActivity()).songs=mysongs;
+        ((NavigationActivity)getActivity()).songsToShow=mysongs;
     }
 
     public void rockGenre(View view){
         theJsonParser(Constants.PLAYLIST_ID.POP);
         currentGenre="Rock";
-        ((NavigationActivity)getActivity()).songs=mysongs;
+        ((NavigationActivity)getActivity()).songsToShow=mysongs;
     }
 
     public void hiphopGenre(View view){
         theJsonParser(Constants.PLAYLIST_ID.POP);
         currentGenre="HipHop";
-        ((NavigationActivity)getActivity()).songs=mysongs;
+        ((NavigationActivity)getActivity()).songsToShow=mysongs;
     }
 
     public void arabicGenre(View view){
@@ -175,7 +175,7 @@ public class SearchFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 theJsonParser("https://pacify.free.beeceptor.com/search/"+query);
                 currentGenre="Pop";
-                ((NavigationActivity)getActivity()).songs=mysongs;
+                ((NavigationActivity)getActivity()).songsToShow=mysongs;
                 return false;
             }
 

@@ -24,7 +24,9 @@ public class SongList extends Fragment {
     List<Song> songs=new ArrayList<>();
     int currentIndex=0;
 
-
+    public SongList(List<Song> songList){
+        songs=songList;
+    }
     public List<Song> getSongList(){
         return songs;
     }
@@ -69,7 +71,7 @@ public class SongList extends Fragment {
          * sets this class's song list to the one in navigation activity, then sets the adapter
          * to the list view that shows the songs in the list
          */
-        songs=((NavigationActivity)getActivity()).songs;
+
         SongListAdapter adapter = new SongListAdapter(this,songs);
         songListView.setAdapter(adapter);
 
@@ -83,7 +85,7 @@ public class SongList extends Fragment {
                 String songAdress=song.getUrl();
                 String songName = song.getTitle();
                 ((NavigationActivity)getActivity()).currentSongIndex=position;
-                ((NavigationActivity)getActivity()).songs=songs;
+                ((NavigationActivity)getActivity()).songQueue.add(songs.get(position));
                 ((NavigationActivity)getActivity()).startStreamingService(songAdress);
                // ((NavigationActivity)getActivity()).setSongNameNav(songName);
             }
