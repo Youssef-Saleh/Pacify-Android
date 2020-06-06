@@ -54,6 +54,7 @@ public class NavigationActivity extends AppCompatActivity {
 
     List<Song> songsToShow;
     List<Song> songQueue= new ArrayList<>();
+    Playlist likedSongs = new Playlist("Liked Songs");
     int currentSongIndex=0;
     Boolean shuffleSong = false;
     Boolean loopSong = false;
@@ -167,11 +168,13 @@ public class NavigationActivity extends AppCompatActivity {
         {
             songLiked = true;
             song.setIsLiked(songLiked);
+            likedSongs.addSong(song);
             showIfLiked();
         }
         else if (songLiked == true){
 
             songLiked = false;
+            likedSongs.removeSong(song);
             song.setIsLiked(songLiked);
             showIfLiked();
         }

@@ -19,7 +19,7 @@ public class LibraryFragment extends Fragment {
 
     private Button logOut;
     ListView playlistView;
-    List<Playlist> playlists=new ArrayList<>();
+    public List<Playlist> playlists=new ArrayList<>();
 
     public void showSongList(int position){
 
@@ -48,15 +48,12 @@ public class LibraryFragment extends Fragment {
 
 
 
-        Playlist testPlaylist= new Playlist("Liked Songs");
-        playlists.add(testPlaylist);
-        Song testSong= new Song("1","hoi","https://www.mboxdrive.com/Drake%20-%20Hotline%20Bling%20(Instrumental)%20(ReProd.%20By%20JDP).mp3",0,0);
-        testPlaylist.addSong(testSong);
-        testSong= new Song("2","katyusha","http://www.noiseaddicts.com/samples_1w72b820/1450.mp3", 0,0);
-        testPlaylist.addSong(testSong);
-        testSong= new Song("3","Real national anthem","http://www.noiseaddicts.com/samples_1w72b820/4250.mp3", 0,0);
-        testPlaylist.addSong(testSong);
-        Playlist testPlaylist2= new Playlist("FOR DA HOMIES & mahbois");
+        Playlist likedPlaylist= new Playlist("Liked Songs");
+        likedPlaylist=((NavigationActivity)getActivity()).likedSongs;
+        playlists.add(likedPlaylist);
+
+
+        Playlist testPlaylist2= new Playlist("User Created (test)");
         playlists.add(testPlaylist2);
 
         PlaylistAdapter adapter = new PlaylistAdapter(this,playlists);
