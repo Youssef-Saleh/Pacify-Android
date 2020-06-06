@@ -15,9 +15,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Used to make a list of song objects to play
- */
+
 public class artistview extends Fragment {
 
 
@@ -55,19 +53,12 @@ ImageView artistpic;
             artistpic.setImageResource(R.drawable.emspotify);
         }
         artistname.setText(name);
-        /**
-         * Play All button, calls playAll function in NavigationActivity
-         * @params view the view where the button is
-         * @params songs list of songs to play
-         *
-         */
+
         songs=((NavigationActivity)getActivity()).songs;
         SongListAdapter adapter = new SongListAdapter(this,songs);
         songListView.setAdapter(adapter);
 
-        /**
-         * makes each item in the dynamic song list view clickable, and able to play
-         */
+
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
