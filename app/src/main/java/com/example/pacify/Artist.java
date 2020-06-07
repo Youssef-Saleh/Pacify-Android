@@ -1,19 +1,14 @@
 package com.example.pacify;
 
-import java.util.List;
-
 public class Artist {
     String name;
     int numFollowers;
     Boolean followed=false;
-    List<Song> artistSongs;
 
 
-    public  Artist(String name,int numFollowers,List<Song> Songs){
+    public  Artist(String name,int numFollowers){
         this.name=name;
         this.numFollowers=numFollowers;
-        this.artistSongs=Songs;
-
     }
 
     public String getName(){
@@ -27,10 +22,7 @@ public class Artist {
     public int getNumFollowers(){
         return numFollowers;
     }
-
-    public List<Song> getList(){
-        return artistSongs;
-    }
+    public void setIsFollowed(Boolean condition){followed=condition;}
 
 
 }

@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -30,8 +28,10 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     ImageButton btnPop;
-    ImageView artist;
-    TextView artistName;
+    Boolean Liked;
+    Boolean ifFollowed;
+    String CurrentArtist;
+
     ImageButton adele;
     List<Song> mysongs = new ArrayList<>();
     private RequestQueue requestQueue;
@@ -40,7 +40,9 @@ public class HomeFragment extends Fragment {
     @SuppressLint("ResourceType")
 
     public void showSongList(){Bundle bundle = new Bundle();
-        bundle.putString("key","Emeniem");
+        ifFollowed =  ((NavigationActivity)getActivity()).artistThree.isFollowed();
+        bundle.putString("key",((NavigationActivity)getActivity()).artistThree.name);
+        bundle.putBoolean("isFollowed",ifFollowed);
         Fragment fragment= new artistview();
         fragment.setArguments(bundle);
         getFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -112,17 +114,27 @@ public class HomeFragment extends Fragment {
         adele.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Bundle bundle = new Bundle();
-                bundle.putString("key","Adele");
+                ifFollowed =  ((NavigationActivity)getActivity()).artistFive.isFollowed();
+                bundle.putBoolean("isFollowed",ifFollowed);
+                bundle.putString("key",((NavigationActivity)getActivity()).artistFive.name);
                 Fragment fragment= new artistview();
                 fragment.setArguments(bundle);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         fragment).commit();
 
-
-
             }
         });
+        Bundle bundle = this.getArguments();
+        if(bundle != null){
+            Liked = bundle.getBoolean("likeStat");
+            CurrentArtist = bundle.getString("currentArtist");
+
+
+        }
+
+
         return v;
     }
 }

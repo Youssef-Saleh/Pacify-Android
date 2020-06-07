@@ -85,7 +85,7 @@ public class PlayerService extends Service {
             stopForeground(true);
             stopSelf();
         }
-        return START_NOT_STICKY;
+        return START_REDELIVER_INTENT;
 
     }
     /**

@@ -54,10 +54,13 @@ public class NavigationActivity extends AppCompatActivity {
 
     List<Song> songsToShow;
     List<Song> songQueue= new ArrayList<>();
+    List <Song> recentlyPlayer = new ArrayList<>(4);
     int currentSongIndex=0;
     Boolean shuffleSong = false;
     Boolean loopSong = false;
     boolean songLiked;
+    Artist artistThree = new Artist("Emeniem", 1002);
+    Artist artistFive = new Artist("Adele",532);
 
     /**
      * plays the songs in the sent playlist from the beginning

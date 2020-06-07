@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,12 +19,13 @@ import java.util.List;
 
 public class artistview extends Fragment {
 
+    Boolean ifFollowed ;
 
-
-String name ;
-TextView artistname;
-ImageView artistpic;
+    String name ;
+    TextView artistname;
+    ImageView artistpic;
     ListView songListView;
+    Button follow;
     List<Song> songs=new ArrayList<>();
     int currentIndex=0;
     public List<Song> getSongList(){
@@ -33,7 +35,16 @@ ImageView artistpic;
     public void setSongList(List<Song> songsToSet){
         songs=songsToSet;
     }
+    public void showIfFollowed(Boolean isFollowed, View view){
+            follow = view.findViewById(R.id.followArtist);
+            if (isFollowed == true){
+                follow.setText("UnFollow");
 
+            }else {
+                follow.setText("Follow");
+            }
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,27 +54,43 @@ ImageView artistpic;
         songListView=(ListView) v.findViewById(R.id.artistSongs);
         if(bundle != null){
             name=bundle.getString("key");
-        }
+            ifFollowed = bundle.getBoolean("isFollowed");
 
+        }
+        showIfFollowed(ifFollowed,v);
         artistname = v.findViewById(R.id.artistName);
         artistpic = v.findViewById(R.id.artistPhoto);
         if (name == "Adele"){
             artistpic.setImageResource(R.drawable.adele);
+
         }else if(name =="Emeniem"){
             artistpic.setImageResource(R.drawable.emspotify);
         }
         artistname.setText(name);
-        /**
-         * Play All button, calls playAll function in NavigationActivity
-         * @params view the view where the button is
-         * @params songs list of songs to play
-         *
-         */
+
         songs=((NavigationActivity)getActivity()).songsToShow;
         SongListAdapter adapter = new SongListAdapter(this,songs);
         songListView.setAdapter(adapter);
 
+        follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ifFollowed == true){
+                    ifFollowed = false;
+                    showIfFollowed(false,v);
 
+                }else {
+                    ifFollowed = true;
+                    showIfFollowed(true,v);
+                }
+                if (name == "Adele"){
+                    ((NavigationActivity)getActivity()).artistTwo.setIsFollowed(ifFollowed);
+
+                }else if(name =="Emeniem"){
+                    ((NavigationActivity)getActivity()).artistOne.setIsFollowed(ifFollowed);
+                }
+            }
+        });
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
