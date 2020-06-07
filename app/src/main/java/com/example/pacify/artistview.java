@@ -98,14 +98,14 @@ public class artistview extends Fragment {
                 String songAdress=song.getUrl();
                 String songName = song.getTitle();
                 if (song.inQueue){
-                    currentIndex=song.numberInQueue;
+                    ((NavigationActivity) getActivity()).currentSongIndex=song.numberInQueue;
                     ((NavigationActivity) getActivity()).startStreamingService(songAdress);
 
                 }
                 else {
                     if (((NavigationActivity) getActivity()).songQueue.size() > 0) {
-                        ((NavigationActivity) getActivity()).currentSongIndex = ((NavigationActivity) getActivity()).songQueue.size() - 1;
-                        song.numberInQueue = currentIndex;
+                        ((NavigationActivity) getActivity()).currentSongIndex = ((NavigationActivity) getActivity()).songQueue.size();
+                        song.numberInQueue = ((NavigationActivity) getActivity()).currentSongIndex;
                     }
                     ((NavigationActivity) getActivity()).songQueue.add(song);
                     song.inQueue = true;

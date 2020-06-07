@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.android.volley.RequestQueue;
@@ -50,17 +51,21 @@ import java.util.List;
 import java.util.Random;
 
 
-public class NavigationActivity extends AppCompatActivity {
+public class NavigationActivity extends AppCompatActivity
+        implements CreatePlaylistDialog.CreatePlaylistDialogListener {
 
     List<Song> songsToShow;
     List<Song> songQueue= new ArrayList<>();
     List <Song> recentlyPlayer = new ArrayList<>(4);
+    Playlist likedSongs = new Playlist("Liked Songs");
     int currentSongIndex=0;
     Boolean shuffleSong = false;
     Boolean loopSong = false;
     boolean songLiked;
     Artist artistThree = new Artist("Emeniem", 1002);
     Artist artistFive = new Artist("Adele",532);
+    public String NewPlaylistName = "";
+    public List<Playlist> playlists_nav = new ArrayList<>();
 
     /**
      * plays the songs in the sent playlist from the beginning
@@ -170,11 +175,13 @@ public class NavigationActivity extends AppCompatActivity {
         {
             songLiked = true;
             song.setIsLiked(songLiked);
+            likedSongs.addSong(song);
             showIfLiked();
         }
         else if (songLiked == true){
 
             songLiked = false;
+            likedSongs.removeSong(song);
             song.setIsLiked(songLiked);
             showIfLiked();
         }
@@ -399,7 +406,7 @@ public class NavigationActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         SeekBar scrubber = (SeekBar) findViewById(R.id.seekBar);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new HomeFragment()).commit();
+                new LibraryFragment()).commit();
         playPauseButton= (ImageButton) findViewById(R.id.playPauseBarButton);
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -516,7 +523,7 @@ public class NavigationActivity extends AppCompatActivity {
         super.onStart();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, new HomeFragment())
+                .replace(R.id.fragment_container, new LibraryFragment())
                 .commit();
     }
 
@@ -698,6 +705,26 @@ public class NavigationActivity extends AppCompatActivity {
                 , Toast.LENGTH_SHORT).show();
     }
 
+
+    @Override
+    public void sendPlaylistName(String playlistName) {
+        NewPlaylistName = playlistName;
+        Toast.makeText(this
+                , NewPlaylistName + " playlist is created"
+                , Toast.LENGTH_SHORT).show();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new LibraryFragment())
+                .commit();
+        Playlist playlist = new Playlist(playlistName);
+        playlists_nav.add(playlist);
+    }
+
+     public void openCreatePlaylistDialog() {
+        CreatePlaylistDialog createPlaylistDialog = new CreatePlaylistDialog();
+        createPlaylistDialog.show(getSupportFragmentManager(), "Playlist Dialog");
+    }
+
     public void SendEmailRequest() {
         //TODO(Adham): Send email with verification code request
     }
@@ -740,7 +767,7 @@ public class NavigationActivity extends AppCompatActivity {
         toChange = "birthdate";
 
         DecimalFormat df = new DecimalFormat("##");
-        changedObject = year + "-" + df.format(month) + "-" + day + "T00:00.000Z" ;
+        changedObject = year + "-" + df.format(month) + "-" + day;
 
         return ApplyChange();
     }

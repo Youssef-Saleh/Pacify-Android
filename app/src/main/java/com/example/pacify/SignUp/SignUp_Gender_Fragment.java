@@ -34,23 +34,23 @@ public class SignUp_Gender_Fragment extends Fragment {
         Male_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).signUp_gender = "male";
-                ((SignUpActivity)getActivity()).openSignUpNameFragment();
+                ((SignUpActivity)requireActivity()).signUp_gender = "male";
+                ((SignUpActivity)requireActivity()).openSignUpNameFragment();
             }
         });
 
         Female_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).signUp_gender = "female";
-                ((SignUpActivity)getActivity()).openSignUpNameFragment();
+                ((SignUpActivity)requireActivity()).signUp_gender = "female";
+                ((SignUpActivity)requireActivity()).openSignUpNameFragment();
             }
         });
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).openSignUpDobFragment();
+                ((SignUpActivity)requireActivity()).openSignUpDobFragment();
             }
         });
 

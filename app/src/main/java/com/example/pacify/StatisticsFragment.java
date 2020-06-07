@@ -2,12 +2,12 @@ package com.example.pacify;
 
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -21,20 +21,18 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class ArtistHomeFragment extends Fragment {
+public class StatisticsFragment extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
-            , @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.artist_home_interface, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_statistics, container, false);
+
+        BarChart barChart = view.findViewById(R.id.bar_chart);
 
 
-        BarChart barChart = view.findViewById(R.id.home_bar_chart);
-
-
-        int[] Likes = ((ArtistActivity)requireActivity()).likes;
-        int[] Listeners = ((ArtistActivity)requireActivity()).listeners;;
+        int[] Likes = {20,60,100};
+        int[] Listeners = {40,80,125};
 
         final String[] labels = new String[] {"Last Day", "Last Month", "Last Year"};
 
@@ -65,8 +63,8 @@ public class ArtistHomeFragment extends Fragment {
 
         // Adjusting description
         Description description = barChart.getDescription();
-        description.setEnabled(false);
-        //description.setText("Your Songs Stats");
+        description.setEnabled(true);
+        description.setText("Stats");
         description.setTextSize(18);
         description.setTextColor(Color.WHITE);
         description.setPosition(230, 60);

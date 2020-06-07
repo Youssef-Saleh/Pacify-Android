@@ -51,7 +51,7 @@ public class SearchFragment extends Fragment {
      * It handles exceptions if the it cannot reach the url given.
      * @param url URL where JSON file is located
      */
-    private void theJsonParser(String url){
+    private void theJsonParser(String url,final int mode){
         //String url="https://cat-fact.herokuapp.com/facts/random";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -71,7 +71,12 @@ public class SearchFragment extends Fragment {
                                 int numLikes = playlistSong.getInt("rateCount");
 
                                 Song thisSong= new Song(id,songName,songUrl, timesPlayed,numLikes);
-                                if(currentGenre.equals(songGenre)) {
+                                if (mode==0) {
+                                    if (currentGenre.equals(songGenre)) {
+                                        mysongs.add(thisSong);
+                                    }
+                                }
+                                else if(mode==1){
                                     mysongs.add(thisSong);
                                 }
                             }
@@ -111,7 +116,7 @@ public class SearchFragment extends Fragment {
      * @param view view that was clicked
      */
     public void popGenre(View view){
-        theJsonParser(Constants.PLAYLIST_ID.POP);
+        theJsonParser(Constants.PLAYLIST_ID.POP,0);
         currentGenre="Pop";
         ((NavigationActivity)getActivity()).songsToShow=mysongs;
     }
@@ -121,19 +126,19 @@ public class SearchFragment extends Fragment {
      * @param view view that was clicked
      */
     public void electronicGenre(View view){
-        theJsonParser(Constants.PLAYLIST_ID.POP);
+        theJsonParser(Constants.PLAYLIST_ID.POP,0);
         currentGenre="Electronic";
         ((NavigationActivity)getActivity()).songsToShow=mysongs;
     }
 
     public void rockGenre(View view){
-        theJsonParser(Constants.PLAYLIST_ID.POP);
+        theJsonParser(Constants.PLAYLIST_ID.POP,0);
         currentGenre="Rock";
         ((NavigationActivity)getActivity()).songsToShow=mysongs;
     }
 
     public void hiphopGenre(View view){
-        theJsonParser(Constants.PLAYLIST_ID.POP);
+        theJsonParser(Constants.PLAYLIST_ID.POP,0);
         currentGenre="HipHop";
         ((NavigationActivity)getActivity()).songsToShow=mysongs;
     }
@@ -173,7 +178,7 @@ public class SearchFragment extends Fragment {
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                theJsonParser("https://pacify.free.beeceptor.com/search/"+query);
+                theJsonParser("https://pacify.free.beeceptor.com/search/"+query,1);
                 currentGenre="Pop";
                 ((NavigationActivity)getActivity()).songsToShow=mysongs;
                 return false;

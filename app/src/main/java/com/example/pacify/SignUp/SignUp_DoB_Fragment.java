@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 
+import java.text.DecimalFormat;
+
 public class SignUp_DoB_Fragment extends Fragment {
 
     private DatePicker MyDoB;
@@ -34,17 +36,22 @@ public class SignUp_DoB_Fragment extends Fragment {
         ConfirmDoB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).signUp_dob_year =  MyDoB.getYear();
-                ((SignUpActivity)getActivity()).signUp_dob_month = MyDoB.getMonth() + 1;
-                ((SignUpActivity)getActivity()).signUp_dob_day = MyDoB.getDayOfMonth();
-                ((SignUpActivity)getActivity()).openSignUpPhoneNumberFragment();
+                ((SignUpActivity)requireActivity()).signUp_dob_year =  MyDoB.getYear();
+                ((SignUpActivity)requireActivity()).signUp_dob_month = MyDoB.getMonth() + 1;
+                ((SignUpActivity)requireActivity()).signUp_dob_day = MyDoB.getDayOfMonth();
+
+                DecimalFormat df = new DecimalFormat("##");
+                ((SignUpActivity)requireActivity()).signUp_dob = MyDoB.getYear() + "-" +
+                        df.format(MyDoB.getMonth() + 1) + "-" + MyDoB.getDayOfMonth();
+
+                ((SignUpActivity)requireActivity()).openSignUpPhoneNumberFragment();
             }
         });
 
         GoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SignUpActivity)getActivity()).openSignUpPasswordFragment();
+                ((SignUpActivity)requireActivity()).openSignUpPasswordFragment();
             }
         });
 

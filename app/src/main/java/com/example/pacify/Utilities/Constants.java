@@ -12,7 +12,7 @@ public class Constants {
     public static String FACEBOOK_NAME = "";
     public static String FACEBOOK_PP = "";
 
-    public static String USER_TYPE = "free";
+    public static String USER_TYPE = "artist"; //free, premium, or artist
 
 
 
@@ -23,6 +23,6 @@ public class Constants {
                     "(?=.*[A-Z])" +         //at least 1 upper case letter
                     //"(?=.*[a-zA-Z])" +      //any letter
                     "(?=\\S+$)" +           //no white spaces
-                    ".{8,16}" +               //at least 8 characters
+                    ".{8,16}" +               //at least 8 characters, at most 16 characters
                     "$");
 }
