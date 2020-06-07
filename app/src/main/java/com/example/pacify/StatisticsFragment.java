@@ -31,8 +31,8 @@ public class StatisticsFragment extends Fragment {
         BarChart barChart = view.findViewById(R.id.bar_chart);
 
 
-        float[] Likes = {20f,60f,100f};
-        float[] Listeners = {40f,80f,125f};
+        int[] Likes = {20,60,100};
+        int[] Listeners = {40,80,125};
 
         final String[] labels = new String[] {"Last Day", "Last Month", "Last Year"};
 
