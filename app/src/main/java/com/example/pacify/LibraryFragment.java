@@ -28,9 +28,7 @@ public class LibraryFragment extends Fragment {
 
     public void showSongList(int position){
 
-        SongList mySongList= new SongList(playlists.get(position).playlistSongs);
-
-        Fragment fragment = mySongList;
+        Fragment fragment = new SongList(playlists.get(position).playlistSongs);
         getFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 fragment).addToBackStack(null).commit();
     }
@@ -77,8 +75,7 @@ public class LibraryFragment extends Fragment {
 
         playlistView=(ListView) view.findViewById(R.id.playlistView);
 
-        Playlist likedPlaylist= new Playlist("Liked Songs");
-        likedPlaylist=((NavigationActivity)requireActivity()).likedSongs;
+        Playlist likedPlaylist = ((NavigationActivity)requireActivity()).likedSongs;
         playlists.add(likedPlaylist);
 
         //Adding the playlists created by the user
