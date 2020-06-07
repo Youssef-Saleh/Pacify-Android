@@ -639,12 +639,12 @@ public class NavigationActivity extends AppCompatActivity
                 .commit();
     }
 
-    public void OpenStatisticsFragment(){
+    /*public void OpenStatisticsFragment(){
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, new StatisticsFragment())
                 .commit();
-    }
+    }*/
 
     public void GoToEditProfile(){
         getSupportFragmentManager()

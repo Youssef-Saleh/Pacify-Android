@@ -21,7 +21,6 @@ import java.util.List;
 public class LibraryFragment extends Fragment {
 
     private Button logOut;
-    private Button showStats;
     private Button createPlaylist;
     ListView playlistView;
     public List<Playlist> playlists=new ArrayList<>();
@@ -47,7 +46,6 @@ public class LibraryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_library, container, false);
 
         logOut = view.findViewById(R.id.logout_button);
-        showStats = view.findViewById(R.id.statistics_button);
         createPlaylist = view.findViewById(R.id.playlist_add_playlist);
 
 
@@ -58,12 +56,6 @@ public class LibraryFragment extends Fragment {
             }
         });
 
-        showStats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((NavigationActivity)requireActivity()).OpenStatisticsFragment();
-            }
-        });
 
         createPlaylist.setVisibility(Constants.USER_TYPE.equals("free")?View.INVISIBLE:View.VISIBLE);
         createPlaylist.setOnClickListener(new View.OnClickListener() {
