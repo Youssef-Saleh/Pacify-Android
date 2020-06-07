@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.android.volley.RequestQueue;
@@ -50,7 +51,8 @@ import java.util.List;
 import java.util.Random;
 
 
-public class NavigationActivity extends AppCompatActivity {
+public class NavigationActivity extends AppCompatActivity
+        implements CreatePlaylistDialog.CreatePlaylistDialogListener {
 
     List<Song> songsToShow;
     List<Song> songQueue= new ArrayList<>();
@@ -58,6 +60,8 @@ public class NavigationActivity extends AppCompatActivity {
     Boolean shuffleSong = false;
     Boolean loopSong = false;
     boolean songLiked;
+    public String NewPlaylistName = "";
+    public List<Playlist> playlists_nav = new ArrayList<>();
 
     /**
      * plays the songs in the sent playlist from the beginning
@@ -693,6 +697,26 @@ public class NavigationActivity extends AppCompatActivity {
         com.example.pacify.Utilities.Constants.USER_TYPE = "premium";
         Toast.makeText(getBaseContext(), "You Premium now\nEnjoy!"
                 , Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void sendPlaylistName(String playlistName) {
+        NewPlaylistName = playlistName;
+        Toast.makeText(this
+                , NewPlaylistName + " playlist is created"
+                , Toast.LENGTH_SHORT).show();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new LibraryFragment())
+                .commit();
+        Playlist playlist = new Playlist(playlistName);
+        playlists_nav.add(playlist);
+    }
+
+     public void openCreatePlaylistDialog() {
+        CreatePlaylistDialog createPlaylistDialog = new CreatePlaylistDialog();
+        createPlaylistDialog.show(getSupportFragmentManager(), "Playlist Dialog");
     }
 
     public void SendEmailRequest() {
