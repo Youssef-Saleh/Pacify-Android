@@ -48,6 +48,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:name=".ArtistActivity"
+            android:label="artist"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".Forget_Password.ForgetPasswordActivity"
             android:label="Forget your password?"
             android:parentActivityName=".LoginActivity"

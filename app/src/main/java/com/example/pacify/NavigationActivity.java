@@ -45,13 +45,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
 public class NavigationActivity extends AppCompatActivity {
 
-    List<Song> songs;
+    List<Song> songsToShow;
+    List<Song> songQueue= new ArrayList<>();
     int currentSongIndex=0;
     Boolean shuffleSong = false;
     Boolean loopSong = false;
@@ -63,14 +65,15 @@ public class NavigationActivity extends AppCompatActivity {
      * @param playlist playlist that  we want played from the beginning
      */
     public void playAll(View view,List<Song> playlist){
-        songs = playlist;
-        Song song = songs.get(0);
+        songQueue = playlist;
+        Song song = songQueue.get(0);
         String songAdress=song.getUrl();
         String songName = song.getTitle();
         //setSongNameNav(songName);
         startStreamingService(songAdress);
 
     }
+
     /**
      * This method is called whenever the user presses the next button on the player , the songs finishes to play the next in the Queue,or next on notification.
      * It increments the song index and make sure it doesn't exeed the size oh the song list
@@ -79,17 +82,17 @@ public class NavigationActivity extends AppCompatActivity {
     public void playNext (){
         if (shuffleSong==true){
             Random random = new Random();
-            currentSongIndex = random.nextInt(songs.size());
+            currentSongIndex = random.nextInt(songQueue.size());
         }
         else
         {
             currentSongIndex += 1;
         }
-        if (currentSongIndex > (songs.size()-1)) {
+        if (currentSongIndex > (songQueue.size()-1)) {
             currentSongIndex = 0;
         }
 
-        Song song = songs.get(currentSongIndex);
+        Song song = songQueue.get(currentSongIndex);
         String songAdress=song.getUrl();
         String songName = song.getTitle();
         //setSongName(songName);
@@ -105,9 +108,9 @@ public class NavigationActivity extends AppCompatActivity {
         currentSongIndex -= 1;
 
         if (currentSongIndex < 0) {
-            currentSongIndex = songs.size()-1;
+            currentSongIndex = songQueue.size()-1;
         }
-        Song song = songs.get(currentSongIndex);
+        Song song = songQueue.get(currentSongIndex);
         String songAdress=song.getUrl();
         String songName = song.getTitle();
        // setSongName(songName);
@@ -157,7 +160,7 @@ public class NavigationActivity extends AppCompatActivity {
     public void likeButton (View view){
         FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
         FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
-        Song song = songs.get(currentSongIndex);
+        Song song = songQueue.get(currentSongIndex);
         songLiked =song.getIsLiked();
 
         if (songLiked == false)
@@ -180,7 +183,7 @@ public class NavigationActivity extends AppCompatActivity {
     public void showIfLiked(){
         FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
         FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
-        Song song = songs.get(currentSongIndex);
+        Song song = songQueue.get(currentSongIndex);
         songLiked =song.getIsLiked();
 
 
@@ -351,7 +354,7 @@ public class NavigationActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Boolean update = intent.getBooleanExtra("Update",false);
 
-                Song song = songs.get(currentSongIndex);
+                Song song = songQueue.get(currentSongIndex);
                 String songName = song.getTitle();
                 setSongNameNav(songName);
 
