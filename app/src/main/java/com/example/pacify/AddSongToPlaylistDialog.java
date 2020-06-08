@@ -13,6 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+/**
+ * This class is for the dialog that opens when a premium user want add a song to a playlist
+ * it opens an edit text to receive the playlist name that the user want to add the song to
+ * when the user press add , the name is sent to Navigation Activity
+ */
 public class AddSongToPlaylistDialog extends AppCompatDialogFragment {
 
     private EditText playlistName;
@@ -28,8 +33,8 @@ public class AddSongToPlaylistDialog extends AppCompatDialogFragment {
 
         playlistName = view.findViewById(R.id.playlist_name);
 
-        builder.setView(view)
-                .setTitle("Enter Playlist Name")
+        builder.setView(view)//Add Song to
+                .setTitle("Add Song to")
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

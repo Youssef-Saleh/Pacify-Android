@@ -43,14 +43,11 @@ public class SignUpActivity extends AppCompatActivity {
         openSignUpEmailFragment();
     }
 
-
+    /**
+     * It uses all its public values that was changed through out
+     * the signing up process then send a POST request to the server
+     */
     public void createAccount(){
-        /**
-         * It uses all its public values that was changed through out
-         * the signing up process then send a POST request to the server
-         */
-
-
 
 
         RequestQueue queue = Volley.newRequestQueue(this);

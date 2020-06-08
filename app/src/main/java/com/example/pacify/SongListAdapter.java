@@ -86,7 +86,8 @@ public class SongListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if(!Constants.USER_TYPE.equals("free")) {
-                    ((NavigationActivity) fragment.requireActivity()).openAddSongToPlaylistDialog(song);
+                    ((NavigationActivity) fragment.requireActivity())
+                            .openAddSongToPlaylistDialog(song);
                 }
                 if(Constants.USER_TYPE.equals("free")){
                     Toast.makeText(((NavigationActivity) fragment.requireActivity())

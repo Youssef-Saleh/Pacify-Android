@@ -13,6 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+/**
+ * This class is for the dialog that opens when a premium user want to create a
+ * playlist it opens an edit text to receive the new playlist name, and if the user
+ * pressed create to confirm the name is sent to Navigation Activity
+ */
 public class CreatePlaylistDialog extends AppCompatDialogFragment {
 
     private EditText playlistName;

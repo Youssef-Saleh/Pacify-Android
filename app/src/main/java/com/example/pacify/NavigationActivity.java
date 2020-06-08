@@ -703,11 +703,16 @@ public class NavigationActivity extends AppCompatActivity
     public void upgradeUserToPremium() {
         //TODO(Adham): Upgrade user to premium request
         com.example.pacify.Utilities.Constants.USER_TYPE = "premium";
-        Toast.makeText(getBaseContext(), "You Premium now\nEnjoy!"
+        Toast.makeText(getBaseContext(), "You're  Premium now\nEnjoy!"
                 , Toast.LENGTH_SHORT).show();
     }
 
 
+    /**
+     * Called when the user enter a name and press create, it check if it already
+     * exist or not, if not it create a new one with the name entered by the user
+     * @param playlistName is the playlist name typed in the dialog
+     */
     @Override
     public void sendPlaylistName(String playlistName) {
         NewPlaylistName = playlistName;
@@ -733,11 +738,20 @@ public class NavigationActivity extends AppCompatActivity
         playlists_nav.add(playlist);
     }
 
+    /**
+     * Opens a dialog to enter the new playlist name
+     */
      public void openCreatePlaylistDialog() {
         CreatePlaylistDialog createPlaylistDialog = new CreatePlaylistDialog();
         createPlaylistDialog.show(getSupportFragmentManager(), "Playlist Dialog");
     }
 
+    /**
+     * Called when the user enter a name and press create, it check if the playlist exist
+     * or not, only if it exists it check if the song is already in that playlist or not
+     * and if not it adds the song to the playlist
+     * @param playlistName is the playlist name typed in the dialog
+     */
     @Override
     public void sendPlaylistNameToAddSong(String playlistName) {
         boolean songInPlaylist = false;
@@ -767,6 +781,10 @@ public class NavigationActivity extends AppCompatActivity
                 , Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Opens a dialog to add a playlist name to add song to
+     * @param song is the song to be added to a playlist
+     */
     public void openAddSongToPlaylistDialog(Song song) {
         SongToBeAddedToPlaylist = song;
         AddSongToPlaylistDialog addSongToPlaylistDialog = new AddSongToPlaylistDialog();
