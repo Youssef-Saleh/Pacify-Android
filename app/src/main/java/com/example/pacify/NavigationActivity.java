@@ -408,7 +408,7 @@ public class NavigationActivity extends AppCompatActivity
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         SeekBar scrubber = (SeekBar) findViewById(R.id.seekBar);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new LibraryFragment()).commit();
+                new HomeFragment()).commit();
         playPauseButton= (ImageButton) findViewById(R.id.playPauseBarButton);
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -525,7 +525,7 @@ public class NavigationActivity extends AppCompatActivity
         super.onStart();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, new LibraryFragment())
+                .replace(R.id.fragment_container, new HomeFragment())
                 .commit();
     }
 
