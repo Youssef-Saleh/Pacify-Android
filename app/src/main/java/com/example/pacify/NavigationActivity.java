@@ -709,13 +709,24 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     public void sendPlaylistName(String playlistName) {
         NewPlaylistName = playlistName;
+
+        for(int i=0;i<playlists_nav.size();i++){
+            if(playlists_nav.get(i).getTitle().equals(NewPlaylistName)) {
+                Toast.makeText(this
+                        , "Playlist '" + NewPlaylistName + "' already exists"
+                        , Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
         Toast.makeText(this
-                , NewPlaylistName + " playlist is created"
+                , "Playlist '" + NewPlaylistName + "' is created"
                 , Toast.LENGTH_SHORT).show();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, new LibraryFragment())
                 .commit();
+
         Playlist playlist = new Playlist(playlistName);
         playlists_nav.add(playlist);
     }
