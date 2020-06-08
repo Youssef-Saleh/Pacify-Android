@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -80,8 +81,11 @@ public class SongList extends Fragment {
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Song song = songs.get(position);
-                String songAdress = song.getUrl();
+                Button addSonToPlaylist = view.findViewById(R.id.songListView_addSongToPlaylistBtn);
+
+                playASong(position);
+                /*Song song = songs.get(position);
+                String songAddress = song.getUrl();
                 String songName = song.getTitle();
                 if (song.inQueue){
                     ((NavigationActivity) requireActivity()).currentSongIndex=song.numberInQueue;
@@ -96,10 +100,30 @@ public class SongList extends Fragment {
                     song.inQueue=true;
                     // ((NavigationActivity)requireActivity()).setSongNameNav(songName);
                 }
-                ((NavigationActivity) requireActivity()).startStreamingService(songAdress);
+                ((NavigationActivity) requireActivity()).startStreamingService(songAddress);*/
 
             }
         });
         return v;
+    }
+
+    public void playASong(int position){
+        Song song = songs.get(position);
+        String songAddress = song.getUrl();
+        String songName = song.getTitle();
+        if (song.inQueue){
+            ((NavigationActivity) requireActivity()).currentSongIndex=song.numberInQueue;
+        }
+        else {
+            if (((NavigationActivity) requireActivity()).songQueue.size() > 0) {
+                ((NavigationActivity) requireActivity()).currentSongIndex =
+                        ((NavigationActivity) requireActivity()).songQueue.size();
+                song.numberInQueue=((NavigationActivity)requireActivity()).currentSongIndex;
+            }
+            ((NavigationActivity) requireActivity()).songQueue.add(song);
+            song.inQueue=true;
+            // ((NavigationActivity)requireActivity()).setSongNameNav(songName);
+        }
+        ((NavigationActivity) requireActivity()).startStreamingService(songAddress);
     }
 }

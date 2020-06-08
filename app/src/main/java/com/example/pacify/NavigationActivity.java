@@ -52,7 +52,8 @@ import java.util.Random;
 
 
 public class NavigationActivity extends AppCompatActivity
-        implements CreatePlaylistDialog.CreatePlaylistDialogListener {
+        implements CreatePlaylistDialog.CreatePlaylistDialogListener ,
+        AddSongToPlaylistDialog.AddSongToPlaylistDialogListener {
 
     List<Song> songsToShow;
     List<Song> songQueue= new ArrayList<>();
@@ -66,6 +67,7 @@ public class NavigationActivity extends AppCompatActivity
     Artist artistFive = new Artist("Adele",532);
     public String NewPlaylistName = "";
     public List<Playlist> playlists_nav = new ArrayList<>();
+    private Song SongToBeAddedToPlaylist;
 
     /**
      * plays the songs in the sent playlist from the beginning
@@ -736,6 +738,41 @@ public class NavigationActivity extends AppCompatActivity
         createPlaylistDialog.show(getSupportFragmentManager(), "Playlist Dialog");
     }
 
+    @Override
+    public void sendPlaylistNameToAddSong(String playlistName) {
+        boolean songInPlaylist = false;
+        for(int i=0; i < playlists_nav.size(); i++) {
+            if(playlistName.equals(playlists_nav.get(i).getTitle())){
+                for(int j=0; j < playlists_nav.get(i).playlistSongs.size(); j++){
+                    songInPlaylist = (playlists_nav.get(i).playlistSongs.get(j)
+                            == SongToBeAddedToPlaylist) || songInPlaylist;
+                }
+                if (!songInPlaylist){
+                    playlists_nav.get(i).addSong(SongToBeAddedToPlaylist);
+                    Toast.makeText(this
+                            , "Song added"
+                            , Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(this
+                            , "This song is already in playlist '"
+                                    + playlists_nav.get(i).title + "'"
+                            , Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+        Toast.makeText(this
+                , "Playlist '" + playlistName + "' is not found"
+                , Toast.LENGTH_SHORT).show();
+    }
+
+    public void openAddSongToPlaylistDialog(Song song) {
+        SongToBeAddedToPlaylist = song;
+        AddSongToPlaylistDialog addSongToPlaylistDialog = new AddSongToPlaylistDialog();
+        addSongToPlaylistDialog.show(getSupportFragmentManager(), "Add song to playlist dialog");
+    }
+
     public void SendEmailRequest() {
         //TODO(Adham): Send email with verification code request
     }
@@ -868,5 +905,6 @@ public class NavigationActivity extends AppCompatActivity
     public void onBackPressed() {
 
     }
+
 
 }
