@@ -89,7 +89,7 @@ public class LibraryFragment extends Fragment {
         playlistView.setAdapter(adapter);
 
         /**
-         * makes each item in the dynamic song list view clickable, and able to play
+         * makes each item in the dynamic playlist view clickable, and able to play
          */
         playlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -67,10 +67,12 @@ public class SearchFragment extends Fragment {
                                 String songName = playlistSong.getString("name");
                                 String songUrl = playlistSong.getString("url");
                                 String songGenre = playlistSong.getString("genre");
+                                String songArtist= playlistSong.getString("artist");
                                 int timesPlayed = playlistSong.getInt("timesPlayed");
                                 int numLikes = playlistSong.getInt("rateCount");
 
                                 Song thisSong= new Song(id,songName,songUrl, timesPlayed,numLikes);
+                                thisSong.setArtist(songArtist);
                                 if (mode==0) {
                                     if (currentGenre.equals(songGenre)) {
                                         mysongs.add(thisSong);

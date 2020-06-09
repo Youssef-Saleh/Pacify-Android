@@ -68,7 +68,32 @@ public class SongListAdapter extends BaseAdapter {
 
 
         ImageView pic=(ImageView) v.findViewById(R.id.songListViewImage);
-        pic.setImageResource(R.drawable.dualipa);
+        if (song.artist.equals("AlanWalker")){
+            pic.setImageResource(R.drawable.ignite);
+        }else if( song.artist.equals("Tones and I")){
+            pic.setImageResource(R.drawable.dancemonkey);
+        }else if( song.artist.equals("bulow")){
+            pic.setImageResource(R.drawable.ownme);
+        }else if( song.artist.equals("billie eilish")){
+            pic.setImageResource(R.drawable.badguy);
+        }else if( song.artist.equals("Sia")){
+            pic.setImageResource(R.drawable.sia);
+        }else if( song.artist.equals("Martin Garrix")){
+            pic.setImageResource(R.drawable.martingarix);
+        }else if( song.artist.equals("Eminem")){
+            pic.setImageResource(R.drawable.emspotify);
+        }else if( song.artist.equals("Alan Walker")){
+            pic.setImageResource(R.drawable.alanwalker);
+        }else if( song.artist.equals("Adele")){
+            pic.setImageResource(R.drawable.adele);
+        }else if( song.artist.equals("Ed Sheeran")){
+            pic.setImageResource(R.drawable.ed);
+        }else if( song.artist.equals("Marshmello")){
+            pic.setImageResource(R.drawable.marshmello);
+        }
+        else {
+            pic.setImageResource(R.drawable.jazzicon);
+        }
         pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
