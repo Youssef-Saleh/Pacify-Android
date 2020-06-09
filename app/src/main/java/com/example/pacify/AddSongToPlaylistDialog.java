@@ -14,14 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 /**
- * This class is for the dialog that opens when a premium user want to create a
- * playlist it opens an edit text to receive the new playlist name, and if the user
- * pressed create to confirm the name is sent to Navigation Activity
+ * This class is for the dialog that opens when a premium user want add a song to a playlist
+ * it opens an edit text to receive the playlist name that the user want to add the song to
+ * when the user press add , the name is sent to Navigation Activity
  */
-public class CreatePlaylistDialog extends AppCompatDialogFragment {
+public class AddSongToPlaylistDialog extends AppCompatDialogFragment {
 
     private EditText playlistName;
-    private CreatePlaylistDialogListener listener;
+    private AddSongToPlaylistDialogListener listener;
 
     @NonNull
     @Override
@@ -29,16 +29,16 @@ public class CreatePlaylistDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.create_playlist_dialog,null);
+        View view = inflater.inflate(R.layout.add_song_to_playlist_dialog,null);
 
         playlistName = view.findViewById(R.id.playlist_name);
 
-        builder.setView(view)
-                .setTitle("Enter Playlist Name")
-                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+        builder.setView(view)//Add Song to
+                .setTitle("Add Song to")
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.sendPlaylistName(playlistName.getText().toString().trim());
+                        listener.sendPlaylistNameToAddSong(playlistName.getText().toString().trim());
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -53,13 +53,13 @@ public class CreatePlaylistDialog extends AppCompatDialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listener = (CreatePlaylistDialogListener) context;
+            listener = (AddSongToPlaylistDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
-                    "must implement CreatePlaylistDialogListener");
+                    "must implement AddSongToPlaylistDialogListener");
         }
     }
-    public interface CreatePlaylistDialogListener {
-        void sendPlaylistName(String playlistName);
+    public interface AddSongToPlaylistDialogListener {
+        void sendPlaylistNameToAddSong(String playlistName);
     }
 }

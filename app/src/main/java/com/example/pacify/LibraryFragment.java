@@ -70,10 +70,20 @@ public class LibraryFragment extends Fragment {
         Playlist likedPlaylist = ((NavigationActivity)requireActivity()).likedSongs;
         playlists.add(likedPlaylist);
 
-        //Adding the playlists created by the user
-        for(int i=0;i<((NavigationActivity)requireActivity()).playlists_nav.size();i++){
-            playlists.add((Playlist)((NavigationActivity)requireActivity()).playlists_nav.toArray()[i]);
+         //////////////////////Test
+        if(Constants.ADD_DUMMY_SONGS) {
+            Song testSong = new Song("1", "hoi", "https://www.mboxdrive.com/Drake%20-%20Hotline%20Bling%20(Instrumental)%20(ReProd.%20By%20JDP).mp3", 0, 0);
+            likedPlaylist.addSong(testSong);
+            testSong = new Song("2", "katyusha", "http://www.noiseaddicts.com/samples_1w72b820/1450.mp3", 0, 0);
+            likedPlaylist.addSong(testSong);
+            testSong = new Song("3", "Real national anthem", "http://www.noiseaddicts.com/samples_1w72b820/4250.mp3", 0, 0);
+            likedPlaylist.addSong(testSong);
+            Constants.ADD_DUMMY_SONGS = false;
         }
+        ///////////////////////
+
+        //Adding the playlists created by the user
+        playlists.addAll(((NavigationActivity) requireActivity()).playlists_nav);
 
         PlaylistAdapter adapter = new PlaylistAdapter(this,playlists);
         playlistView.setAdapter(adapter);
@@ -86,7 +96,6 @@ public class LibraryFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Playlist playlist=playlists.get(position);
                 showSongList(position);
-
             }
         });
 

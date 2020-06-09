@@ -38,7 +38,7 @@ public class artistview extends Fragment {
     }
     public void showIfFollowed(Boolean isFollowed, View view){
             follow = view.findViewById(R.id.followArtist);
-            if (isFollowed == true){
+            if (isFollowed){
                 follow.setText("UnFollow");
 
             }else {
@@ -61,10 +61,14 @@ public class artistview extends Fragment {
         showIfFollowed(ifFollowed,v);
         artistname = v.findViewById(R.id.artistName);
         artistpic = v.findViewById(R.id.artistPhoto);
-        if (name == "Adele"){
+        if (name.equals("Adele")){
             artistpic.setImageResource(R.drawable.adele);
 
+<<<<<<< HEAD
         }else if(name =="Eminem"){
+=======
+        }else if(name.equals("Emeniem")){
+>>>>>>> 86eba2a72143b5951c251b9f529396ce73e85645
             artistpic.setImageResource(R.drawable.emspotify);
         }else if (name == "Sia"){
             artistpic.setImageResource(R.drawable.sia);
@@ -79,14 +83,14 @@ public class artistview extends Fragment {
         }
         artistname.setText(name);
 
-        songs=((NavigationActivity)getActivity()).songsToShow;
+        songs=((NavigationActivity)requireActivity()).songsToShow;
         SongListAdapter adapter = new SongListAdapter(this,songs);
         songListView.setAdapter(adapter);
 
         follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ifFollowed == true){
+                if (ifFollowed){
                     ifFollowed = false;
                     showIfFollowed(false,v);
                     Toast.makeText(getActivity(), "You have unfollowed "+name, Toast.LENGTH_SHORT).show();
@@ -121,19 +125,20 @@ public class artistview extends Fragment {
                 String songAdress=song.getUrl();
                 String songName = song.getTitle();
                 if (song.inQueue){
-                    ((NavigationActivity) getActivity()).currentSongIndex=song.numberInQueue;
-                    ((NavigationActivity) getActivity()).startStreamingService(songAdress);
+                    ((NavigationActivity) requireActivity()).currentSongIndex = song.numberInQueue;
+                    ((NavigationActivity) requireActivity()).startStreamingService(songAdress);
 
                 }
                 else {
-                    if (((NavigationActivity) getActivity()).songQueue.size() > 0) {
-                        ((NavigationActivity) getActivity()).currentSongIndex = ((NavigationActivity) getActivity()).songQueue.size();
-                        song.numberInQueue = ((NavigationActivity) getActivity()).currentSongIndex;
+                    if (((NavigationActivity) requireActivity()).songQueue.size() > 0) {
+                        ((NavigationActivity) requireActivity()).currentSongIndex =
+                                ((NavigationActivity) requireActivity()).songQueue.size();
+                        song.numberInQueue = ((NavigationActivity) requireActivity()).currentSongIndex;
                     }
-                    ((NavigationActivity) getActivity()).songQueue.add(song);
+                    ((NavigationActivity) requireActivity()).songQueue.add(song);
                     song.inQueue = true;
-                    ((NavigationActivity) getActivity()).startStreamingService(songAdress);
-                    // ((NavigationActivity)getActivity()).setSongNameNav(songName);
+                    ((NavigationActivity) requireActivity()).startStreamingService(songAdress);
+                    // ((NavigationActivity)requireActivity()).setSongNameNav(songName);
                 }
             }
         });

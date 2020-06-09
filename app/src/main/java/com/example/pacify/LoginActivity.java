@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this
-                                            , ForgetPasswordActivity.class);
+                        , ForgetPasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -104,9 +104,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void Login(){
         SaveUserData();
-
-        if(!Constants.USER_TYPE.equals("artist")) {
-            Intent intent = new Intent(LoginActivity.this, ArtistActivity.class);
+        if(!editTextEmail.getText().toString().trim().equals("artist@pacify.com")) {
+            Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("username", "Dummy");
             intent.putExtras(bundle);

@@ -52,7 +52,8 @@ import java.util.Random;
 
 
 public class NavigationActivity extends AppCompatActivity
-        implements CreatePlaylistDialog.CreatePlaylistDialogListener {
+        implements CreatePlaylistDialog.CreatePlaylistDialogListener ,
+        AddSongToPlaylistDialog.AddSongToPlaylistDialogListener {
 
     List<Song> songsToShow;
     List<Song> songQueue= new ArrayList<>();
@@ -76,6 +77,7 @@ public class NavigationActivity extends AppCompatActivity
     Artist artistSeven = new Artist("Marshmello", 1543);
     public String NewPlaylistName = "";
     public List<Playlist> playlists_nav = new ArrayList<>();
+    private Song SongToBeAddedToPlaylist;
 
     /**
      * plays the songs in the sent playlist from the beginning
@@ -472,7 +474,7 @@ public class NavigationActivity extends AppCompatActivity
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         SeekBar scrubber = (SeekBar) findViewById(R.id.seekBar);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new LibraryFragment()).commit();
+                new HomeFragment()).commit();
         playPauseButton= (ImageButton) findViewById(R.id.playPauseBarButton);
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -591,7 +593,7 @@ public class NavigationActivity extends AppCompatActivity
         super.onStart();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, new LibraryFragment())
+                .replace(R.id.fragment_container, new HomeFragment())
                 .commit();
     }
 
@@ -769,28 +771,92 @@ public class NavigationActivity extends AppCompatActivity
     public void upgradeUserToPremium() {
         //TODO(Adham): Upgrade user to premium request
         com.example.pacify.Utilities.Constants.USER_TYPE = "premium";
-        Toast.makeText(getBaseContext(), "You Premium now\nEnjoy!"
+        Toast.makeText(getBaseContext(), "You're  Premium now\nEnjoy!"
                 , Toast.LENGTH_SHORT).show();
     }
 
 
+    /**
+     * Called when the user enter a name and press create, it check if it already
+     * exist or not, if not it create a new one with the name entered by the user
+     * @param playlistName is the playlist name typed in the dialog
+     */
     @Override
     public void sendPlaylistName(String playlistName) {
         NewPlaylistName = playlistName;
+
+        for(int i=0;i<playlists_nav.size();i++){
+            if(playlists_nav.get(i).getTitle().equals(NewPlaylistName)) {
+                Toast.makeText(this
+                        , "Playlist '" + NewPlaylistName + "' already exists"
+                        , Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
         Toast.makeText(this
-                , NewPlaylistName + " playlist is created"
+                , "Playlist '" + NewPlaylistName + "' is created"
                 , Toast.LENGTH_SHORT).show();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, new LibraryFragment())
                 .commit();
+
         Playlist playlist = new Playlist(playlistName);
         playlists_nav.add(playlist);
     }
 
+    /**
+     * Opens a dialog to enter the new playlist name
+     */
      public void openCreatePlaylistDialog() {
         CreatePlaylistDialog createPlaylistDialog = new CreatePlaylistDialog();
         createPlaylistDialog.show(getSupportFragmentManager(), "Playlist Dialog");
+    }
+
+    /**
+     * Called when the user enter a name and press create, it check if the playlist exist
+     * or not, only if it exists it check if the song is already in that playlist or not
+     * and if not it adds the song to the playlist
+     * @param playlistName is the playlist name typed in the dialog
+     */
+    @Override
+    public void sendPlaylistNameToAddSong(String playlistName) {
+        boolean songInPlaylist = false;
+        for(int i=0; i < playlists_nav.size(); i++) {
+            if(playlistName.equals(playlists_nav.get(i).getTitle())){
+                for(int j=0; j < playlists_nav.get(i).playlistSongs.size(); j++){
+                    songInPlaylist = (playlists_nav.get(i).playlistSongs.get(j)
+                            == SongToBeAddedToPlaylist) || songInPlaylist;
+                }
+                if (!songInPlaylist){
+                    playlists_nav.get(i).addSong(SongToBeAddedToPlaylist);
+                    Toast.makeText(this
+                            , "Song added"
+                            , Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(this
+                            , "This song is already in playlist '"
+                                    + playlists_nav.get(i).title + "'"
+                            , Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+        Toast.makeText(this
+                , "Playlist '" + playlistName + "' is not found"
+                , Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens a dialog to add a playlist name to add song to
+     * @param song is the song to be added to a playlist
+     */
+    public void openAddSongToPlaylistDialog(Song song) {
+        SongToBeAddedToPlaylist = song;
+        AddSongToPlaylistDialog addSongToPlaylistDialog = new AddSongToPlaylistDialog();
+        addSongToPlaylistDialog.show(getSupportFragmentManager(), "Add song to playlist dialog");
     }
 
     public void SendEmailRequest() {
@@ -925,5 +991,6 @@ public class NavigationActivity extends AppCompatActivity
     public void onBackPressed() {
 
     }
+
 
 }

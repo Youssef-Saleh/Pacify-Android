@@ -5,6 +5,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -115,6 +119,7 @@ public class ArtistActivity extends AppCompatActivity {
                 }
             };
 
+<<<<<<< HEAD
     public void uploadFile(Uri audioUri) {
         progressDialog = new ProgressDialog(ArtistActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -176,5 +181,16 @@ public class ArtistActivity extends AppCompatActivity {
             audioUri = data.getData();
         } else
             Toast.makeText(ArtistActivity.this, "Please Choose a file", Toast.LENGTH_SHORT).show();
+=======
+    public void Logout(){
+        //Source: https://stackoverflow.com/questions/6609414/how-do-i-programmatically-restart-an-android-app
+        Intent mStartActivity = new Intent(this, MainActivity.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId,
+                mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        System.exit(0);
+>>>>>>> 86eba2a72143b5951c251b9f529396ce73e85645
     }
 }

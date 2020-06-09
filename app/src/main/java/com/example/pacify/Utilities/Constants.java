@@ -12,9 +12,9 @@ public class Constants {
     public static String FACEBOOK_NAME = "";
     public static String FACEBOOK_PP = "";
 
-    public static String USER_TYPE = "artist"; //free, premium, or artist
+    public static String USER_TYPE = "free"; //free, or premium
 
-
+    public static boolean ADD_DUMMY_SONGS = true;
 
     public static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
