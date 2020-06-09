@@ -1,6 +1,7 @@
 package com.example.pacify;
 
 import android.app.AlarmManager;
+import android.app.DownloadManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -10,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.media.session.MediaSession;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.MenuItem;
@@ -78,7 +80,31 @@ public class NavigationActivity extends AppCompatActivity
     public String NewPlaylistName = "";
     public List<Playlist> playlists_nav = new ArrayList<>();
     private Song SongToBeAddedToPlaylist;
+    DownloadManager downloadManager;
 
+
+    public void downloadSong(View v){
+        Song song= songQueue.get(currentSongIndex);
+        String songURL = song.getUrl();
+        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(songURL);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        long reference = downloadManager.enqueue(request);
+    }
+
+    public void shareSong(View v){
+        Song song= songQueue.get(currentSongIndex);
+        String songURL = song.getUrl();
+        Intent myIntent = new Intent(Intent.ACTION_SEND);
+        myIntent.setType("text/plain");
+        String shareBody = songURL;
+        String shareSub = "Your Subject here";
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        myIntent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+        myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(myIntent, "Share Link!"));
+    }
     /**
      * plays the songs in the sent playlist from the beginning
      * @param view view that was clicked
