@@ -64,11 +64,7 @@ public class artistview extends Fragment {
         if (name.equals("Adele")){
             artistpic.setImageResource(R.drawable.adele);
 
-<<<<<<< HEAD
         }else if(name =="Eminem"){
-=======
-        }else if(name.equals("Emeniem")){
->>>>>>> 86eba2a72143b5951c251b9f529396ce73e85645
             artistpic.setImageResource(R.drawable.emspotify);
         }else if (name == "Sia"){
             artistpic.setImageResource(R.drawable.sia);
