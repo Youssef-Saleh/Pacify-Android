@@ -8,13 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.media.AudioManager;
 import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.media.AudioManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.android.volley.RequestQueue;
@@ -56,14 +56,24 @@ public class NavigationActivity extends AppCompatActivity
 
     List<Song> songsToShow;
     List<Song> songQueue= new ArrayList<>();
-    List <Song> recentlyPlayer = new ArrayList<>(4);
+    List <Song> recentlyPlayed = new ArrayList<>(4);
+    int recentlyPlayedIndex = 0;
+    Song firstSong;
+    Song secondSong;
+    Song thirdSong;
+    Song forthSong;
     Playlist likedSongs = new Playlist("Liked Songs");
     int currentSongIndex=0;
     Boolean shuffleSong = false;
     Boolean loopSong = false;
     boolean songLiked;
-    Artist artistThree = new Artist("Emeniem", 1002);
+    Artist artistOne = new Artist("Sia", 1532);
+    Artist artistTwo = new Artist("Martin Garrix", 934);
+    Artist artistThree = new Artist("Eminem", 1002);
+    Artist artistFour = new Artist("Alan Walker", 1230);
     Artist artistFive = new Artist("Adele",532);
+    Artist artistSix = new Artist("Ed Sheeran", 1323);
+    Artist artistSeven = new Artist("Marshmello", 1543);
     public String NewPlaylistName = "";
     public List<Playlist> playlists_nav = new ArrayList<>();
 
@@ -81,7 +91,58 @@ public class NavigationActivity extends AppCompatActivity
         startStreamingService(songAdress);
 
     }
-
+    ImageView bigImage;
+    public void changePlayerPicture(){
+        bigImage = (ImageView)findViewById(R.id.bigSongImage);
+        Song song = songQueue.get(currentSongIndex);
+        String songArtist = song.getArtist();
+        if (songArtist.equals("AlanWalker")){
+            bigImage.setImageResource(R.drawable.ignite);
+        }else if( songArtist.equals("Tones and I")){
+            bigImage.setImageResource(R.drawable.dancemonkey);
+        }else if( songArtist.equals("bulow")){
+            bigImage.setImageResource(R.drawable.ownme);
+        }else if( songArtist.equals("billie eilish")){
+            bigImage.setImageResource(R.drawable.badguy);
+        }else if( songArtist.equals("Sia")){
+            bigImage.setImageResource(R.drawable.sia);
+        }else if( songArtist.equals("Martin Garrix")){
+            bigImage.setImageResource(R.drawable.martingarix);
+        }else if( songArtist.equals("Eminem")){
+            bigImage.setImageResource(R.drawable.emspotify);
+        }else if( songArtist.equals("Alan Walker")){
+            bigImage.setImageResource(R.drawable.alanwalker);
+        }else if( songArtist.equals("Adele")){
+            bigImage.setImageResource(R.drawable.adele);
+        }else if( songArtist.equals("Ed Sheeran")){
+            bigImage.setImageResource(R.drawable.ed);
+        }else if( songArtist.equals("Marshmello")){
+            bigImage.setImageResource(R.drawable.marshmello);
+        }
+    }
+    public void fillRecentlyPlayed( int mod){
+        if (mod == 0){
+            firstSong = new Song("1","Ignite","http://104.47.139.19/api/audio/Ignite.mp3",5,5);
+            firstSong.setArtist("AlanWalker");
+            recentlyPlayed.add(0,firstSong);
+             secondSong = new Song("2","Dance Monkey","http://104.47.139.19/api/audio/DanceMonkey.mp3",5,5);
+             secondSong.setArtist("Tones and I");
+            recentlyPlayed.add(1,secondSong);
+             thirdSong = new Song("3","Own Me","http://104.47.139.19/api/audio/OwnMe.mp3",5,5);
+             thirdSong.setArtist("bulow");
+            recentlyPlayed.add(2,thirdSong);
+             forthSong = new Song("4","Bad Guy","http://104.47.139.19/api/audio/BadGuy.mp3",5,5);
+             forthSong.setArtist("billie eilish");
+            recentlyPlayed.add(3,forthSong);
+        }else if (mod  == 1){
+            if (recentlyPlayedIndex > 3){
+                recentlyPlayedIndex = 0;
+            }
+            recentlyPlayed.remove(recentlyPlayedIndex);
+            recentlyPlayed.add(recentlyPlayedIndex,songQueue.get(currentSongIndex));
+            recentlyPlayedIndex +=1 ;
+        }
+    }
     /**
      * This method is called whenever the user presses the next button on the player , the songs finishes to play the next in the Queue,or next on notification.
      * It increments the song index and make sure it doesn't exeed the size oh the song list
@@ -131,14 +192,16 @@ public class NavigationActivity extends AppCompatActivity
      * It sets the player bar with the name of the song and notification too
      * @param songName
      */
-    public void setSongNameNav(final String songName){
+    public void setSongNameNav(final String songName, String name){
         TextView smallBar = (TextView) findViewById(R.id.songName);
-
         TextView bigBar = (TextView) findViewById(R.id.bigSongName);
+        TextView artistName = (TextView) findViewById(R.id.artistName);
         smallBar.setText(songName);
         bigBar.setText(songName);
-
+        artistName.setText(name);
+        changePlayerPicture();
         mBoundService.setSongName(songName);
+        mBoundService.setIcon(name);
 
         }
     /**
@@ -366,7 +429,10 @@ public class NavigationActivity extends AppCompatActivity
 
                 Song song = songQueue.get(currentSongIndex);
                 String songName = song.getTitle();
-                setSongNameNav(songName);
+                String artistName = song.getArtist();
+
+            View view = null;
+            setSongNameNav(songName, artistName);
 
         }
     };
@@ -488,6 +554,7 @@ public class NavigationActivity extends AppCompatActivity
                 playPrevious();
             }
         });
+        fillRecentlyPlayed(0);
 
     }
     /**
@@ -501,6 +568,7 @@ public class NavigationActivity extends AppCompatActivity
         showIfLiked();
         showIfShuffle();
         showIfLooping();
+        fillRecentlyPlayed(1);
         Intent i = new Intent(this,PlayerService.class);
         i.putExtra("url",url) ;
         i.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);

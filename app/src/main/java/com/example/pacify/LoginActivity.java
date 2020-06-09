@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
         SaveUserData();
 
         if(!Constants.USER_TYPE.equals("artist")) {
-            Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+            Intent intent = new Intent(LoginActivity.this, ArtistActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("username", "Dummy");
             intent.putExtras(bundle);
@@ -115,8 +115,11 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             Intent intent = new Intent(LoginActivity.this, ArtistActivity.class);
-            startActivity(intent);
-        }
+            Bundle bundle = new Bundle();
+            bundle.putString("username", "Dummy");
+            intent.putExtras(bundle);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);        }
     }
 
     @Override

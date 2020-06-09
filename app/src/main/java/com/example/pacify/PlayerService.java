@@ -37,6 +37,7 @@ public class PlayerService extends Service {
     Boolean isFinished= false;
     String songName = "";
     MediaPlayer mediaPlayer=new MediaPlayer();
+    Bitmap icon ;
     private final IBinder mBinder = new MyBinder();
 
     /**
@@ -85,7 +86,7 @@ public class PlayerService extends Service {
             stopForeground(true);
             stopSelf();
         }
-        return START_REDELIVER_INTENT;
+        return START_NOT_STICKY;
 
     }
     /**
@@ -183,13 +184,15 @@ public class PlayerService extends Service {
         nextIntent.setAction(Constants.ACTION.NEXT_ACTION);
         PendingIntent pNextIntent = PendingIntent.getService(this,0,nextIntent,0);
 
-        Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.tree);
         int playPauseButtonId= android.R.drawable.ic_media_play;
         String playOrPause= "Play";
         if (mediaPlayer!=null && mediaPlayer.isPlaying())
         {
             playPauseButtonId=android.R.drawable.ic_media_pause;
             playOrPause="Pause";
+        }
+        if (icon == null){
+            icon  =BitmapFactory.decodeResource(getResources(), R.drawable.tree);
         }
         Notification notification = notificationBuilder
                 .setOngoing(false)
@@ -230,7 +233,6 @@ public class PlayerService extends Service {
             nextIntent.setAction(Constants.ACTION.NEXT_ACTION);
             PendingIntent pNextIntent = PendingIntent.getService(this, 0, nextIntent, 0);
 
-            Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.tree);
 
 
             int playPauseButtonId = android.R.drawable.ic_media_play;
@@ -238,6 +240,9 @@ public class PlayerService extends Service {
             if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                 playPauseButtonId = android.R.drawable.ic_media_pause;
                 playOrPause = "Pause";
+            }
+            if (icon == null){
+                icon  =BitmapFactory.decodeResource(getResources(), R.drawable.tree);
             }
             Notification notification = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                     .setOngoing(false)
@@ -253,6 +258,45 @@ public class PlayerService extends Service {
                     .build();
             startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, notification);
         }
+    }
+
+    public void setIcon(String key){
+        if (key.equals("AlanWalker")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.ignite);
+
+        }else if( key.equals("Tones and I")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.dancemonkey);
+
+        }else if( key.equals("bulow")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.ownme);
+
+        }else if( key.equals("billie eilish")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.badguy);
+
+        }else if( key.equals("Sia")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.sia);
+
+        }else if( key.equals("Martin Garrix")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.martingarix);
+
+        }else if( key.equals("Eminem")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.emspotify);
+
+        }else if( key.equals("Alan Walker")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.alanwalker);
+
+        }else if( key.equals("Adele")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.adele);
+
+        }else if( key.equals("Ed Sheeran")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.ed);
+
+        }else if( key.equals("Marshmello")){
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.marshmello);
+
+        }
+        showNotification();
+
     }
     @Override
     public IBinder onBind(Intent intent) {
