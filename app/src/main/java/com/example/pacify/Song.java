@@ -13,6 +13,8 @@ public class Song {
     int numberInQueue=0;
     Boolean inQueue=false;
     Boolean isLiked=false;
+    String artist = " ";
+    String mood;
 
     /**
      * setting all the attributes of the song
@@ -33,6 +35,12 @@ public class Song {
     public String getId(){
         return id;
     }
+    public String getArtist(){
+        return artist;
+    }
+    public String getMood(){
+        return mood;
+    }
 
     public String getTitle(){
         return title;
@@ -48,6 +56,9 @@ public class Song {
     public int getNumLikes(){
         return numLikes;
     }
+    public void setArtist(String name){artist = name;}
+    public void setMood(String Songmood){mood = Songmood;}
+
 
     public void setIsLiked(Boolean condition){isLiked=condition;}
 

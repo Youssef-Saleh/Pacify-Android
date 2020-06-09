@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "880696094298",
-    "firebase_url": "https://pacify-54961.firebaseio.com",
-    "project_id": "pacify-54961",
-    "storage_bucket": "pacify-54961.appspot.com"
+    "project_number": "595187980971",
+    "firebase_url": "https://pacify-1ce14.firebaseio.com",
+    "project_id": "pacify-1ce14",
+    "storage_bucket": "pacify-1ce14.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:880696094298:android:3af6bc4207ee17ba923263",
+        "mobilesdk_app_id": "1:595187980971:android:96c799ae76debe3a60f5ee",
         "android_client_info": {
           "package_name": "com.example.pacify"
         }
       },
       "oauth_client": [
         {
-          "client_id": "880696094298-fjgip2u22m9rhq56gsa0enmul76v49eo.apps.googleusercontent.com",
+          "client_id": "595187980971-v39i91jjgvocmuogsgrbm07jr7po5p3i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pacify",
+            "certificate_hash": "b96b5387eee36672eebee9170760cdba053bd85c"
+          }
+        },
+        {
+          "client_id": "595187980971-74fv6un69qpmeng913p6breicvrpfo7h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA-eQJXXjgSUF10Fz0IeykOF_BGRqFYx7w"
+          "current_key": "AIzaSyDIWBDpf825gMPO4uWeokeHWCq-C6JwDr8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "880696094298-fjgip2u22m9rhq56gsa0enmul76v49eo.apps.googleusercontent.com",
+              "client_id": "595187980971-74fv6un69qpmeng913p6breicvrpfo7h.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

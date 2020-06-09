@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -63,8 +64,18 @@ public class artistview extends Fragment {
         if (name.equals("Adele")){
             artistpic.setImageResource(R.drawable.adele);
 
-        }else if(name.equals("Emeniem")){
+        }else if(name =="Eminem"){
             artistpic.setImageResource(R.drawable.emspotify);
+        }else if (name == "Sia"){
+            artistpic.setImageResource(R.drawable.sia);
+        }else if (name == "Martin Garrix"){
+            artistpic.setImageResource(R.drawable.martingarix);
+        }else if (name == "Alan Walker"){
+            artistpic.setImageResource(R.drawable.alanwalker);
+        }else if (name == "Ed Sheeran"){
+            artistpic.setImageResource((R.drawable.ed));
+        }else if (name == "Marshmello"){
+            artistpic.setImageResource(R.drawable.marshmello);
         }
         artistname.setText(name);
 
@@ -78,16 +89,28 @@ public class artistview extends Fragment {
                 if (ifFollowed){
                     ifFollowed = false;
                     showIfFollowed(false,v);
+                    Toast.makeText(getActivity(), "You have unfollowed "+name, Toast.LENGTH_SHORT).show();
 
                 }else {
                     ifFollowed = true;
+                    Toast.makeText(getActivity(), "You have followed "+name, Toast.LENGTH_SHORT).show();
                     showIfFollowed(true,v);
                 }
-                if (name.equals("Adele")){
-                    ((NavigationActivity)requireActivity()).artistFive.setIsFollowed(ifFollowed);
+                if (name == "Adele"){
+                    ((NavigationActivity)getActivity()).artistFive.setIsFollowed(ifFollowed);
 
-                }else if(name.equals("Emeniem")){
-                    ((NavigationActivity)requireActivity()).artistThree.setIsFollowed(ifFollowed);
+                }else if(name =="Eminem"){
+                    ((NavigationActivity)getActivity()).artistThree.setIsFollowed(ifFollowed);
+                }else if (name == "Sia"){
+                    ((NavigationActivity)getActivity()).artistOne.setIsFollowed(ifFollowed);
+                }else if (name == "Martin Garrix"){
+                    ((NavigationActivity)getActivity()).artistTwo.setIsFollowed(ifFollowed);
+                }else if (name == "Alan Walker"){
+                    ((NavigationActivity)getActivity()).artistFour.setIsFollowed(ifFollowed);
+                }else if (name == "Ed Sheeran"){
+                    ((NavigationActivity)getActivity()).artistSix.setIsFollowed(ifFollowed);
+                }else if (name == "Marshmello"){
+                    ((NavigationActivity)getActivity()).artistSeven.setIsFollowed(ifFollowed);
                 }
             }
         });
@@ -115,8 +138,8 @@ public class artistview extends Fragment {
                 }
             }
         });
+
         return v;
     }
-
 
 }
