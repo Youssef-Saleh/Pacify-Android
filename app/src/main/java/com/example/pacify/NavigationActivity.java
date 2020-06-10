@@ -1096,13 +1096,7 @@ public class NavigationActivity extends AppCompatActivity
                     public void onResponse(JSONObject response) {
 
                         try {
-                            if(response.getString("edit").equals("successful")) {
-                                Toast.makeText(NavigationActivity.this, "Changed successful"
-                                        , Toast.LENGTH_SHORT).show();
-                                successful = true;
-                            }
-                            else
-                                successful = false;
+                            successful = response.getString("edit").equals("successful");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
