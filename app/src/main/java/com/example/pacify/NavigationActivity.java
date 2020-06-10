@@ -14,6 +14,7 @@ import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -27,7 +28,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pacify.Settings.EditProfileFragment;
 import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
@@ -49,7 +54,9 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -280,6 +287,37 @@ public class NavigationActivity extends AppCompatActivity
             playerNav.setVisibility(View.VISIBLE);
         }
     }
+    private void theJsonParser(String url){
+        RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        Song song = songQueue.get(currentSongIndex);
+                        // response
+                        Toast.makeText(NavigationActivity.this,"Request Successfully sent to Like / Unlike  "+ song.getTitle(),Toast.LENGTH_SHORT).show();
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(NavigationActivity.this,"Request Failed, the status will be saved locally",Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("Like", "Like/Dislike Request");
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
     /**
      * This method is called whenever the user presses the like button to like the song
      * it sets the (Like boolean) in the song object according to the user choice
@@ -287,11 +325,11 @@ public class NavigationActivity extends AppCompatActivity
      */
 
     public void likeButton (View view){
-        try{
-            FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
-            FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
-            Song song = songQueue.get(currentSongIndex);
-            songLiked =song.getIsLiked();
+        theJsonParser("http://e4313.mocklab.io/json/1");
+        FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
+        FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
+        Song song = songQueue.get(currentSongIndex);
+        songLiked =song.getIsLiked();
 
             if (songLiked == false)
             {
@@ -308,9 +346,7 @@ public class NavigationActivity extends AppCompatActivity
                 showIfLiked();
             }
         }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+
     }
     /**
      * This method is called after the user likes a song to update the player bar
@@ -589,7 +625,6 @@ public class NavigationActivity extends AppCompatActivity
             }
         });
         scrubber.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {

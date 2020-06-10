@@ -361,7 +361,7 @@
                         android:layout_weight="1"
                         android:background="@color/colorPrimary"
                         android:scaleType="fitXY"
-                        app:srcCompat="@drawable/dailymix3" />
+                        app:srcCompat="@drawable/dailymix2" />
 
                     <ImageButton
                         android:id="@+id/imageButton23"
@@ -372,7 +372,7 @@
                         android:layout_weight="1"
                         android:background="@color/colorPrimary"
                         android:scaleType="fitXY"
-                        app:srcCompat="@drawable/dailymix" />
+                        app:srcCompat="@drawable/dailymix3" />
 
 
                 </LinearLayout>
