@@ -19,8 +19,8 @@ public class Constants {
     }
 
     public interface PLAYLIST_ID {
-        public static String POP = "http://e4313.mocklab.io/thing/allsongs";
-        public static String ELECTRONIC= "http://192.168.43.130:5000/Playlist/5e8e0396a1a3730480cc0a68"; //not in use
+        public static String POP = "https://5ef4d4b5-fa1f-427e-9ff4-02eeba164a61.mock.pstmn.io/allsongs";
+        public static String SEARCH = "https://5ef4d4b5-fa1f-427e-9ff4-02eeba164a61.mock.pstmn.io/search/";
     }
 
 

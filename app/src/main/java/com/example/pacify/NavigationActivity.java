@@ -92,26 +92,36 @@ public class NavigationActivity extends AppCompatActivity
 
 
     public void downloadSong(View v){
-        Song song= songQueue.get(currentSongIndex);
-        String songURL = song.getUrl();
-        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        Uri uri = Uri.parse(songURL);
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        long reference = downloadManager.enqueue(request);
+        try {
+            Song song = songQueue.get(currentSongIndex);
+            String songURL = song.getUrl();
+            downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            Uri uri = Uri.parse(songURL);
+            DownloadManager.Request request = new DownloadManager.Request(uri);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            long reference = downloadManager.enqueue(request);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void shareSong(View v){
-        Song song= songQueue.get(currentSongIndex);
-        String songURL = song.getUrl();
-        Intent myIntent = new Intent(Intent.ACTION_SEND);
-        myIntent.setType("text/plain");
-        String shareBody = songURL;
-        String shareSub = "Your Subject here";
-        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        myIntent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
-        myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-        startActivity(Intent.createChooser(myIntent, "Share Link!"));
+        try{
+            Song song= songQueue.get(currentSongIndex);
+            String songURL = song.getUrl();
+            Intent myIntent = new Intent(Intent.ACTION_SEND);
+            myIntent.setType("text/plain");
+            String shareBody = songURL;
+            String shareSub = "Your Subject here";
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            myIntent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+            myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(myIntent, "Share Link!"));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
     /**
      * plays the songs in the sent playlist from the beginning
@@ -119,12 +129,24 @@ public class NavigationActivity extends AppCompatActivity
      * @param playlist playlist that  we want played from the beginning
      */
     public void playAll(View view,List<Song> playlist){
-        songQueue = playlist;
-        Song song = songQueue.get(0);
-        String songAdress=song.getUrl();
-        String songName = song.getTitle();
-        //setSongNameNav(songName);
-        startStreamingService(songAdress);
+        try {
+            if (songQueue != playlist) {
+                songQueue.clear();
+                songQueue = playlist;
+                for (int i = 0; i < songQueue.size(); i++) {
+                    songQueue.get(i).numberInQueue = i;
+                }
+            }
+            currentSongIndex = 0;
+            Song song = songQueue.get(currentSongIndex);
+            String songAdress = song.getUrl();
+            String songName = song.getTitle();
+            //setSongNameNav(songName);
+            startStreamingService(songAdress);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
     ImageView bigImage;
@@ -185,23 +207,28 @@ public class NavigationActivity extends AppCompatActivity
      * if the shuffle Boolean is on, it generates a random index
      */
     public void playNext (){
-        if (shuffleSong==true){
-            Random random = new Random();
-            currentSongIndex = random.nextInt(songQueue.size());
-        }
-        else
-        {
-            currentSongIndex += 1;
-        }
-        if (currentSongIndex > (songQueue.size()-1)) {
-            currentSongIndex = 0;
-        }
+        try{
+            if (shuffleSong==true){
+                Random random = new Random();
+                currentSongIndex = random.nextInt(songQueue.size());
+            }
+            else
+            {
+                currentSongIndex += 1;
+            }
+            if (currentSongIndex > (songQueue.size()-1)) {
+                currentSongIndex = 0;
+            }
 
-        Song song = songQueue.get(currentSongIndex);
-        String songAdress=song.getUrl();
-        String songName = song.getTitle();
-        //setSongName(songName);
-        startStreamingService(songAdress);
+            Song song = songQueue.get(currentSongIndex);
+            String songAdress=song.getUrl();
+            String songName = song.getTitle();
+            //setSongName(songName);
+            startStreamingService(songAdress);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
     /**
      * This method is called whenever the user presses the prev button on the player or the notification
@@ -209,18 +236,21 @@ public class NavigationActivity extends AppCompatActivity
      */
 
     public void playPrevious (){
+        try{
+            currentSongIndex -= 1;
 
-        currentSongIndex -= 1;
-
-        if (currentSongIndex < 0) {
-            currentSongIndex = songQueue.size()-1;
+            if (currentSongIndex < 0) {
+                currentSongIndex = songQueue.size()-1;
+            }
+            Song song = songQueue.get(currentSongIndex);
+            String songAdress=song.getUrl();
+            String songName = song.getTitle();
+           // setSongName(songName);
+            startStreamingService(songAdress);
         }
-        Song song = songQueue.get(currentSongIndex);
-        String songAdress=song.getUrl();
-        String songName = song.getTitle();
-       // setSongName(songName);
-        startStreamingService(songAdress);
-
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
     /**
@@ -296,25 +326,28 @@ public class NavigationActivity extends AppCompatActivity
      */
 
     public void likeButton (View view){
-        theJsonParser(Constants.POST_REQUEST);
-        FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
-        FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
-        Song song = songQueue.get(currentSongIndex);
-        songLiked =song.getIsLiked();
+        try {
+            theJsonParser(Constants.POST_REQUEST);
+            FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
+            FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
+            Song song = songQueue.get(currentSongIndex);
+            songLiked = song.getIsLiked();
 
-        if (songLiked == false)
-        {
-            songLiked = true;
-            song.setIsLiked(songLiked);
-            likedSongs.addSong(song);
-            showIfLiked();
+            if (songLiked == false) {
+                songLiked = true;
+                song.setIsLiked(songLiked);
+                likedSongs.addSong(song);
+                showIfLiked();
+            } else if (songLiked == true) {
+
+                songLiked = false;
+                likedSongs.removeSong(song);
+                song.setIsLiked(songLiked);
+                showIfLiked();
+            }
         }
-        else if (songLiked == true){
-
-            songLiked = false;
-            likedSongs.removeSong(song);
-            song.setIsLiked(songLiked);
-            showIfLiked();
+        catch (Exception e){
+            e.printStackTrace();
         }
 
     }
@@ -376,16 +409,20 @@ public class NavigationActivity extends AppCompatActivity
      */
 
     public void isLooping(View view){
-        if (loopSong == false){
+        try {
+            if (loopSong == false) {
 
-            loopSong = true ;
-            mBoundService.loopSong(loopSong);
-            showIfLooping();
+                loopSong = true;
+                mBoundService.loopSong(loopSong);
+                showIfLooping();
+            } else {
+                loopSong = false;
+                mBoundService.loopSong(loopSong);
+                showIfLooping();
+            }
         }
-        else {
-            loopSong = false ;
-            mBoundService.loopSong(loopSong);
-            showIfLooping();
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
     /**
@@ -593,19 +630,35 @@ public class NavigationActivity extends AppCompatActivity
         scrubber.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser)
-                mBoundService.seekPlayer(progress);
+                if (fromUser) {
+                    try{
+                        mBoundService.seekPlayer(progress);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                try{
+                    mBoundService.togglePlayer();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
 
-                mBoundService.togglePlayer();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                mBoundService.togglePlayer();
+                try{
+                    mBoundService.togglePlayer();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
         playNext= (ImageButton) findViewById(R.id.nextSong);
