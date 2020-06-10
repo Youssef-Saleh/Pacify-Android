@@ -11,6 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pacify.CommonFunctions;
@@ -19,8 +20,13 @@ import com.example.pacify.MainActivity;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -35,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
     public String signUp_name;
     public String signUp_phone_num;
     public String VerCode;
-    private boolean successful = false;
+    public boolean successful = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +60,22 @@ public class SignUpActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Constants.SIGNUP_URL;
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>()
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
                 {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         // response
                         Toast.makeText(SignUpActivity.this, "Now you can login with" +
                                 " your new account", Toast.LENGTH_SHORT).show();
                         successful = true;
+
+                        try {
+                            successful = response.getString("signup").equals("successful");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 },
                 new Response.ErrorListener()
@@ -72,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
                         // error
                         Toast.makeText(SignUpActivity.this, "An Error occurred," +
                                 " Please try again. ", Toast.LENGTH_SHORT).show();
-                        successful = false;
+                        successful = true;
                     }
                 }
         ) {
@@ -159,7 +172,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void logTheUserOn(){
-        //TODO(Adham): Log in the user request
         CommonFunctions.hideKeyboard(this);
         if(successful){
             Intent in = new Intent(SignUpActivity.this, NavigationActivity.class);
@@ -170,5 +182,4 @@ public class SignUpActivity extends AppCompatActivity {
             startActivity(in);
         }
     }
-
 }

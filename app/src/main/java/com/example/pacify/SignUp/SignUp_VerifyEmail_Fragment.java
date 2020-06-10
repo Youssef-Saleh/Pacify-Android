@@ -43,7 +43,7 @@ public class SignUp_VerifyEmail_Fragment extends Fragment {
             public void onClick(View v) {
                 if(editTextVerCode.getText().toString().trim().equals(Vcode.trim())) {
                     ((SignUpActivity)requireActivity()).createAccount();
-                    ((SignUpActivity)requireActivity()).logTheUserOn();
+                    //((SignUpActivity)requireActivity()).logTheUserOn();
                 }
                 else{
                     editTextVerCode.setTextColor(Color.RED);
