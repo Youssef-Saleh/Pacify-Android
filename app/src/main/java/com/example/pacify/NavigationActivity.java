@@ -1089,14 +1089,24 @@ public class NavigationActivity extends AppCompatActivity
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Constants.EDIT_PROFILE_URL;
 
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
-                new Response.Listener<String>()
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
+                new Response.Listener<JSONObject>()
                 {
                     @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(NavigationActivity.this, "Changed successful"
-                                , Toast.LENGTH_SHORT).show();
-                        successful = true;
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            if(response.getString("edit").equals("successful")) {
+                                Toast.makeText(NavigationActivity.this, "Changed successful"
+                                        , Toast.LENGTH_SHORT).show();
+                                successful = true;
+                            }
+                            else
+                                successful = false;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 },
                 new Response.ErrorListener()
