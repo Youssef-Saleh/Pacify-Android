@@ -36,6 +36,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pacify.Forget_Password.ForgetPasswordActivity;
 import com.example.pacify.Settings.EditProfileFragment;
 import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
 import com.example.pacify.Settings.Edit_profile.ChangeUserCountry;
@@ -1079,14 +1080,122 @@ public class NavigationActivity extends AppCompatActivity
         queue.add(postRequest);
     }
 
-    public boolean ConfirmEmailChange(String newEmail){
-        //TODO(Adham): Change email
-        return true;
+    public boolean ConfirmEmailChange(final String newEmail){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        final boolean[] successful = new boolean[1];
+        successful[0] = true;
+        String url = Constants.PROFILE_CHANGE_EMAIL;
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        try {
+                            if(response.getString("changed").equals("successful")){
+                                Toast.makeText(NavigationActivity.this, "Email " +
+                                        "changed successfully", Toast.LENGTH_SHORT).show();
+                                successful[0] = true;
+                            }
+                            else{
+                                Toast.makeText(NavigationActivity.this, "Email is not" +
+                                        " changed successfully", Toast.LENGTH_SHORT).show();
+                                successful[0] = true;
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Toast.makeText(NavigationActivity.this, "An Error occurred," +
+                                " please try again", Toast.LENGTH_SHORT).show();
+                        successful[0] = false;
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("new_email", newEmail);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        queue.add(postRequest);
+        return successful[0];
     }
 
-    public boolean ConfirmPasswordChange(String oldPassword, String newPassword){
+    public boolean ConfirmPasswordChange(final String oldPassword, final String newPassword){
         //TODO(Adham): Change password
-        return true;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        final boolean[] successful = new boolean[1];
+        successful[0] = true;
+        String url = Constants.PROFILE_CHANGE_PASSWORD;
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        try {
+                            if(response.getString("changed").equals("successful")){
+                                Toast.makeText(NavigationActivity.this, "Password " +
+                                        "changed successfully", Toast.LENGTH_SHORT).show();
+                                successful[0] = true;
+                            }
+                            else{
+                                Toast.makeText(NavigationActivity.this, "Password " +
+                                        "doesn't match!", Toast.LENGTH_SHORT).show();
+                                successful[0] = false;
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Toast.makeText(NavigationActivity.this, "An Error occurred," +
+                                " please try again", Toast.LENGTH_SHORT).show();
+                        successful[0] = false;
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("old_pass", oldPassword);
+                params.put("new_pass", newPassword);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        queue.add(postRequest);
+        return successful[0];
     }
 
     public boolean ConfirmPhoneChange(String newNumber) {

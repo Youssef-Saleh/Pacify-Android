@@ -91,8 +91,6 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     }
 
     public boolean RecoverPasswordRequest(final String newPass){
-        //TODO(Adham): send a change password request
-
         RequestQueue queue = Volley.newRequestQueue(this);
         final boolean[] successful = new boolean[1];
         String url = Constants.RECOVER_PASSWORD;
