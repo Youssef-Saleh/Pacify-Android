@@ -30,7 +30,7 @@ public class Constants {
     public static String CREATE_PLAYLIST = "http://pacify.mocklab.io/create/playlist";
     public static String SEND_EMAIL = "http://pacify.mocklab.io/sendemail";
     public static String LOGIN = "http://pacify.mocklab.io/login";
-
+    public static String RECOVER_PASSWORD = "http://pacify.mocklab.io/profile/password/recover";
 
     public static String POST_REQUEST = "http://e4313.mocklab.io/json/1";
 

@@ -90,8 +90,58 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         queue.add(postRequest);
     }
 
-    public void RecoverPasswordRequest(){
+    public boolean RecoverPasswordRequest(final String newPass){
         //TODO(Adham): send a change password request
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        final boolean[] successful = new boolean[1];
+        String url = Constants.RECOVER_PASSWORD;
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        try {
+                            if(response.getString("changed").equals("successful")){
+                                Toast.makeText(ForgetPasswordActivity.this, "Password " +
+                                        "changed successfully", Toast.LENGTH_SHORT).show();
+                                successful[0] = true;
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Toast.makeText(ForgetPasswordActivity.this, "An Error occurred," +
+                                " please try again", Toast.LENGTH_SHORT).show();
+                        successful[0] = false;
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("password", newPass);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        queue.add(postRequest);
+        return successful[0];
     }
 
     public void openLoginActivity(){

@@ -37,7 +37,8 @@ public class ForgetPasswordStep3_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(CheckPasswordMatch()){
-                    ((ForgetPasswordActivity)requireActivity()).RecoverPasswordRequest();
+                    ((ForgetPasswordActivity)requireActivity())
+                            .RecoverPasswordRequest( NewPassword.getText().toString().trim());
 
                     Toast.makeText(getActivity(), "Password is changed successfully."
                             , Toast.LENGTH_LONG).show();
