@@ -21,7 +21,6 @@ public class Constants {
     public interface PLAYLIST_ID {
         public static String POP = "https://5ef4d4b5-fa1f-427e-9ff4-02eeba164a61.mock.pstmn.io/allsongs";
         public static String SEARCH = "https://5ef4d4b5-fa1f-427e-9ff4-02eeba164a61.mock.pstmn.io/search/";
-        public static String POSTREQUEST = "https://5ef4d4b5-fa1f-427e-9ff4-02eeba164a61.mock.pstmn.io/postRequest";
     }
 
 
