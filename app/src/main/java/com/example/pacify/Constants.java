@@ -25,8 +25,11 @@ public class Constants {
     }
 
 
-    public static String SIGNUP_URL = "http://localhost:3000/users";
-    public static String EDIT_PROFILE_URL = "http://pacify.tech/api/account/profile";
+    public static String SIGNUP_URL = "http://l90we.mocklab.io/json/signup";
+    public static String EDIT_PROFILE_URL = "http://l90we.mocklab.io/json/profile/edit";
+    public static String SONG_STATS = "http://pacify.mocklab.io/artist/stats";
+    public static String POST_REQUEST = "http://e4313.mocklab.io/json/1";
+
 
     public static String[] countries =
             {"Afghanistan", "Albania", "Algeria", "American Samoa",

@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -325,12 +326,11 @@ public class NavigationActivity extends AppCompatActivity
      */
 
     public void likeButton (View view){
-        try{
-            theJsonParser("http://e4313.mocklab.io/json/1");
-            FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
-            FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
-            Song song = songQueue.get(currentSongIndex);
-            songLiked =song.getIsLiked();
+        theJsonParser(Constants.POST_REQUEST);
+        FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
+        FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
+        Song song = songQueue.get(currentSongIndex);
+        songLiked =song.getIsLiked();
 
                 if (songLiked == false)
                 {
@@ -557,7 +557,7 @@ public class NavigationActivity extends AppCompatActivity
         }
     }
     /**
-     * This function is called when this activity is created after a succesful log in
+     * This function is called when this activity is created after a successful log in
      * it also sets the volume bar that controls the app volume
      * it sets the play/pause button to communicate with the service through mBoundService
      */
@@ -743,8 +743,9 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     /**
-     * This is the ui version of flipPlay/Pause that changes the buttons according to the media playe state
-     * @param isPlaying that's received from thebroadcastt receiver and were passed from the service
+     * This is the ui version of flipPlay/Pause that changes the buttons according to
+     * the media player state
+     * @param isPlaying that's received from the broadcast receiver and were passed from the service
      */
     public  void flipPlayPauseButton(boolean isPlaying) {
         if (isPlaying) {
@@ -757,7 +758,8 @@ public class NavigationActivity extends AppCompatActivity
         }
     }
     /**
-     * This is the function that's called from the broadcast receiver that receives the song updates and update the seekbar accordingly.
+     * This is the function that's called from the broadcast receiver that receives the song updates
+     * and update the seekbar accordingly.
      * @param currentPosition the current sec of the song being played
      * @param duration the length of the song to set the max of the bar with it
      */
@@ -832,13 +834,6 @@ public class NavigationActivity extends AppCompatActivity
                 .commit();
     }
 
-    /*public void OpenStatisticsFragment(){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new StatisticsFragment())
-                .commit();
-    }*/
-
     public void GoToEditProfile(){
         getSupportFragmentManager()
                 .beginTransaction()
@@ -889,7 +884,10 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     public void upgradeUserToPremium() {
-        //TODO(Adham): Upgrade user to premium request
+        toChange = "type";
+        changedObject = "premium";
+        ApplyChange();
+
         com.example.pacify.Utilities.Constants.USER_TYPE = "premium";
         Toast.makeText(getBaseContext(), "You're  Premium now\nEnjoy!"
                 , Toast.LENGTH_SHORT).show();
@@ -994,31 +992,28 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     public boolean ConfirmPhoneChange(String newNumber) {
-        //TODO(Adham): Change phone number
         toChange = "phone";
         changedObject = newNumber;
         return ApplyChange();
     }
 
     public boolean ConfirmCountryChange(String newCountry) {
-        //TODO(Adham): Change Country
         toChange = "country";
         changedObject = newCountry;
         return ApplyChange();
     }
 
     public boolean ConfirmGenderChange(String gender) {
-        //TODO(Adham): Change Gender
         toChange = "gender";
         changedObject = gender;
         return ApplyChange();
     }
 
+    /**
+     * Reformatting the date to be the same as in the server.
+     */
     public boolean ConfirmDobChange(int year, int month, int day) {
-        /**
-         * Reformatting the date to be the same as in the server.
-         */
-        toChange = "birthdate";
+        toChange = "dop";
 
         DecimalFormat df = new DecimalFormat("##");
         changedObject = year + "-" + df.format(month) + "-" + day;
@@ -1030,24 +1025,24 @@ public class NavigationActivity extends AppCompatActivity
     String changedObject;
     boolean successful = true;
     MediaSession.Token tok;
+    /**
+     * A PUT request is send to the server, it works for country,
+     * gender, phone number and date of birth, and the change is
+     * applied to what 'toChange' string hold, and is changed to
+     * what 'changedObject' string hold.
+     * It return true if the operation was successful, false if not.
+     */
     public boolean ApplyChange(){
-        /**
-         * A PUT request is send to the server, it works for country,
-         * gender, phone number and date of birth, and the change is
-         * applied to what 'toChange' string hold, and is changed to
-         * what 'changedObject' string hold.
-         * It return true if the operation was successful, false if not.
-         */
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Constants.EDIT_PROFILE_URL;
 
-       /* StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
+        StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
                 new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response) {
-                        //Toast.makeText(NavigationActivity.this, "Changed successful"
-                        //        , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NavigationActivity.this, "Changed successful"
+                                , Toast.LENGTH_SHORT).show();
                         successful = true;
                     }
                 },
@@ -1055,8 +1050,8 @@ public class NavigationActivity extends AppCompatActivity
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(NavigationActivity.this, "An error occurred\n" +
-                        //                ",please try again.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NavigationActivity.this, "An error occurred\n" +
+                                      ",please try again.", Toast.LENGTH_SHORT).show();
                         successful = false;
                     }
                 }
@@ -1066,29 +1061,27 @@ public class NavigationActivity extends AppCompatActivity
             {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(toChange, changedObject);
-
                 return params;
             }
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/x-www-form-urlencoded");
-                params.put("Accept","application/json");
+                params.put("Content-Type","application/json");
                 return params;
             }
         };
 
-        queue.add(putRequest);*/
+        queue.add(putRequest);
         return successful;
     }
 
 
-
+    /**
+     * It delete the saved user data, logout the user from facebook (if he was logged
+     * in using facebook) and reset the app.
+     */
     public void LogOut(){
-        /**
-         * It delete the saved user data, logout the user from facebook (if he was logged
-         * in using facebook) and reset the app.
-         */
+
         PreferenceUtilities.saveState("false", this);
         PreferenceUtilities.saveEmail("",this);
         PreferenceUtilities.savePassword("",this);
