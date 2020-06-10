@@ -33,6 +33,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pacify.Settings.EditProfileFragment;
@@ -46,12 +47,16 @@ import com.example.pacify.Settings.Go_Premium.GoPremiumStep1Fragment;
 import com.example.pacify.Settings.Go_Premium.GoPremiumStep2Fragment;
 import com.example.pacify.Settings.Go_Premium.GoPremiumStep3Fragment;
 import com.example.pacify.Settings.MySettingsFragment;
+import com.example.pacify.SignUp.SignUpActivity;
 import com.example.pacify.Utilities.PreferenceUtilities;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -911,6 +916,8 @@ public class NavigationActivity extends AppCompatActivity
             }
         }
 
+        createPlaylistRequest(NewPlaylistName);
+
         Toast.makeText(this
                 , "Playlist '" + NewPlaylistName + "' is created"
                 , Toast.LENGTH_SHORT).show();
@@ -921,6 +928,53 @@ public class NavigationActivity extends AppCompatActivity
 
         Playlist playlist = new Playlist(playlistName);
         playlists_nav.add(playlist);
+    }
+
+    private void createPlaylistRequest(final String plName){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = Constants.CREATE_PLAYLIST;
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        try {
+                            if(response.getString("playlist").equals("successful")){
+                                Toast.makeText(NavigationActivity.this, "Playlist is " +
+                                        "created successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Toast.makeText(NavigationActivity.this, "An Error occurred," +
+                                " playlist will be created temporarily", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("playlist", plName);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        queue.add(postRequest);
     }
 
     /**
