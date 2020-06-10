@@ -177,7 +177,7 @@ public class SearchFragment extends Fragment {
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                theJsonParser("https://pacify.free.beeceptor.com/search/"+query,1);
+                theJsonParser(Constants.PLAYLIST_ID.SEARCH+query,1);
                 currentGenre="Pop";
                 ((NavigationActivity)getActivity()).songsToShow=mysongs;
                 return false;
