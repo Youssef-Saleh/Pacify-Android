@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -39,9 +40,9 @@ public class ArtistActivity extends AppCompatActivity {
     FirebaseStorage storage;
     FirebaseDatabase database;
     Uri audioUri ;
+    Uri selectedImage;
     ProgressDialog progressDialog;
-
-
+    private static final int RESULT_LOAD_IMAGE = 1;
 
     @Override
     protected void onRestart() {
@@ -177,7 +178,10 @@ public class ArtistActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 86 && resultCode == RESULT_OK && data != null) {
             audioUri = data.getData();
-        } else
+        }else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data !=null){
+             selectedImage = data.getData ();
+        }
+        else
             Toast.makeText(ArtistActivity.this, "Please Choose a file", Toast.LENGTH_SHORT).show();
     }    public void Logout(){
         //Source: https://stackoverflow.com/questions/6609414/how-do-i-programmatically-restart-an-android-app
@@ -188,5 +192,10 @@ public class ArtistActivity extends AppCompatActivity {
         AlarmManager mgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
         System.exit(0);
+    }
+
+    public void uploadPhoto (){
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
     }
 }

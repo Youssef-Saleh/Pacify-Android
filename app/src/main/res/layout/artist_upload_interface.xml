@@ -9,18 +9,17 @@
 
     <ImageView
         android:id="@+id/userPhoto"
-        android:layout_width="240dp"
+        android:layout_width="300dp"
         android:layout_height="240dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
         app:srcCompat="@drawable/com_facebook_profile_picture_blank_portrait" />
 
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="315dp"
+       android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
         android:background="@drawable/lightgray_roundbutton"
         android:paddingHorizontal="10dp"
         android:text="Logout"
@@ -30,12 +29,11 @@
 
     <TextView
         android:id="@+id/userNAme"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="240dp"
         android:layout_marginTop="250dp"
-        android:layout_marginRight="10dp"
+        android:gravity="center"
         android:text="User Name"
 
         android:textColor="@color/common_google_signin_btn_text_dark_pressed"
@@ -68,5 +66,15 @@
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/lightgray_roundbutton"
+        android:textSize="10dp"
+        android:text="Change Photo"/>
 
 </RelativeLayout>

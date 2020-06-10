@@ -14,6 +14,7 @@ import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -257,6 +258,37 @@ public class NavigationActivity extends AppCompatActivity
             playerNav.setVisibility(View.VISIBLE);
         }
     }
+    private void theJsonParser(String url){
+        RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        Song song = songQueue.get(currentSongIndex);
+                        // response
+                        Toast.makeText(NavigationActivity.this,"Request Successfully sent to Like / Unlike  "+ song.getTitle(),Toast.LENGTH_SHORT).show();
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(NavigationActivity.this,"Request Failed, the status will be saved locally",Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("Like", "Like/Dislike Request");
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
     /**
      * This method is called whenever the user presses the like button to like the song
      * it sets the (Like boolean) in the song object according to the user choice
@@ -264,6 +296,7 @@ public class NavigationActivity extends AppCompatActivity
      */
 
     public void likeButton (View view){
+        theJsonParser(Constants.POST_REQUEST);
         FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
         FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
         Song song = songQueue.get(currentSongIndex);
