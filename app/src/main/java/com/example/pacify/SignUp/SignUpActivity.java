@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pacify.CommonFunctions;
 import com.example.pacify.Constants;
+import com.example.pacify.MainActivity;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 
@@ -34,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
     public String signUp_name;
     public String signUp_phone_num;
     public String VerCode;
+    private boolean successful = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
                         // response
                         Toast.makeText(SignUpActivity.this, "Now you can login with" +
                                 " your new account", Toast.LENGTH_SHORT).show();
+                        successful = true;
                     }
                 },
                 new Response.ErrorListener()
@@ -69,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
                         // error
                         Toast.makeText(SignUpActivity.this, "An Error occurred," +
                                 " Please try again. ", Toast.LENGTH_SHORT).show();
+                        successful = false;
                     }
                 }
         ) {
@@ -89,8 +93,6 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> params = new HashMap<String, String>();
-                //params.put("Content-Length","<calculated when request is sent>");
-                //params.put("Host","<calculated when request is sent>");
                 params.put("Content-Type","application/json");
                 return params;
             }
@@ -157,10 +159,16 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void logTheUserOn(){
-        //TODO(Adham): Log in the user request, check validity
+        //TODO(Adham): Log in the user request
         CommonFunctions.hideKeyboard(this);
-        Intent in = new Intent(SignUpActivity.this, NavigationActivity.class);
-        startActivity(in);
+        if(successful){
+            Intent in = new Intent(SignUpActivity.this, NavigationActivity.class);
+            startActivity(in);
+        }
+        else {
+            Intent in = new Intent(SignUpActivity.this, MainActivity.class);
+            startActivity(in);
+        }
     }
 
 }
