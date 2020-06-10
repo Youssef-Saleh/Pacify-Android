@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment {
     ImageButton mixOne;
     ImageButton mixTwo;
     ImageButton mixThree;
+    ImageButton help;
     List<Song> mysongs = new ArrayList<>();
     private RequestQueue requestQueue;
     String currentGenre;
@@ -314,7 +315,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Bundle bundle = this.getArguments();
         if(bundle != null){
             Liked = bundle.getBoolean("likeStat");
             CurrentArtist = bundle.getString("currentArtist");
@@ -412,6 +412,16 @@ public class HomeFragment extends Fragment {
                     ((NavigationActivity) getActivity()).startStreamingService(songAdress);
                     // ((NavigationActivity)getActivity()).setSongNameNav(songName);
                 }                        }
+        });
+        help = v.findViewById(R.id.helpButton);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment= new fragmen_help();
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        fragment).commit();
+            }
         });
         return v;
     }

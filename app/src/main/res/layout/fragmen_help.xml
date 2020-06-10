@@ -6,4 +6,94 @@
     android:background="@color/loginMainMenu">
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thank You for using Pacify."
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+                android:textSize="30sp" />
+
+            <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="90dp"
+            android:text="A simple app where you can find music for every mood."
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+            android:text="To get started, you can choose to play music from any artist you want or search for a particular song."
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="170dp"/>
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="If you like a certain song you can like it and be permenanlty in your very own Playlist."
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="240dp"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"/>
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You can always follow artists you like so you get notified when they release new Songs."
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="310dp"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"/>
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="If you enjoy using our application, you can get premuim for more features and better service!"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="380dp"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"/>
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="If you have any Question please contact as at Pacify@tech.com"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="450dp"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"/>
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Or you can visit us at :"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="520dp"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"/>
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="540dp"
+            android:autoLink="web"
+            android:text="https://support.spotify.com/eg-en/"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed" />
+
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

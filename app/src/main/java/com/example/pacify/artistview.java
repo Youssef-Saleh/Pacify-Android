@@ -1,6 +1,7 @@
 package com.example.pacify;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,22 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class artistview extends Fragment {
 
     Boolean ifFollowed ;
-
     String name ;
     TextView artistname;
     ImageView artistpic;
@@ -45,6 +54,36 @@ public class artistview extends Fragment {
                 follow.setText("Follow");
             }
 
+    }
+    private void theJsonParser(String url){
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Toast.makeText(getActivity(),"Request Successfully sent to follow / nfollow "+ name,Toast.LENGTH_SHORT).show();
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(),"Request Failed, the status will be saved locally",Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put(name, "Follow/Unfollow Request");
+                return params;
+            }
+        };
+        queue.add(postRequest);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -86,6 +125,7 @@ public class artistview extends Fragment {
         follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            theJsonParser("http://e4313.mocklab.io/json/1");
                 if (ifFollowed){
                     ifFollowed = false;
                     showIfFollowed(false,v);
