@@ -113,7 +113,7 @@ public class SongList extends Fragment {
         String songAddress = song.getUrl();
         String songName = song.getTitle();
         if (song.inQueue){
-            ((NavigationActivity) requireActivity()).currentSongIndex=song.numberInQueue;
+            ((NavigationActivity) fragment.requireActivity()).currentSongIndex=song.numberInQueue;
         }
         else {
             if (((NavigationActivity) fragment.requireActivity()).songQueue.size() > 0) {

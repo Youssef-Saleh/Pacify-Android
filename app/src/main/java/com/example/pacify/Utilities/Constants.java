@@ -14,7 +14,7 @@ public class Constants {
 
     public static String USER_TYPE = "free"; //free, or premium
 
-    public static boolean ADD_DUMMY_SONGS = true;
+    public static boolean ADD_DUMMY_SONGS = false;
 
     public static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
