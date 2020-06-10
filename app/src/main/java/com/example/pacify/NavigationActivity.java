@@ -325,26 +325,30 @@ public class NavigationActivity extends AppCompatActivity
      */
 
     public void likeButton (View view){
-        theJsonParser("http://e4313.mocklab.io/json/1");
-        FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
-        FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
-        Song song = songQueue.get(currentSongIndex);
-        songLiked =song.getIsLiked();
+        try{
+            theJsonParser("http://e4313.mocklab.io/json/1");
+            FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
+            FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
+            Song song = songQueue.get(currentSongIndex);
+            songLiked =song.getIsLiked();
 
-            if (songLiked == false)
-            {
-                songLiked = true;
-                song.setIsLiked(songLiked);
-                likedSongs.addSong(song);
-                showIfLiked();
-            }
-            else if (songLiked == true){
+                if (songLiked == false)
+                {
+                    songLiked = true;
+                    song.setIsLiked(songLiked);
+                    likedSongs.addSong(song);
+                    showIfLiked();
+                }
+                else if (songLiked == true){
 
-                songLiked = false;
-                likedSongs.removeSong(song);
-                song.setIsLiked(songLiked);
-                showIfLiked();
+                    songLiked = false;
+                    likedSongs.removeSong(song);
+                    song.setIsLiked(songLiked);
+                    showIfLiked();
+                }
             }
+        catch (Exception e){
+            e.printStackTrace();
         }
 
     }
