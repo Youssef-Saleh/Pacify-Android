@@ -47,7 +47,8 @@ public class GoPremiumStep2Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 VCode = CommonFunctions.GenerateRandChars(8);
-                ((NavigationActivity)requireActivity()).SendEmailRequest();
+                ((NavigationActivity)requireActivity())
+                        .SendEmailRequest(VCode , editTextEmail.getText().toString().trim());
                 CommonFunctions.hideKeyboard(requireActivity());
                 ((NavigationActivity)requireActivity()).openGoPremiumStep3Fragment();
             }

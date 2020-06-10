@@ -28,6 +28,7 @@ public class Constants {
     public static String EDIT_PROFILE_URL = "http://pacify.mocklab.io/profile/edit";
     public static String SONG_STATS = "http://pacify.mocklab.io/artist/stats";
     public static String CREATE_PLAYLIST = "http://pacify.mocklab.io/create/playlist";
+    public static String SEND_EMAIL = "http://pacify.mocklab.io/sendemail";
     public static String POST_REQUEST = "http://e4313.mocklab.io/json/1";
 
 
