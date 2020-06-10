@@ -1080,6 +1080,11 @@ public class NavigationActivity extends AppCompatActivity
         queue.add(postRequest);
     }
 
+    /**
+     * Sending a request to change password
+     * @param newEmail new Email entered by the user
+     * @return true if email changed successfully
+     */
     public boolean ConfirmEmailChange(final String newEmail){
         RequestQueue queue = Volley.newRequestQueue(this);
         final boolean[] successful = new boolean[1];
@@ -1138,8 +1143,13 @@ public class NavigationActivity extends AppCompatActivity
         return successful[0];
     }
 
+    /**
+     * Sending a request to change password
+     * @param oldPassword old password entered by the user
+     * @param newPassword New password entered by the user
+     * @return true if changed successfully
+     */
     public boolean ConfirmPasswordChange(final String oldPassword, final String newPassword){
-        //TODO(Adham): Change password
         RequestQueue queue = Volley.newRequestQueue(this);
         final boolean[] successful = new boolean[1];
         successful[0] = true;
