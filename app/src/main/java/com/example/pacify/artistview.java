@@ -125,7 +125,7 @@ public class artistview extends Fragment {
         follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            theJsonParser("http://e4313.mocklab.io/json/1");
+            theJsonParser(Constants.POST_REQUEST);
                 if (ifFollowed){
                     ifFollowed = false;
                     showIfFollowed(false,v);

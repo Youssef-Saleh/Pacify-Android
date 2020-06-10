@@ -295,7 +295,7 @@ public class NavigationActivity extends AppCompatActivity
      */
 
     public void likeButton (View view){
-        theJsonParser("http://e4313.mocklab.io/json/1");
+        theJsonParser(Constants.POST_REQUEST);
         FloatingActionButton likeSmall = (FloatingActionButton) findViewById(R.id.likeButton);
         FloatingActionButton likeBig = (FloatingActionButton) findViewById(R.id.bigLikeButton);
         Song song = songQueue.get(currentSongIndex);

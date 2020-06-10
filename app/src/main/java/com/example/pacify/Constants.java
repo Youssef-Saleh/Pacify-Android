@@ -26,6 +26,7 @@ public class Constants {
 
     public static String SIGNUP_URL = "http://localhost:3000/users";
     public static String EDIT_PROFILE_URL = "http://pacify.tech/api/account/profile";
+    public static String POST_REQUEST = "http://e4313.mocklab.io/json/1";
 
     public static String[] countries =
             {"Afghanistan", "Albania", "Algeria", "American Samoa",
