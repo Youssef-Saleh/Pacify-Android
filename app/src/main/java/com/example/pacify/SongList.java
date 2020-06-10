@@ -83,7 +83,7 @@ public class SongList extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Button addSonToPlaylist = view.findViewById(R.id.songListView_addSongToPlaylistBtn);
 
-                playASong(position);
+                playASong(position,SongList.super.getParentFragment());
                 /*Song song = songs.get(position);
                 String songAddress = song.getUrl();
                 String songName = song.getTitle();
@@ -107,7 +107,8 @@ public class SongList extends Fragment {
         return v;
     }
 
-    public void playASong(int position){
+    public void playASong(int position,Fragment fragment){
+
         Song song = songs.get(position);
         String songAddress = song.getUrl();
         String songName = song.getTitle();
@@ -115,15 +116,15 @@ public class SongList extends Fragment {
             ((NavigationActivity) requireActivity()).currentSongIndex=song.numberInQueue;
         }
         else {
-            if (((NavigationActivity) requireActivity()).songQueue.size() > 0) {
-                ((NavigationActivity) requireActivity()).currentSongIndex =
-                        ((NavigationActivity) requireActivity()).songQueue.size();
-                song.numberInQueue=((NavigationActivity)requireActivity()).currentSongIndex;
+            if (((NavigationActivity) fragment.requireActivity()).songQueue.size() > 0) {
+                ((NavigationActivity) fragment.requireActivity()).currentSongIndex =
+                        ((NavigationActivity) fragment.requireActivity()).songQueue.size();
+                song.numberInQueue=((NavigationActivity)fragment.requireActivity()).currentSongIndex;
             }
-            ((NavigationActivity) requireActivity()).songQueue.add(song);
+            ((NavigationActivity) fragment.requireActivity()).songQueue.add(song);
             song.inQueue=true;
             // ((NavigationActivity)requireActivity()).setSongNameNav(songName);
         }
-        ((NavigationActivity) requireActivity()).startStreamingService(songAddress);
+        ((NavigationActivity) fragment.requireActivity()).startStreamingService(songAddress);
     }
 }

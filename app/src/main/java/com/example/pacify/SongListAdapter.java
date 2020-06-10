@@ -62,7 +62,7 @@ public class SongListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 SongList songList = new SongList(songs);
-                songList.playASong(position);
+                songList.playASong(position,fragment);
             }
         });
 
@@ -98,7 +98,7 @@ public class SongListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 SongList songList = new SongList(songs);
-                songList.playASong(position);
+                songList.playASong(position,fragment);
             }
         });
 
