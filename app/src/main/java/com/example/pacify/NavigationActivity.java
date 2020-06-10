@@ -830,7 +830,10 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     public void upgradeUserToPremium() {
-        //TODO(Adham): Upgrade user to premium request
+        toChange = "type";
+        changedObject = "premium";
+        ApplyChange();
+
         com.example.pacify.Utilities.Constants.USER_TYPE = "premium";
         Toast.makeText(getBaseContext(), "You're  Premium now\nEnjoy!"
                 , Toast.LENGTH_SHORT).show();

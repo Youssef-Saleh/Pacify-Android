@@ -18,6 +18,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,6 +38,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @SuppressLint("Registered")
@@ -64,8 +79,10 @@ public class ArtistActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance("gs://pacify-1ce14.appspot.com");
 
         //filling dummy data
-        setStatisticsData(18,472,1600
-                ,45, 1321, 3845);
+        /*setStatisticsData(18,472,1600
+                ,45, 1321, 3845);*/
+
+        getArtistStats();
 
         BottomNavigationView bottomNav = findViewById(R.id.artist_nav_bar);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -73,7 +90,6 @@ public class ArtistActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new ArtistHomeFragment()).commit();
     }
-
 
 
     @Override
@@ -183,7 +199,9 @@ public class ArtistActivity extends AppCompatActivity {
         }
         else
             Toast.makeText(ArtistActivity.this, "Please Choose a file", Toast.LENGTH_SHORT).show();
-    }    public void Logout(){
+    }
+
+    public void Logout(){
         //Source: https://stackoverflow.com/questions/6609414/how-do-i-programmatically-restart-an-android-app
         Intent mStartActivity = new Intent(this, MainActivity.class);
         int mPendingIntentId = 123456;
@@ -197,5 +215,54 @@ public class ArtistActivity extends AppCompatActivity {
     public void uploadPhoto (){
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+    }
+
+    private void getArtistStats(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = Constants.SONG_STATS;
+
+        JsonObjectRequest  getRequest = new JsonObjectRequest (Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            setStatisticsData(response.getInt("likes_day")
+                                    , response.getInt("likes_month")
+                                    , response.getInt("likes_year")
+                                    , response.getInt("listeners_day")
+                                    , response.getInt("listeners_month")
+                                    , response.getInt("listeners_year"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                new ArtistHomeFragment()).commit();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(ArtistActivity.this, "An error occurred."
+                                , Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+
+        queue.add(getRequest);
     }
 }
