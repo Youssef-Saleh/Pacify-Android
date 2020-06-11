@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,6 +24,10 @@ public class ArtistUploadFragment extends Fragment {
     Button logoutBtn;
     private static final int RESULT_LOAD_IMAGE = 1;
     ImageView userPhoto;
+    EditText editTextUserName;
+    String username;
+    Button saveBtn;
+    TextView uName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
@@ -80,6 +86,27 @@ public class ArtistUploadFragment extends Fragment {
                 }
             }
         });
+        editTextUserName = view.findViewById(R.id.editTextUserName);
+        //saveBtn =  view.findViewById(R.id.saveBtn);
+        uName = view.findViewById(R.id.userNAme);
+        editTextUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if(!hasFocus){
+                    username= editTextUserName.getText().toString();
+                    uName.setText(username);
+                }
+            }
+        });
+        /*saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((ArtistActivity)getActivity()).Artistname != null){
+                    editTextUserName.setText(((ArtistActivity)getActivity()).Artistname);
+                }
+            }
+        });*/
         return view;
 }
 
