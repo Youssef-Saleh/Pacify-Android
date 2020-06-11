@@ -33,8 +33,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pacify.Forget_Password.ForgetPasswordActivity;
 import com.example.pacify.Settings.EditProfileFragment;
 import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
 import com.example.pacify.Settings.Edit_profile.ChangeUserCountry;
@@ -46,12 +48,16 @@ import com.example.pacify.Settings.Go_Premium.GoPremiumStep1Fragment;
 import com.example.pacify.Settings.Go_Premium.GoPremiumStep2Fragment;
 import com.example.pacify.Settings.Go_Premium.GoPremiumStep3Fragment;
 import com.example.pacify.Settings.MySettingsFragment;
+import com.example.pacify.SignUp.SignUpActivity;
 import com.example.pacify.Utilities.PreferenceUtilities;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -911,6 +917,8 @@ public class NavigationActivity extends AppCompatActivity
             }
         }
 
+        createPlaylistRequest(NewPlaylistName);
+
         Toast.makeText(this
                 , "Playlist '" + NewPlaylistName + "' is created"
                 , Toast.LENGTH_SHORT).show();
@@ -921,6 +929,53 @@ public class NavigationActivity extends AppCompatActivity
 
         Playlist playlist = new Playlist(playlistName);
         playlists_nav.add(playlist);
+    }
+
+    private void createPlaylistRequest(final String plName){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = Constants.CREATE_PLAYLIST;
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        try {
+                            if(response.getString("playlist").equals("successful")){
+                                Toast.makeText(NavigationActivity.this, "Playlist is " +
+                                        "created successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Toast.makeText(NavigationActivity.this, "An Error occurred," +
+                                " playlist will be created temporarily", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("playlist", plName);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        queue.add(postRequest);
     }
 
     /**
@@ -976,18 +1031,181 @@ public class NavigationActivity extends AppCompatActivity
         addSongToPlaylistDialog.show(getSupportFragmentManager(), "Add song to playlist dialog");
     }
 
-    public void SendEmailRequest() {
-        //TODO(Adham): Send email with verification code request
+    public void SendEmailRequest(final String vCode , final String mail) {
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = Constants.SEND_EMAIL;
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        try {
+                            if(response.getString("sent").equals("successful")){
+                                Toast.makeText(NavigationActivity.this, "Email " +
+                                        "sent successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Toast.makeText(NavigationActivity.this, "An Error occurred," +
+                                " no email is sent", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("email", mail);
+                params.put("VerCode", vCode);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        queue.add(postRequest);
     }
 
-    public boolean ConfirmEmailChange(String newEmail){
-        //TODO(Adham): Change email
-        return true;
+    /**
+     * Sending a request to change password
+     * @param newEmail new Email entered by the user
+     * @return true if email changed successfully
+     */
+    public boolean ConfirmEmailChange(final String newEmail){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        final boolean[] successful = new boolean[1];
+        successful[0] = true;
+        String url = Constants.PROFILE_CHANGE_EMAIL;
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        try {
+                            if(response.getString("changed").equals("successful")){
+                                Toast.makeText(NavigationActivity.this, "Email " +
+                                        "changed successfully", Toast.LENGTH_SHORT).show();
+                                successful[0] = true;
+                            }
+                            else{
+                                Toast.makeText(NavigationActivity.this, "Email is not" +
+                                        " changed successfully", Toast.LENGTH_SHORT).show();
+                                successful[0] = true;
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Toast.makeText(NavigationActivity.this, "An Error occurred," +
+                                " please try again", Toast.LENGTH_SHORT).show();
+                        successful[0] = false;
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("new_email", newEmail);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        queue.add(postRequest);
+        return successful[0];
     }
 
-    public boolean ConfirmPasswordChange(String oldPassword, String newPassword){
-        //TODO(Adham): Change password
-        return true;
+    /**
+     * Sending a request to change password
+     * @param oldPassword old password entered by the user
+     * @param newPassword New password entered by the user
+     * @return true if changed successfully
+     */
+    public boolean ConfirmPasswordChange(final String oldPassword, final String newPassword){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        final boolean[] successful = new boolean[1];
+        successful[0] = true;
+        String url = Constants.PROFILE_CHANGE_PASSWORD;
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        try {
+                            if(response.getString("changed").equals("successful")){
+                                Toast.makeText(NavigationActivity.this, "Password " +
+                                        "changed successfully", Toast.LENGTH_SHORT).show();
+                                successful[0] = true;
+                            }
+                            else{
+                                Toast.makeText(NavigationActivity.this, "Password " +
+                                        "doesn't match!", Toast.LENGTH_SHORT).show();
+                                successful[0] = false;
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Toast.makeText(NavigationActivity.this, "An Error occurred," +
+                                " please try again", Toast.LENGTH_SHORT).show();
+                        successful[0] = false;
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("old_pass", oldPassword);
+                params.put("new_pass", newPassword);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        queue.add(postRequest);
+        return successful[0];
     }
 
     public boolean ConfirmPhoneChange(String newNumber) {
@@ -1035,14 +1253,18 @@ public class NavigationActivity extends AppCompatActivity
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Constants.EDIT_PROFILE_URL;
 
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
-                new Response.Listener<String>()
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
+                new Response.Listener<JSONObject>()
                 {
                     @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(NavigationActivity.this, "Changed successful"
-                                , Toast.LENGTH_SHORT).show();
-                        successful = true;
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            successful = response.getString("edit").equals("successful");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 },
                 new Response.ErrorListener()

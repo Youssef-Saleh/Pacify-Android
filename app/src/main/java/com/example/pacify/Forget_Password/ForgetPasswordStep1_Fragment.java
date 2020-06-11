@@ -37,7 +37,8 @@ public class ForgetPasswordStep1_Fragment extends Fragment {
             public void onClick(View v) {
 
                 ((ForgetPasswordActivity)requireActivity()).GenerateRandChars_ForgetPass(6);
-                ((ForgetPasswordActivity)requireActivity()).SendEmailRequest();
+                ((ForgetPasswordActivity)requireActivity())
+                        .SendEmailRequest(editTextEmail.getText().toString().trim());
                 ((ForgetPasswordActivity)requireActivity()).openForgetPasswordStep2Fragment();
             }
         });

@@ -9,12 +9,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.pacify.Forget_Password.ForgetPasswordActivity;
-import com.example.pacify.Utilities.Constants;
 import com.example.pacify.Utilities.PreferenceUtilities;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -88,10 +101,70 @@ public class LoginActivity extends AppCompatActivity {
         String emailInput = editTextEmail.getText().toString().trim();
         String passwordInput = editTextPassword.getText().toString();
 
-        
-        //TODO(Adham): Send email and password and wait for response
+
+        //return SendLoginRequest();
+        SendLoginRequest();
+
         return true;
-}
+    }
+
+    private boolean SendLoginRequest(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        final boolean[] successful = new boolean[1];
+        String url = Constants.LOGIN;
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        try {
+                            if(response.getString("login").equals("successful")){
+                                //Toast.makeText(LoginActivity.this, "Email " +
+                                //        "sent successfully", Toast.LENGTH_SHORT).show();
+                                successful[0] = true;
+                            }
+                            else{
+                                Toast.makeText(LoginActivity.this, "Wrong email or " +
+                                        "password", Toast.LENGTH_SHORT).show();
+                                successful[0] = false;
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Toast.makeText(LoginActivity.this, "An Error occurred," +
+                                " please try again", Toast.LENGTH_SHORT).show();
+                        successful[0] = false;
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("email", editTextEmail.getText().toString().trim());
+                params.put("password", editTextPassword.getText().toString());
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        queue.add(postRequest);
+        return successful[0];
+    }
 
     private void SaveUserData(){
         String emailInput = editTextEmail.getText().toString().trim();
