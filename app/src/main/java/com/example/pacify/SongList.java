@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Used to make a list of song objects to play
+ * This class is Used to make a list of song objects to play
  */
 public class SongList extends Fragment {
 
@@ -45,8 +45,9 @@ public class SongList extends Fragment {
         songListView=(ListView) v.findViewById(R.id.songListView);
         btnPlayAll=(Button) v.findViewById(R.id.btnPlayAll);
         /**
-         * Play All button, calls playAll function in NavigationActivity
-         * @params view the view where the button is
+         * This method is called when th user presses play all button
+         * calls playAll function in NavigationActivity
+         * @params v the view where the button is
          * @params songs list of songs to play
          *
          */
@@ -107,6 +108,12 @@ public class SongList extends Fragment {
         return v;
     }
 
+    /**
+     * This method is called whenever a song is clicked in a song list
+     *
+     * @param position the order of the song in the list
+     * @param fragment fragment where the song list is located
+     */
     public void playASong(int position,Fragment fragment){
 
         Song song = songs.get(position);
