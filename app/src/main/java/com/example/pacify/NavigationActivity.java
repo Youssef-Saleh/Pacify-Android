@@ -94,7 +94,10 @@ public class NavigationActivity extends AppCompatActivity
     private Song SongToBeAddedToPlaylist;
     DownloadManager downloadManager;
 
-
+    /**
+     * This method is responsible for downloading the current song
+     * @param view
+     */
     public void downloadSong(View v){
         try {
             Song song = songQueue.get(currentSongIndex);
@@ -109,7 +112,10 @@ public class NavigationActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
-
+    /**
+     * This method is responsible for sharing the current song in social media platforms
+     * @param v
+     */
     public void shareSong(View v){
         try{
             Song song= songQueue.get(currentSongIndex);
