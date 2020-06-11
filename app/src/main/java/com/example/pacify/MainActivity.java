@@ -22,7 +22,12 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class (Activity) is the first then appear when the app is opened
+ * it shows sign up, continue with Facebook and log in options
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Button signUp_button;
@@ -68,12 +73,13 @@ public class MainActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
 
         contWithFacebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>(){
+            /**
+             * If logging in with facebook was successful, log him in.
+             * And if the data was not received yet, Cancel operation
+             */
             @Override
             public void onSuccess(LoginResult loginResult) {
-                /**
-                 * If logging in with facebook was successful, log him in.
-                 * And if the data was not received yet, Cancel operation
-                 */
+
                 accessToken = loginResult.getAccessToken();
                 useLoginInformation(accessToken);
                 contWithFacebook_button.setEnabled(false);
@@ -118,13 +124,14 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * If the app was closed and the user opens it, check if was
+     * logged in by facebook, and if yes take him to home page
+     */
     @Override
     public void onStart() {
         super.onStart();
-        /**
-         * If the app was closed and the user opens it, check if was
-         * logged in by facebook, and if yes take him to home page
-        */
+
         accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null) {
             useLoginInformation(accessToken);
@@ -132,8 +139,6 @@ public class MainActivity extends AppCompatActivity {
             login_button.setEnabled(false);
             signUp_button.setEnabled(false);
 
-            //Intent in = new Intent(MainActivity.this, SplashActivity.class);
-            //startActivity(in);
             new Handler().postDelayed(new Runnable() {
                     /**
                      * Making some delay to give some time until
@@ -158,19 +163,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Data should be sent to the server from here
+     */
     private boolean loginWithFacebook(){
-        /**
-         * Data should be sent to the server from here
-         */
-        //TODO(Adham): Send name, email and profile picture
+        //Should send name, email and profile picture
         return true;
     }
 
+    /**
+     * Enabling the buttons and telling the user that the login
+     * with facebook failed.
+     */
     private void afterFbLoginFail(){
-        /**
-         * Enabling the buttons and telling the user that the login
-         * with facebook failed.
-         */
         contWithFacebook_button.setEnabled(true);
         login_button.setEnabled(true);
         signUp_button.setEnabled(true);
@@ -191,13 +196,12 @@ public class MainActivity extends AppCompatActivity {
         facebook_profilePicture = PreferenceUtilities.getFacebookPP(this);
     }
 
+    /**
+     * Creating the GraphRequest to fetch user details
+     * @param accessToken
+     * Source: https://androidclarified.com/android-facebook-login-example/
+     */
     private void useLoginInformation(AccessToken accessToken) {
-        /**
-         Creating the GraphRequest to fetch user details
-         1st Param - AccessToken
-         2nd Param - Callback (which will be invoked once the request is successful)
-         //Source: https://androidclarified.com/android-facebook-login-example/
-         */
         GraphRequest request = GraphRequest.newMeRequest(accessToken
                 , new GraphRequest.GraphJSONObjectCallback() {
             //OnCompleted is invoked once the GraphRequest is successful
@@ -221,11 +225,11 @@ public class MainActivity extends AppCompatActivity {
         request.executeAsync();
     }
 
+    /**
+     * Close the app after pressing back twice in 2.5 sec.
+     */
     @Override
     public void onBackPressed() {
-        /**
-         * Close the app after pressing back twice in 2.5 sec.
-         */
         if (backPressedTime + 2500 > System.currentTimeMillis()) {
             backToast.cancel();
             this.finishAffinity();

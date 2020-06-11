@@ -18,7 +18,9 @@ import java.util.List;
 
 /**
  * bridge between loading song playlists and UI,
- * takes the song playlist and shows all songs in a vertical list in the UI
+ * takes the song playlist and shows all songs in a vertical list in the UI.
+ * Each song has a clickable add button that has different behaviour depending
+ * on the user type (free or premium)
  */
 public class SongListAdapter extends BaseAdapter {
     private Fragment fragment;
@@ -106,6 +108,7 @@ public class SongListAdapter extends BaseAdapter {
         Button AddButton = v.findViewById(R.id.songListView_addSongToPlaylistBtn);
         AddButton.getBackground().setTint(Constants.USER_TYPE.equals("free")? Color.DKGRAY
                 : Color.WHITE);
+
 
         AddButton.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 /**
+ * @author Adham Mahmoud
+ * @version 1
  * This class is for the dialog that opens when a premium user want add a song to a playlist
  * it opens an edit text to receive the playlist name that the user want to add the song to
  * when the user press add , the name is sent to Navigation Activity

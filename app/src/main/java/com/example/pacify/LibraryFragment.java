@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,7 +16,11 @@ import com.example.pacify.Utilities.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * @author Adham Mahmoud, Hisham Algendy
+ * @version 1
+ * This class (Fragment) hold the user playlists, song likes and settings
+ */
 public class LibraryFragment extends Fragment {
 
     private Button logOut;

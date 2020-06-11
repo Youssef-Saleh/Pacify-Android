@@ -18,7 +18,12 @@ import com.example.pacify.Forget_Password.ForgetPasswordActivity;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 
-
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class holds the second step of getting premium subscription,
+ * the user is asked to enter his email to receive a verification code
+ */
 public class GoPremiumStep2Fragment extends Fragment {
 
     public static String VCode;

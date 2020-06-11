@@ -26,6 +26,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class is responsible for the logic behind the password
+ * recovery process
+ */
 public class ForgetPasswordActivity extends AppCompatActivity {
 
     public String VerCode;
@@ -50,7 +56,6 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // response
                         try {
                             if(response.getString("sent").equals("successful")){
                                 Toast.makeText(ForgetPasswordActivity.this, "Email " +
@@ -65,7 +70,6 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // error
                         Toast.makeText(ForgetPasswordActivity.this, "An Error occurred," +
                                 " no email is sent", Toast.LENGTH_SHORT).show();
                     }

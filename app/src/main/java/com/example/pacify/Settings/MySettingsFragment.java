@@ -14,6 +14,12 @@ import com.example.pacify.R;
 import com.example.pacify.Utilities.Constants;
 import com.facebook.AccessToken;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class (Preference) is responsible to view the objects in the
+ * setting main menu
+ */
 public class MySettingsFragment extends PreferenceFragmentCompat {
 
     @Override
@@ -58,11 +64,9 @@ public class MySettingsFragment extends PreferenceFragmentCompat {
         Preference logoutPreference = findPreference("logout");
         accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null) {
-            logoutPreference.setSummary("You are logged by Facebook\n"
-                    + "As " + ((NavigationActivity)requireActivity()).UserName);
+            logoutPreference.setSummary("You are logged using Facebook\n");
         }else{
-            logoutPreference.setSummary("You are logged in as "
-                    + ((NavigationActivity)requireActivity()).UserName);
+            logoutPreference.setSummary("You are logged using email");
         }
         logoutPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {

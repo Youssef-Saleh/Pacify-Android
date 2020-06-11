@@ -16,6 +16,12 @@ import android.widget.TextView;
 
 import com.example.pacify.R;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class is responsible to let the user enter the verification
+ * code sent to him by email
+ */
 public class ForgetPasswordStep2_Fragment extends Fragment {
 
     private String Vcode;

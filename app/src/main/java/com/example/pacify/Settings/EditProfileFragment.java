@@ -12,6 +12,11 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class (Preference) is responsible to view edit profile objects
+ */
 public class EditProfileFragment extends PreferenceFragmentCompat {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

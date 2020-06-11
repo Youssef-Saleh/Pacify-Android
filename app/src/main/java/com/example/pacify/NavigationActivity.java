@@ -1309,6 +1309,7 @@ public class NavigationActivity extends AppCompatActivity
     /**
      * It delete the saved user data, logout the user from facebook (if he was logged
      * in using facebook) and reset the app.
+     * Source: https://stackoverflow.com/a/17166729/12963182
      */
     public void LogOut(){
 
@@ -1319,7 +1320,6 @@ public class NavigationActivity extends AppCompatActivity
 
         LoginManager.getInstance().logOut();
 
-    //Source: https://stackoverflow.com/questions/6609414/how-do-i-programmatically-restart-an-android-app
         Intent mStartActivity = new Intent(this, MainActivity.class);
         int mPendingIntentId = 123456;
         PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId,

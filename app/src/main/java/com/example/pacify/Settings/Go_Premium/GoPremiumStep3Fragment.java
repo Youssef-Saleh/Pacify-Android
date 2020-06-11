@@ -19,6 +19,13 @@ import com.example.pacify.Forget_Password.ForgetPasswordActivity;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class holds the last step of getting premium subscription,
+ * the user enters the verification code (mimicking payment) to
+ * subscribe to premium
+ */
 public class GoPremiumStep3Fragment extends Fragment {
 
     private String Vcode;

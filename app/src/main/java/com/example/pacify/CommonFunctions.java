@@ -8,12 +8,13 @@ import java.util.Random;
 
 public class CommonFunctions {
 
+    /**
+     * Hides the keyboard
+     * @param activity is the activity where the keyboard is shown
+     * Source: https://stackoverflow.com/a/17789187/12963182
+     */
     public static void hideKeyboard(Activity activity) {
-        /**
-         * Hides the keyboard
-         * @param activity is the activity where the keyboard is shown
-         * Source: https://stackoverflow.com/a/17789187/12963182
-         */
+
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
         View view = activity.getCurrentFocus();
@@ -24,11 +25,12 @@ public class CommonFunctions {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    /**
+     * Generates a random string from 'allChars' String
+     * @param size define the number of characters of the random string
+     * Source : https://stackoverflow.com/a/20536597/12963182
+     */
     public static String GenerateRandChars(int size){
-        /**
-         * Generates a random string from 'allChars' String
-         * @param size define the number of characters of the random string
-         */
         String allChars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         StringBuilder rString = new StringBuilder();

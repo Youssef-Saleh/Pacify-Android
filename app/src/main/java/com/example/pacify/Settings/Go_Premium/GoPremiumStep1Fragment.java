@@ -13,6 +13,12 @@ import android.widget.Button;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class holds the first step of getting premium subscription,
+ * it has a button to take the user to the next step
+ */
 public class GoPremiumStep1Fragment extends Fragment {
 
 

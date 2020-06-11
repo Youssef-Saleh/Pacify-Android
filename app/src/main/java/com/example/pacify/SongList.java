@@ -85,23 +85,6 @@ public class SongList extends Fragment {
                 Button addSonToPlaylist = view.findViewById(R.id.songListView_addSongToPlaylistBtn);
 
                 playASong(position,SongList.super.getParentFragment());
-                /*Song song = songs.get(position);
-                String songAddress = song.getUrl();
-                String songName = song.getTitle();
-                if (song.inQueue){
-                    ((NavigationActivity) requireActivity()).currentSongIndex=song.numberInQueue;
-                }
-                else {
-                    if (((NavigationActivity) requireActivity()).songQueue.size() > 0) {
-                        ((NavigationActivity) requireActivity()).currentSongIndex =
-                                ((NavigationActivity) requireActivity()).songQueue.size();
-                        song.numberInQueue=((NavigationActivity)requireActivity()).currentSongIndex;
-                    }
-                    ((NavigationActivity) requireActivity()).songQueue.add(song);
-                    song.inQueue=true;
-                    // ((NavigationActivity)requireActivity()).setSongNameNav(songName);
-                }
-                ((NavigationActivity) requireActivity()).startStreamingService(songAddress);*/
 
             }
         });

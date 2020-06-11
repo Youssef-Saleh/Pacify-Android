@@ -17,6 +17,11 @@ import androidx.fragment.app.Fragment;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class is responsible for changing the user's gender
+ */
 public class ChangeUserGender extends Fragment {
 
     private Button Male_btn;

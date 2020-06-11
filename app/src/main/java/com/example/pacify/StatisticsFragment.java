@@ -21,6 +21,15 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class (fragment) shows bar chart that include (likes last day/month/year and
+ * listeners last day/month/year), Likes and Listeners arrays hold the data to be shown
+ * in the order { last day, last month , last year}.
+ * The graph has a white layout and green bars.
+ * This class is currently not in use as the graph is implemented inside Artist Home fragment.
+ */
 public class StatisticsFragment extends Fragment {
 
     @Override

@@ -16,6 +16,12 @@ import android.widget.Toast;
 import com.example.pacify.R;
 import com.example.pacify.Utilities.Constants;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class is responsible to let the user enter the new password
+ * for his account with password validation
+ */
 public class ForgetPasswordStep3_Fragment extends Fragment {
 
     private EditText NewPassword;

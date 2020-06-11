@@ -29,7 +29,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class is responsible to let the user login or recover account's
+ * password (by pressing a button)
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private Button buttonForgetPassword;

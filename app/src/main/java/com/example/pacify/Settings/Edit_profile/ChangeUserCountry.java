@@ -20,6 +20,11 @@ import com.example.pacify.R;
 
 import java.util.Objects;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class is responsible for changing the user's country
+ */
 public class ChangeUserCountry extends Fragment {
 
     private Button ChangeCounty;

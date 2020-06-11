@@ -17,6 +17,12 @@ import android.widget.EditText;
 import com.example.pacify.R;
 
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class is responsible to let the user enter his email
+ * of the account he wants to recover its password
+ */
 public class ForgetPasswordStep1_Fragment extends Fragment {
 
     private Button buttonGetLink;

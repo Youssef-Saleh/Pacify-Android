@@ -20,6 +20,11 @@ import com.example.pacify.Utilities.Constants;
 
 import java.util.regex.Pattern;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class is responsible for changing the user's password
+ */
 public class ChangeUserPassword  extends Fragment {
 
     private EditText OldPassword;

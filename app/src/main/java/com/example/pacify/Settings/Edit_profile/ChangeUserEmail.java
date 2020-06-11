@@ -17,6 +17,11 @@ import androidx.fragment.app.Fragment;
 import com.example.pacify.NavigationActivity;
 import com.example.pacify.R;
 
+/**
+ * @author Adham Mahmoud
+ * @version 1
+ * This class is responsible for changing the user's email
+ */
 public class ChangeUserEmail extends Fragment {
 
     private Button ChangeEmail;
