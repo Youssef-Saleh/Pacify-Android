@@ -19,7 +19,7 @@ public class Constants {
     }
 
     public interface PLAYLIST_ID {
-        public static String POP = "https://5ef4d4b5-fa1f-427e-9ff4-02eeba164a61.mock.pstmn.io/allsongs";
+        public static String POP = "http://pacify1.mocklab.io/allsongs";
         public static String SEARCH = "https://pacify.free.beeceptor.com/search/";
     }
 
