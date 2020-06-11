@@ -28,6 +28,8 @@ import java.util.List;
 
 /**
  * Search fragment that is opened when clicking on search icon in navigation bar
+ *
+ * https://www.youtube.com/watch?v=T_tEWiFGrsI changing activity to fragment
  */
 public class SearchFragment extends Fragment {
     ImageButton btnPop;
@@ -46,7 +48,11 @@ public class SearchFragment extends Fragment {
     /**
      * parses JSON files fetched from the url to song objects
      * It handles exceptions if the it cannot reach the url given.
+     *
+     * https://www.youtube.com/watch?v=y2xtLqP8dSQ
+     * https://stackoverflow.com/questions/50461881/java-lang-noclassdeffounderrorfailed-resolution-of-lorg-apache-http-protocolve
      * @param url URL where JSON file is located
+     *
      */
     private void theJsonParser(String url,final int mode){
         //String url="https://cat-fact.herokuapp.com/facts/random";
