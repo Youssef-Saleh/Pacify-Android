@@ -94,7 +94,7 @@ public class ArtistUploadFragment extends Fragment {
         editTextUserName = view.findViewById(R.id.editTextUserName);
         //saveBtn =  view.findViewById(R.id.saveBtn);
         uName = view.findViewById(R.id.userNAme);
-        editTextUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        /*editTextUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
@@ -103,15 +103,15 @@ public class ArtistUploadFragment extends Fragment {
                     uName.setText(username);
                 }
             }
-        });
-        /*saveBtn.setOnClickListener(new View.OnClickListener() {
+        });*/
+        editTextUserName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (((ArtistActivity)getActivity()).Artistname != null){
-                    editTextUserName.setText(((ArtistActivity)getActivity()).Artistname);
-                }
+
+                username= editTextUserName.getText().toString();
+                uName.setText(username);
             }
-        });*/
+        });
         return view;
 }
 
