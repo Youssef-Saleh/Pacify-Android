@@ -36,11 +36,13 @@ public class ChangeUserGender extends Fragment {
         Male_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(((NavigationActivity)getActivity()).ConfirmGenderChange("male")){
-                    Toast.makeText(getActivity(), "Gender changed to Male", Toast.LENGTH_LONG).show();
-                    ((NavigationActivity)getActivity()).OpenSettingsFragment();
+                if(((NavigationActivity)requireActivity()).ConfirmGenderChange("male")){
+                    Toast.makeText(requireActivity(), "Gender changed to Male"
+                            , Toast.LENGTH_LONG).show();
+                    ((NavigationActivity)requireActivity()).OpenSettingsFragment();
                 }else{
-                    Toast.makeText(getActivity(), "Gender changing operation failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireActivity(), "Gender changing operation failed"
+                            , Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -48,11 +50,13 @@ public class ChangeUserGender extends Fragment {
         Female_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(((NavigationActivity)getActivity()).ConfirmGenderChange("female")){
-                    Toast.makeText(getActivity(), "Gender changed to Female", Toast.LENGTH_LONG).show();
-                    ((NavigationActivity)getActivity()).OpenSettingsFragment();
+                if(((NavigationActivity)requireActivity()).ConfirmGenderChange("female")){
+                    Toast.makeText(requireActivity(), "Gender changed to Female"
+                            , Toast.LENGTH_LONG).show();
+                    ((NavigationActivity)requireActivity()).OpenSettingsFragment();
                 }else{
-                    Toast.makeText(getActivity(), "Gender changing operation failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireActivity(), "Gender changing operation failed"
+                            , Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -60,7 +64,7 @@ public class ChangeUserGender extends Fragment {
         GoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((NavigationActivity)getActivity()).OpenSettingsFragment();
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
             }
         });
 

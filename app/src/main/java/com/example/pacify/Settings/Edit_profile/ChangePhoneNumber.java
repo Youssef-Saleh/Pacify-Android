@@ -36,11 +36,14 @@ public class ChangePhoneNumber extends Fragment {
         ChangePhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(((NavigationActivity)getActivity()).ConfirmPhoneChange(NewNumber.getText().toString())){
-                    Toast.makeText(getActivity(), "Phone number is changed successfully", Toast.LENGTH_LONG).show();
-                    GoBack.setText("Done");
+                if(((NavigationActivity)requireActivity())
+                        .ConfirmPhoneChange(NewNumber.getText().toString())){
+                    Toast.makeText(requireActivity(), "Phone number is changed successfully"
+                            , Toast.LENGTH_LONG).show();
+                    ((NavigationActivity)requireActivity()).OpenSettingsFragment();
                 }else{
-                    Toast.makeText(getActivity(), "Phone number changing operation failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireActivity(), "Phone number changing operation failed"
+                            , Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -48,7 +51,7 @@ public class ChangePhoneNumber extends Fragment {
         GoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((NavigationActivity)getActivity()).OpenSettingsFragment();
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
             }
         });
 

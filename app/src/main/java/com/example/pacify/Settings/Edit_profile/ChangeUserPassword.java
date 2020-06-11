@@ -44,16 +44,19 @@ public class ChangeUserPassword  extends Fragment {
             @Override
             public void onClick(View v) {
                 if(CheckPasswordMatch()){
-                    if(((NavigationActivity)getActivity())
+                    if(((NavigationActivity)requireActivity())
                             .ConfirmPasswordChange(OldPassword.getText().toString(),
                                     NewPassword.getText().toString())){
-                        Toast.makeText(getActivity(), "Password is changed successfully.", Toast.LENGTH_SHORT).show();
-                        GoBack.setText("Done");
+                        Toast.makeText(requireActivity(), "Password is changed successfully."
+                                , Toast.LENGTH_SHORT).show();
+                        ((NavigationActivity)requireActivity()).OpenSettingsFragment();
                     } else{
-                        Toast.makeText(getActivity(), "Password changing failed!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireActivity(), "Password changing failed!"
+                                , Toast.LENGTH_LONG).show();
                     }
                 } else{
-                    Toast.makeText(getActivity(), "Passwords do not match.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "Passwords do not match."
+                            , Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -61,7 +64,7 @@ public class ChangeUserPassword  extends Fragment {
         GoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((NavigationActivity)getActivity()).OpenSettingsFragment();
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
             }
         });
 
@@ -122,5 +125,4 @@ public class ChangeUserPassword  extends Fragment {
         return NewPassword.getText().toString()
                 .equals(NewPasswordAgain.getText().toString());
     }
-
 }

@@ -37,10 +37,12 @@ public class ChangeUserDoB extends Fragment {
             public void onClick(View v) {
                 if(((NavigationActivity)requireActivity()).ConfirmDobChange(MyDoB.getYear()
                         ,MyDoB.getMonth() + 1, MyDoB.getDayOfMonth())){
-                    Toast.makeText(getActivity(), "Date of birth is changed successfully,", Toast.LENGTH_LONG).show();
-                    GoBack.setText("Done");
+                    Toast.makeText(requireActivity(), "Date of birth is changed successfully"
+                            , Toast.LENGTH_LONG).show();
+                    ((NavigationActivity)requireActivity()).OpenSettingsFragment();
                 }else{
-                    Toast.makeText(getActivity(), "Date of birth changing operation failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireActivity(), "Date of birth changing operation failed"
+                            , Toast.LENGTH_LONG).show();
                 }
             }
         });

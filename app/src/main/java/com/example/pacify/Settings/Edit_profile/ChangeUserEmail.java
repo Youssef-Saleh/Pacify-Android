@@ -36,11 +36,14 @@ public class ChangeUserEmail extends Fragment {
         ChangeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(((NavigationActivity)getActivity()).ConfirmEmailChange(NewEmail.getText().toString())){
-                    Toast.makeText(getActivity(), "Email is changed successfully", Toast.LENGTH_LONG).show();
-                    GoBack.setText("Done");
+                if(((NavigationActivity)requireActivity())
+                        .ConfirmEmailChange(NewEmail.getText().toString())){
+                    Toast.makeText(requireActivity(), "Email is changed successfully"
+                            , Toast.LENGTH_LONG).show();
+                    ((NavigationActivity)requireActivity()).OpenSettingsFragment();
                 }else{
-                    Toast.makeText(getActivity(), "Email changing operation failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Email changing operation failed"
+                            , Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -48,7 +51,7 @@ public class ChangeUserEmail extends Fragment {
         GoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((NavigationActivity)getActivity()).OpenSettingsFragment();
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
             }
         });
 

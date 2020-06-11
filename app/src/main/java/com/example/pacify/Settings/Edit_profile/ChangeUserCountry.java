@@ -45,11 +45,14 @@ public class ChangeUserCountry extends Fragment {
         ChangeCounty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(((NavigationActivity)getActivity()).ConfirmCountryChange(NewCountry.getText().toString())){
-                    Toast.makeText(getActivity(), "Country is changed successfully", Toast.LENGTH_LONG).show();
-                    GoBack.setText("Done");
+                if(((NavigationActivity)requireActivity())
+                        .ConfirmCountryChange(NewCountry.getText().toString())){
+                    Toast.makeText(requireActivity(), "Country is changed successfully"
+                            , Toast.LENGTH_LONG).show();
+                    ((NavigationActivity)requireActivity()).OpenSettingsFragment();
                 }else{
-                    Toast.makeText(getActivity(), "Country changing operation failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireActivity(), "Country changing operation failed"
+                            , Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -57,7 +60,7 @@ public class ChangeUserCountry extends Fragment {
         GoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((NavigationActivity)getActivity()).OpenSettingsFragment();
+                ((NavigationActivity)requireActivity()).OpenSettingsFragment();
             }
         });
 

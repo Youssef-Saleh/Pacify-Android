@@ -1105,7 +1105,7 @@ public class NavigationActivity extends AppCompatActivity
                             else{
                                 Toast.makeText(NavigationActivity.this, "Email is not" +
                                         " changed successfully", Toast.LENGTH_SHORT).show();
-                                successful[0] = true;
+                                successful[0] = false;
                             }
 
                         } catch (JSONException e) {
@@ -1117,7 +1117,6 @@ public class NavigationActivity extends AppCompatActivity
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // error
                         Toast.makeText(NavigationActivity.this, "An Error occurred," +
                                 " please try again", Toast.LENGTH_SHORT).show();
                         successful[0] = false;
