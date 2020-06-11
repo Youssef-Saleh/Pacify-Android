@@ -143,6 +143,7 @@ public class ArtistActivity extends AppCompatActivity {
 
      * This method is responsible for uploding audio files to Firebase Storage
      * @param audioUri The path to the audio in the device
+     * acknowledgment to https://www.youtube.com/watch?v=XOf_v2f85RU
 
      */
     public void uploadFile(Uri audioUri) {

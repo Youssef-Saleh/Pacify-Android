@@ -303,6 +303,7 @@ public class NavigationActivity extends AppCompatActivity
     /**
      * This method is responsible for sending the post request for liking a song.
      * @param url the url to the mockserver
+     * Acknowledgment to https://www.itsalif.info/content/android-volley-tutorial-http-get-post-put
      *  */
     private void theJsonParser(String url){
         RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
