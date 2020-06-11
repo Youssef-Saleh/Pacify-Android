@@ -227,7 +227,9 @@ public class ArtistActivity extends AppCompatActivity {
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
         System.exit(0);
     }
-
+    /**
+     * This method is responsible for choosing a photo from gallery and put it as profile picture
+     */
     public void uploadPhoto (){
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
