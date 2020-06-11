@@ -23,9 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,7 +42,12 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+/**
 
+ * @version 1
+ * This class is responsible for the artist activity and account
+
+ */
 
 @SuppressLint("Registered")
 public class ArtistActivity extends AppCompatActivity {
@@ -111,7 +114,9 @@ public class ArtistActivity extends AppCompatActivity {
         listeners[1] = lisMonth;
         listeners[2] = lisYear;
     }
-
+    /**
+     * This method is responsible for switching between home and library upon click
+     */
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -134,7 +139,12 @@ public class ArtistActivity extends AppCompatActivity {
                     return true;
                 }
             };
+    /**
 
+     * This method is responsible for uploding audio files to Firebase Storage
+     * @param audioUri The path to the audio in the device
+
+     */
     public void uploadFile(Uri audioUri) {
         progressDialog = new ProgressDialog(ArtistActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -181,6 +191,11 @@ public class ArtistActivity extends AppCompatActivity {
         }else
             Toast.makeText(ArtistActivity.this,"Please provide permissoin",Toast.LENGTH_SHORT).show();
     }
+    /**
+
+     * This method is responsible for browsing audio files and selecting them from the device to upload them later
+
+     */
 
     public void selectAudio() {
         Intent intent = new Intent();

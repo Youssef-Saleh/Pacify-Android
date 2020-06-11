@@ -36,7 +36,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.pacify.Forget_Password.ForgetPasswordActivity;
 import com.example.pacify.Settings.EditProfileFragment;
 import com.example.pacify.Settings.Edit_profile.ChangePhoneNumber;
 import com.example.pacify.Settings.Edit_profile.ChangeUserCountry;
@@ -48,7 +47,6 @@ import com.example.pacify.Settings.Go_Premium.GoPremiumStep1Fragment;
 import com.example.pacify.Settings.Go_Premium.GoPremiumStep2Fragment;
 import com.example.pacify.Settings.Go_Premium.GoPremiumStep3Fragment;
 import com.example.pacify.Settings.MySettingsFragment;
-import com.example.pacify.SignUp.SignUpActivity;
 import com.example.pacify.Utilities.PreferenceUtilities;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -156,6 +154,9 @@ public class NavigationActivity extends AppCompatActivity
 
     }
     ImageView bigImage;
+    /**
+     * This method is responsible for changung the player picture according to the song's artist.
+     * */
     public void changePlayerPicture(){
         bigImage = (ImageView)findViewById(R.id.bigSongImage);
         Song song = songQueue.get(currentSongIndex);
@@ -184,6 +185,11 @@ public class NavigationActivity extends AppCompatActivity
             bigImage.setImageResource(R.drawable.marshmello);
         }
     }
+    /**
+     * This method is responsible for filling the recently played array accourding to the latest song being played
+     * @param mod used to indicate if 0 means the user didn't play any songs yet so we fill the array with 4 random songs and if one we fill it with the song being played
+     *
+      */
     public void fillRecentlyPlayed( int mod){
         if (mod == 0){
             firstSong = new Song("1","Ignite","http://104.47.139.19/api/audio/Ignite.mp3",5,5);
@@ -294,6 +300,10 @@ public class NavigationActivity extends AppCompatActivity
             playerNav.setVisibility(View.VISIBLE);
         }
     }
+    /**
+     * This method is responsible for sending the post request for liking a song.
+     * @param url the url to the mockserver
+     *  */
     private void theJsonParser(String url){
         RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,

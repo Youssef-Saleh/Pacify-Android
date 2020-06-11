@@ -17,7 +17,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+/**
 
+ * @version 1
+ * This class is responsible for the artist library view
+
+ */
 public class ArtistUploadFragment extends Fragment {
     Button selectFile, uoload;
     Button changePhoto;

@@ -21,7 +21,12 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
 
+ * @version 1
+ * This class is responsible for the artist home view
+
+ */
 public class ArtistHomeFragment extends Fragment {
 
     @Override
