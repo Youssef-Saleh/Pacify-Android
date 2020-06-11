@@ -65,7 +65,7 @@ public class NavigationActivity extends AppCompatActivity
         implements CreatePlaylistDialog.CreatePlaylistDialogListener ,
         AddSongToPlaylistDialog.AddSongToPlaylistDialogListener {
 
-    List<Song> songsToShow;
+    List<Song> songsToShow=new ArrayList<>();
     List<Song> songQueue= new ArrayList<>();
     List <Song> recentlyPlayed = new ArrayList<>(4);
     int recentlyPlayedIndex = 0;
@@ -132,7 +132,7 @@ public class NavigationActivity extends AppCompatActivity
         try {
             if (songQueue != playlist) {
                 songQueue.clear();
-                songQueue = playlist;
+                songQueue = new ArrayList<Song>(playlist);
                 for (int i = 0; i < songQueue.size(); i++) {
                     songQueue.get(i).numberInQueue = i;
                 }
