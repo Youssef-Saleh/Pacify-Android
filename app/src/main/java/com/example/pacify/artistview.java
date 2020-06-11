@@ -27,7 +27,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Abdulrahman Hammouda
+ * @version 1
+ * This class is responsible for the artist view from user perspective
 
+ */
 public class artistview extends Fragment {
 
     Boolean ifFollowed ;
@@ -45,6 +50,10 @@ public class artistview extends Fragment {
     public void setSongList(List<Song> songsToSet){
         songs=songsToSet;
     }
+
+    /**
+     * This methos updates the follow button according to the status of current chosen artist if they're followed or not
+     */
     public void showIfFollowed(Boolean isFollowed, View view){
             follow = view.findViewById(R.id.followArtist);
             if (isFollowed){
@@ -55,6 +64,10 @@ public class artistview extends Fragment {
             }
 
     }
+    /**
+     * This methos is responsible for sending the post request to the mockserver for following/unfollowing the artist
+     * @param url The url to the server
+     */
     private void theJsonParser(String url){
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,

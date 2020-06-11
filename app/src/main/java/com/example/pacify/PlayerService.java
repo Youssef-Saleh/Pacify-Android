@@ -30,6 +30,7 @@ import java.util.TimerTask;
 /**
  * @author Abdulrahman Hammouda
  * @version 2
+ * Acknowledgment to Udemy The Complete Andorid and Developer Course
  * PlayerService class that extends Service
  * It handles everything about foreground service, player notification, media player, audio interruptions and audio focus.
  */

@@ -26,6 +26,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * @author Abdulrahman Hammouda
+ * @version 1
+ * Home fragement that's responsible for displaying home elements and sending requests according to the element clicked.
+ */
 
 public class HomeFragment extends Fragment {
     ImageButton btnPop;
@@ -62,6 +67,11 @@ public class HomeFragment extends Fragment {
     Bundle bundle = new Bundle();
     @SuppressLint("ResourceType")
 
+    /**
+     * This method is responsible for showing the list or account of artist with songs.
+     * @param mod used to identify the fragment if artist view or song list view
+     */
+
     public void showSongList(int mod) {
 
     if (mod == 0 ){
@@ -82,7 +92,11 @@ public class HomeFragment extends Fragment {
     }
 
 
-
+    /**
+     * This method is responsible for fetching songs from the server.
+     * @param mod used to identify the target fetch method, for example if we are fetching songs according to particualr artist , mood or genre.
+     * @param url The url to the mockserver
+     */
     private void theJsonParser(String url, final int mod){
         //String url="https://cat-fact.herokuapp.com/facts/random";
 
@@ -425,7 +439,10 @@ public class HomeFragment extends Fragment {
         });
         return v;
     }
+    /**
+     * This method is responsible for updating the 4 recently played text according to the last songs added to the list.
 
+     */
     public void updateRecentlyPlayed(View v){
         songOne = v.findViewById(R.id.songOneName);
         songOne.setText(((NavigationActivity)getActivity()).recentlyPlayed.get(0).title);
@@ -441,6 +458,10 @@ public class HomeFragment extends Fragment {
         updateSongPicture(v,3);
 
     }
+    /**
+     * This method is responsible for updating the 4 recently played pictures according to the last songs added to the list.
+     @param mod To determine the current chosen song
+     */
     public void updateSongPicture(View v, int mod){
         if (mod == 0){
             songPicture = v.findViewById(R.id.photoSongOne);
