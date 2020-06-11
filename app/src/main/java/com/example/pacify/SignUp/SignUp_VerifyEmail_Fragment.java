@@ -1,5 +1,6 @@
 package com.example.pacify.SignUp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.pacify.Forget_Password.ForgetPasswordActivity;
+import com.example.pacify.LoginActivity;
+import com.example.pacify.MainActivity;
 import com.example.pacify.R;
 
 public class SignUp_VerifyEmail_Fragment extends Fragment {
@@ -43,7 +46,9 @@ public class SignUp_VerifyEmail_Fragment extends Fragment {
             public void onClick(View v) {
                 if(editTextVerCode.getText().toString().trim().equals(Vcode.trim())) {
                     ((SignUpActivity)requireActivity()).createAccount();
-                    //((SignUpActivity)requireActivity()).logTheUserOn();
+
+                    Intent intent = new Intent((SignUpActivity)requireActivity(), MainActivity.class);
+                    startActivity(intent);
                 }
                 else{
                     editTextVerCode.setTextColor(Color.RED);
