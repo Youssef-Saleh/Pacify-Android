@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Creating the GraphRequest to fetch user details
      * @param accessToken
-     * Source: https://androidclarified.com/android-facebook-login-example/
+     * Acknowledgment to https://androidclarified.com/android-facebook-login-example/
      */
     private void useLoginInformation(AccessToken accessToken) {
         GraphRequest request = GraphRequest.newMeRequest(accessToken

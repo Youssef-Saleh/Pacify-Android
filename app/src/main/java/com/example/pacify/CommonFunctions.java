@@ -28,7 +28,7 @@ public class CommonFunctions {
     /**
      * Generates a random string from 'allChars' String
      * @param size define the number of characters of the random string
-     * Source : https://stackoverflow.com/a/20536597/12963182
+     * Acknowledgment to https://stackoverflow.com/a/20536597/12963182
      */
     public static String GenerateRandChars(int size){
         String allChars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
